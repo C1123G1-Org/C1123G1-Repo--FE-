@@ -7,3 +7,5 @@ function Comp1() {
     console.log(b);
     return a+b
 }
+
+export default Comp1
