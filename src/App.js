@@ -1,9 +1,10 @@
-import "./App.css";
+import './App.css';
+import PostPage from "./components/posts/PostPage";
 
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <PostPage></PostPage>
     </>
   );
 }
