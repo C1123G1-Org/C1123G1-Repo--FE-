@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPost } from "../../services/PostServices";
+import { getAllPost } from "../../../services/PostsServices";
 
 function Header() {
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPost } from '../../services/PostServices';
+import { getAllPost } from '../../../services/PostsServices';
 
 function LeftSideBar() {
 
@@ -27,10 +27,9 @@ function LeftSideBar() {
                     {
                         postsItem.map((post) => {
                             return (
-                                <div className='prominent-news-item-container'>
-                                    <li className='prominent-news-item'>
-                                        {post.title}
-                                    </li>
+                                <div className='prominent-news-item-container container'>
+                                    <li></li>
+                                    <span className='prominent-news-item'>{post.title}</span>
                                 </div>
                             )
                         })

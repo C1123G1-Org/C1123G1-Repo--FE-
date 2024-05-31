@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../assets/css/PostPage.css';
-import Header from './Header';
-import LeftSideBar from "./LeftSidebar";
+import '../../../assets/css/PostPage.css';
+import Header from '../CommonPostPage/Header';
+import LeftSideBar from './LeftSidebar';
 import MidContent from './MidContent';
 
-function PostPage() {
+
+function PostsPage() {
     return (
         <>
             <header className='container'>
@@ -30,4 +31,4 @@ function PostPage() {
     )
 }
 
-export default PostPage;
+export default PostsPage;
