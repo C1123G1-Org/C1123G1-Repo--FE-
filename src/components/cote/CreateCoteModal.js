@@ -7,7 +7,7 @@ import {useState} from "react";
 import CoteService from "../../service/CoteService";
 import {toast} from "react-toastify";
 
-export default function CreateCoteModal({open, handleClose, makeReload}){
+export default function CreateCoteModal({open, handleClose, makeReload}) {
 
     const [dateOpen, setDateOpen] = useState(new Date());
     const [dateClose, setDateClose] = useState(null);
@@ -46,7 +46,7 @@ export default function CreateCoteModal({open, handleClose, makeReload}){
     return (
         <>
             <Modal show={open} centered>
-                <Modal.Header >
+                <Modal.Header>
                     <Modal.Title>Khởi tạo chuồng nuôi</Modal.Title>
                 </Modal.Header>
 
@@ -70,12 +70,14 @@ export default function CreateCoteModal({open, handleClose, makeReload}){
                                 <Col>
                                     <Field name="code"></Field>
                                     <br></br>
-                                    <Field name="account" value= "NV1"></Field>
+                                    <Field name="account" value="NV1"></Field>
                                     <br></br>
-                                    <ReactDatePicker selected={dateOpen} onChange={(date) => setDateOpen(date)}></ReactDatePicker>
+                                    <ReactDatePicker selected={dateOpen}
+                                                     onChange={(date) => setDateOpen(date)}></ReactDatePicker>
                                     <Field name="dateOpen" type="hidden"></Field>
                                     <br></br>
-                                    <ReactDatePicker selected={dateClose} onChange={(date) => setDateClose(date)}></ReactDatePicker>
+                                    <ReactDatePicker selected={dateClose}
+                                                     onChange={(date) => setDateClose(date)}></ReactDatePicker>
                                     <Field name="dateClose" type="hidden"></Field>
                                     <br></br>
                                     <Field name="quantity" value={0}></Field>
@@ -88,7 +90,7 @@ export default function CreateCoteModal({open, handleClose, makeReload}){
                             <Button variant="primary" type="submit">
                                 Khởi tạo
                             </Button>
-                            <Button variant="secondary" onClick={handleCloseModalCreate} >
+                            <Button variant="secondary" onClick={handleCloseModalCreate}>
                                 Hủy bỏ
                             </Button>
                         </Modal.Footer>

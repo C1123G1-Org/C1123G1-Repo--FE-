@@ -6,7 +6,17 @@ import ReactDatePicker from "react-datepicker";
 import CoteService from "../../service/CoteService";
 import {toast} from "react-toastify";
 
-export default function UpdateCoteModal({open, handleClose, id, form,dateCloseUpdate,dateOpenUpdate,setOpen,setClose,makeReload}){
+export default function UpdateCoteModal({
+                                            open,
+                                            handleClose,
+                                            id,
+                                            form,
+                                            dateCloseUpdate,
+                                            dateOpenUpdate,
+                                            setOpen,
+                                            setClose,
+                                            makeReload
+                                        }) {
 
     const handleSubmitUpdate = async (value) => {
         value.account = {
@@ -20,10 +30,10 @@ export default function UpdateCoteModal({open, handleClose, id, form,dateCloseUp
             "identityCode": "2",
             "status": false
         };
-            value.dateOpen = dateOpenUpdate;
-            value.dateClose = dateCloseUpdate;
+        value.dateOpen = dateOpenUpdate;
+        value.dateClose = dateCloseUpdate;
 
-        CoteService.updateCote(value,id)
+        CoteService.updateCote(value, id)
             .then((res) => {
                 toast.success("Chỉnh sửa thành công");
                 makeReload();
@@ -39,7 +49,7 @@ export default function UpdateCoteModal({open, handleClose, id, form,dateCloseUp
     return (
         <>
             <Modal show={open} centered>
-                <Modal.Header >
+                <Modal.Header>
                     <Modal.Title>Khởi tạo chuồng nuôi</Modal.Title>
                 </Modal.Header>
 
@@ -64,12 +74,14 @@ export default function UpdateCoteModal({open, handleClose, id, form,dateCloseUp
                                     <Field name="id" type="hidden"></Field>
                                     <Field name="code"></Field>
                                     <br></br>
-                                    <Field name="account" value= "NV1"></Field>
+                                    <Field name="account" value="NV1"></Field>
                                     <br></br>
-                                    <ReactDatePicker selected={dateOpenUpdate} onChange={(date) => setOpen(date)}></ReactDatePicker>
+                                    <ReactDatePicker selected={dateOpenUpdate}
+                                                     onChange={(date) => setOpen(date)}></ReactDatePicker>
                                     <Field name="dateOpen" type="hidden"></Field>
                                     <br></br>
-                                    <ReactDatePicker selected={dateCloseUpdate} onChange={(date) => setClose(date)}></ReactDatePicker>
+                                    <ReactDatePicker selected={dateCloseUpdate}
+                                                     onChange={(date) => setClose(date)}></ReactDatePicker>
                                     <Field name="dateClose" type="hidden"></Field>
                                     <br></br>
                                     <Field name="quantity"></Field>
