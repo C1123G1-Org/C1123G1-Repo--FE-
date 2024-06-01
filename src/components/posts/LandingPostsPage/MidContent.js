@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getAllPost } from '../../services/PostServices';
+import { useNavigate } from 'react-router-dom';
+import { getAllPost } from '../../../services/PostsServices';
 
 function MidContent() {
 
-    const [postsItem, setPostsItem] = useState([])
+    const [postsItem, setPostsItem] = useState([]);
+    const navigation = useNavigate();
 
     useEffect(() => {
         getPostList();
@@ -15,27 +17,25 @@ function MidContent() {
         setPostsItem(postList);
     }
 
+    const clickHandler = (id) => {
+        navigation(`/post-detail/${id}`)
+    }
+
     return (
         <>
             <div className="news-forcused-container">
                 <div className="news-forcused-container-title">
-                    <button>
+                    <button className='btn-nav'>
                         TIÊU ĐIỂM
-                    </button>
-                    <button>
-                        VIDEO
-                    </button>
-                    <button>
-                        PHÓNG SỰ ẢNH
                     </button>
                     <button className="ofset-news-forcus"></button>
                 </div>
-                <div className='news-forcused-container-item'>
+                <div className='news-forcused-container-item' onClick={() => clickHandler(postsItem[0].id)}>
                     {
                         (postsItem.length !== 0) ? (<>
                             <img className='news-forcus-image' src={postsItem[0].image} alt="" />
                             <div className='news-forcus-title'>
-                                <p className='news-forcus-title-item'>{postsItem[0].title}</p>
+                                <p className='news-forcus-title-item' title={postsItem[0].title}>{postsItem[0].title}</p>
                             </div>
                         </>) : <p>Loading...</p>
                     }
@@ -47,9 +47,9 @@ function MidContent() {
                     {
                         postsItem.map((post) => {
                             return (
-                                <div className="list-news-items col-4 d-flex flex-column">
+                                <div onClick={() => clickHandler(post.id)} className="list-news-items col-4 d-flex flex-column">
                                     <img className='list-news-image' src={post.image} alt="" />
-                                    <p className='list-news-title'>{post.title}</p>
+                                    <p className='list-news-title' title={post.title}>{post.title}</p>
                                 </div>
                             )
                         })
