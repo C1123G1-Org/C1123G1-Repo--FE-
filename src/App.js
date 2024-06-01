@@ -1,21 +1,21 @@
 import "./App.css";
-// import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ShowCotesList from "./components/cote/CotesList";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
+import Master from "./layouts/Master";
+import {Route, Routes} from "react-router-dom";
+import Cote from "./pages/Cote";
+import {ToastContainer} from "react-toastify";
 
 function App() {
   return (
     <>
-    {/* <BrowserRouter>
-    <Routes>
-      <Route path='/cotes' element={<ShowCoteList/>}></Route>
-    </Routes>
-    </BrowserRouter> */}
-    <ShowCotesList/>
-    <ToastContainer/>
+        <Routes>
+            <Route path='/admin' element={<Master/>}>
+                <Route path={"cotes"} element={<Cote/>}></Route>
+            </Route>
+        </Routes>
+        <ToastContainer />
     </>
   );
 }

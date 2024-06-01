@@ -1,15 +1,16 @@
 import axios from "axios";
 
 export default class CoteService{
-    static async getAll(){
-        const response = await axios.get("http://localhost:8080/api/cotes")
+    static async getAll(pageSize,page){
+        const response = await axios.get(`http://localhost:8080/api/cotes/${pageSize}?page=${page}`)
+        // console.log(response.data)
         return response.data;
     }
     static async createCote(cote){
         return await axios.post("http://localhost:8080/api/cotes",cote)
     }
     static async findByID(id){
-        const response = await axios.get("http://localhost:8080/api/cotes/"+ id)
+        const response = await axios.get("http://localhost:8080/api/cotes/find/"+ id)
         return response.data;
     }
     static async updateCote(cote,id){
