@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { getAllPost } from "../../services/PostServices";
+import { useNavigate } from "react-router-dom";
+import { getAllPost } from "../../../services/PostsServices";
 
 function Header() {
 
     const [postsItem, setPostsItem] = useState([]);
     const [timer, setTimer] = useState('');
+    const navigation = useNavigate();
 
     useEffect(() => {
         updateCurrentTime();
@@ -55,14 +57,41 @@ function Header() {
         }, 1000)
     }
 
+    const handleLandingLink = () => {
+        navigation('/posts');
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    const clickHandler = (id) => {
+        navigation(`/post-detail/${id}`)
+    }
+
     return (
         <>
+            <div className="top-header-container">
+                <div className="logo-on-header" onClick={handleLandingLink}>
+                    <img src="https://innovad-global.com/sites/default/files/logo.svg" alt="" />
+                </div>
+                <div className="search-bar-container">
+                    <form action="" className="search-form">
+                        <input type="text" className="search-input" placeholder="Nhập nội dung tìm kiếm" />
+                        <button className="search-btn" onClick={onSubmit}>Tìm kiếm</button>
+                    </form>
+                </div>
+                <div className="langding-link">
+                    <button className="landing-link" onClick={handleLandingLink}>Trang chủ</button>
+                </div>
+            </div>
+
             <div className="header-container d-flex justify-content-between">
                 <div className="left-header d-flex">
                     <p className="newest-log">Mới nhất</p>
                     {
                         (postsItem.length !== 0) ? (
-                            <p className="newest-title">{postsItem[0].title}</p>
+                            <p className="newest-title" onClick={() => clickHandler(postsItem[0].id)}>{postsItem[0].title}</p>
                         ) : <p>Loading...</p>
                     }
                     <p></p>

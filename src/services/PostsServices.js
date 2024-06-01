@@ -8,3 +8,11 @@ export const getAllPost = async () => {
         return [];
     }
 }
+
+export const getPostById = async (id) => {
+    try {
+        return (await axios.get(`${POST_API}/${id}`)).data;
+    } catch (e) {
+        return {};
+    }
+}

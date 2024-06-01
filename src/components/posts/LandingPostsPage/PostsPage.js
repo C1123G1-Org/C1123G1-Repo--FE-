@@ -1,14 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../assets/css/PostPage.css';
-import Header from './Header';
-import LeftSideBar from "./LeftSidebar";
+import '../../../assets/css/PostPage.css';
+import Header from '../CommonPostPage/Header';
+import LeftSideBar from './LeftSidebar';
 import MidContent from './MidContent';
+import RightSideBar from './RightSideBar';
 
-function PostPage() {
+
+function PostsPage() {
     return (
         <>
             <header className='container'>
-                <Header></Header>
+                <Header />
             </header>
             <main className='container'>
                 <div className='row'>
@@ -19,7 +21,7 @@ function PostPage() {
                         <MidContent></MidContent>
                     </div>
                     <div className='right-sidebar-container col-3'>
-                        <LeftSideBar></LeftSideBar>
+                        <RightSideBar></RightSideBar>
                     </div>
                 </div>
             </main>
@@ -30,4 +32,4 @@ function PostPage() {
     )
 }
 
-export default PostPage;
+export default PostsPage;

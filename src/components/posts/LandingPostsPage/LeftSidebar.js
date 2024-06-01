@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { getAllPost } from '../../services/PostServices';
+import { useNavigate } from "react-router-dom";
+import { getAllPost } from '../../../services/PostsServices';
 
 function LeftSideBar() {
 
-    const [postsItem, setPostsItem] = useState([])
+    const [postsItem, setPostsItem] = useState([]);
+    const navigation = useNavigate();
+
 
     useEffect(() => {
         getPostList();
@@ -15,22 +18,22 @@ function LeftSideBar() {
         setPostsItem(postList);
     }
 
+    const clickHandler = (id) => {
+        navigation(`/post-detail/${id}`)
+    }
 
     return (
         <>
-            <div className="logo d-flex justify-content-center">
-                <img src="https://innovad-global.com/sites/default/files/logo.svg" alt="" />
-            </div>
             <div className="prominent-news">
                 <div className="prominent-news-title">TIN NỔI BẬT</div>
                 <ul>
                     {
                         postsItem.map((post) => {
                             return (
-                                <div className='prominent-news-item-container'>
-                                    <li className='prominent-news-item'>
-                                        {post.title}
-                                    </li>
+                                <div className='prominent-news-item-container container'
+                                    onClick={() => clickHandler(post.id)}>
+                                    <li></li>
+                                    <span className='prominent-news-item' title={post.title}>{post.title}</span>
                                 </div>
                             )
                         })

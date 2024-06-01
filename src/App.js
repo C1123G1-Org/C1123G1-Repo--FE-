@@ -1,23 +1,29 @@
-import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import "./App.css";
+import PostsPage from './components/posts/LandingPostsPage/PostsPage';
+import PostsRouter from "./components/posts/PostsRouter";
 import Master from "./layouts/Master";
-import {Route, Routes} from "react-router-dom";
 import Cote from "./pages/Cote";
-import {ToastContainer} from "react-toastify";
-import PostPage from "./components/posts/PostPage";
 
 function App() {
   return (
     <>
+      <BrowserRouter>
         <Routes>
-            <Route path='/admin' element={<Master/>}>
-                <Route path={"cotes"} element={<Cote/>}></Route>
-            </Route>
+          <Route path='/admin' element={<Master />}>
+            <Route path={"cotes"} element={<Cote />}></Route>
+          </Route>
         </Routes>
-        <ToastContainer />
-      <PostPage></PostPage>
+        <PostsRouter />
+        <Routes>
+          <Route path="/" element={<PostsPage />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer />
     </>
   );
 }
