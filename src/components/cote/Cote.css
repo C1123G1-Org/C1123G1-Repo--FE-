@@ -1,0 +1,32 @@
+label {
+    width: 150px;
+    font-size: medium;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    /* padding-right: 0px; */
+}
+form input {
+    /* padding-left: 0px; */
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+td, th {
+    vertical-align: middle;
+    height: 52px;
+}
+
+.table-container {
+    max-height: 320px; /* Chiều cao tối đa của table */
+    overflow-y: auto; /* Thêm thanh cuộn dọc */
+}
+
+.table {
+    width: 100%; /* Chiều rộng của table */
+}
+
+.my-select {
+    border: none;
+    outline: none;
+    /*appearance: none; !* Loại bỏ mặc định của trình duyệt *!*/
+}
