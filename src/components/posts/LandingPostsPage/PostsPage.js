@@ -3,13 +3,14 @@ import '../../../assets/css/PostPage.css';
 import Header from '../CommonPostPage/Header';
 import LeftSideBar from './LeftSidebar';
 import MidContent from './MidContent';
+import RightSideBar from './RightSideBar';
 
 
 function PostsPage() {
     return (
         <>
             <header className='container'>
-                <Header></Header>
+                <Header />
             </header>
             <main className='container'>
                 <div className='row'>
@@ -20,7 +21,7 @@ function PostsPage() {
                         <MidContent></MidContent>
                     </div>
                     <div className='right-sidebar-container col-3'>
-                        <LeftSideBar></LeftSideBar>
+                        <RightSideBar></RightSideBar>
                     </div>
                 </div>
             </main>

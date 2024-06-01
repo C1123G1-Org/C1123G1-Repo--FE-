@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAllPost } from '../../../services/PostsServices';
-import Element1 from './TestComp/Element1';
-import Element2 from './TestComp/Element2';
 
 function MidContent() {
 
-    const [postsItem, setPostsItem] = useState([])
+    const [postsItem, setPostsItem] = useState([]);
+    const navigation = useNavigate();
 
     useEffect(() => {
         getPostList();
@@ -18,44 +17,39 @@ function MidContent() {
         setPostsItem(postList);
     }
 
+    const clickHandler = (id) => {
+        navigation(`/post-detail/${id}`)
+    }
+
     return (
         <>
-            <BrowserRouter>
-                <div className="news-forcused-container">
-                    <div className="news-forcused-container-title">
-                        <NavLink to='/'>
-                            <button className='btn-nav'>
-                                TIÊU ĐIỂM
-                            </button>
-                        </NavLink>
-                        {/* <NavLink to='/path1'>
-                            <button className='btn-nav'>
-                                VIDEO
-                            </button>
-                        </NavLink>
-                        <NavLink to='/path2'>
-                            <button className='btn-nav'>
-                                PHÓNG SỰ ẢNH
-                            </button>
-                        </NavLink> */}
-                        <button className="ofset-news-forcus"></button>
-                    </div>
-                    <Routes>
-                        <Route path="/" element={<Element1 postsItem={postsItem} />} />
-                        <Route path="/path1" element={<Element2 postsItem={postsItem} num={1} />} />
-                        <Route path="/path2" element={<Element2 postsItem={postsItem} num={2} />} />
-                    </Routes>
+            <div className="news-forcused-container">
+                <div className="news-forcused-container-title">
+                    <button className='btn-nav'>
+                        TIÊU ĐIỂM
+                    </button>
+                    <button className="ofset-news-forcus"></button>
                 </div>
-            </BrowserRouter>
+                <div className='news-forcused-container-item' onClick={() => clickHandler(postsItem[0].id)}>
+                    {
+                        (postsItem.length !== 0) ? (<>
+                            <img className='news-forcus-image' src={postsItem[0].image} alt="" />
+                            <div className='news-forcus-title'>
+                                <p className='news-forcus-title-item' title={postsItem[0].title}>{postsItem[0].title}</p>
+                            </div>
+                        </>) : <p>Loading...</p>
+                    }
+                </div>
+            </div>
 
             <div className="list-news-container container">
                 <div className="row">
                     {
                         postsItem.map((post) => {
                             return (
-                                <div className="list-news-items col-4 d-flex flex-column">
+                                <div onClick={() => clickHandler(post.id)} className="list-news-items col-4 d-flex flex-column">
                                     <img className='list-news-image' src={post.image} alt="" />
-                                    <p className='list-news-title'>{post.title}</p>
+                                    <p className='list-news-title' title={post.title}>{post.title}</p>
                                 </div>
                             )
                         })

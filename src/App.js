@@ -1,10 +1,10 @@
 import './App.css';
-import PostsPage from './components/posts/LandingPostsPage/PostsPage';
+import PostsRouter from './components/posts/PostsRouter';
 
 function App() {
   return (
     <>
-      <PostsPage></PostsPage>
+      <PostsRouter />
     </>
   );
 }
