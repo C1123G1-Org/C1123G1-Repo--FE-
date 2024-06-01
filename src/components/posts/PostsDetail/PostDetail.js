@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostById } from '../../../services/PostsServices';
+import Footer from "../CommonPostPage/Footer";
 import Header from "../CommonPostPage/Header";
 import RightSideBar from "../LandingPostsPage/RightSideBar";
 
@@ -26,7 +27,7 @@ function PostDetail() {
             <div className="container">
                 <Header />
                 <div className="row">
-                    <div className="post-detail-container col-9">
+                    <div className="post-detail-container col-lg-9 col-12">
                         <h1 className="post-detail-title">
                             {post.title}
                         </h1>
@@ -34,10 +35,11 @@ function PostDetail() {
                         </div>
                     </div>
 
-                    <div className="col-3">
+                    <div className="col-lg-3 col-6 offset-lg-0 offset-3">
                         <RightSideBar />
                     </div>
                 </div>
+                <Footer />
             </div>
         </>
     )

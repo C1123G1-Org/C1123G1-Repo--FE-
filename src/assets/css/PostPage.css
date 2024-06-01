@@ -73,6 +73,7 @@
 
 .header-container {
     padding-top: 20px;
+    margin-bottom: 20px;
 }
 
 .newest-log {
@@ -239,4 +240,9 @@
 .ad-item img {
     width: 100%;
     background-size: contain;
+}
+
+.footer-container {
+    background-color: #c5c5c5;
+    height: 100px;
 }
