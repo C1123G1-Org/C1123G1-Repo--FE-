@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAllPost } from "../../../services/PostsServices";
 
 function Header() {
@@ -58,7 +58,7 @@ function Header() {
     }
 
     const handleLandingLink = () => {
-        navigation('/post');
+        navigation('/posts');
     }
 
     const onSubmit = (e) => {
@@ -82,11 +82,7 @@ function Header() {
                     </form>
                 </div>
                 <div className="langding-link">
-                    <NavLink
-                        to="/post"
-                        className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "landing-btn-active" : ""}>
-                        <button className="landing-link" onClick={handleLandingLink}>Trang chủ</button>
-                    </NavLink>
+                    <button className="landing-link" onClick={handleLandingLink}>Trang chủ</button>
                 </div>
             </div>
 
