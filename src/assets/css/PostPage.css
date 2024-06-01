@@ -1,0 +1,115 @@
+/* HEADER */
+.header-container {
+    padding-top: 20px;
+}
+
+.newest-log {
+    color: red;
+    font-weight: 800;
+    padding-right: 20px;
+    border-right: 1px solid #333;
+}
+
+.newest-title {
+    margin-left: 20px;
+    color: green;
+    font-weight: 600;
+}
+
+/* MAIN */
+.logo img {
+    width: 80%;
+    margin: 20px 0;
+}
+
+.prominent-news {
+    padding-top: 10px;
+    background-color: rgb(245, 245, 245);
+}
+
+.prominent-news-item-container {
+    border-top: 1px solid rgb(88, 88, 88);
+}
+
+.prominent-news ul {
+    padding-left: 0px;
+}
+
+.prominent-news-title {
+    padding: 5px 0px 5px 20px;
+    color: green;
+    font-weight: 800;
+    font-size: 1.2rem;
+    border-top: 2px solid rgb(88, 88, 88);
+}
+
+.prominent-news-item {
+    list-style-type: square;
+    list-style-position: inside;
+    padding: 5px;
+}
+
+.prominent-news-item::marker {
+    color: rgb(88, 88, 88);
+}
+
+.news-forcused-container {
+    background-color: rgb(88, 88, 88);
+}
+
+.news-forcused-container-title {
+    background-color: #fff;
+    display: flex;
+}
+
+.news-forcused-container-title button {
+    background-color: #fff;
+    border: none;
+    border-right: 1px solid rgb(88, 88, 88);
+    border-top: 3px solid red;
+    font-weight: 600;
+    height: 40px;
+}
+
+.news-forcused-container-title button:last-child {
+    border-right: none;
+}
+
+.ofset-news-forcus {
+    flex: 1;
+    border-top: 3px solid rgb(88, 88, 88) !important;
+    cursor: auto !important;
+}
+
+.news-forcused-container-item {
+    position: relative;
+}
+
+.news-forcus-image {
+    width: 100%;
+}
+
+.news-forcus-title {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(51, 51, 51, 0.6);
+    width: 100%;
+    height: 60px;
+}
+
+.news-forcus-title-item {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0;
+    margin-left: 20px;
+}
+
+.list-news-container {
+    margin-top: 20px;
+    border: 1px solid rgb(88, 88, 88);
+}
+
+.list-news-items {
+    margin: 20px 0;
+}

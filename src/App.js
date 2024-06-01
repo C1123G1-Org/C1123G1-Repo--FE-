@@ -6,6 +6,7 @@ import Master from "./layouts/Master";
 import {Route, Routes} from "react-router-dom";
 import Cote from "./pages/Cote";
 import {ToastContainer} from "react-toastify";
+import PostPage from "./components/posts/PostPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             </Route>
         </Routes>
         <ToastContainer />
+      <PostPage></PostPage>
     </>
   );
 }
