@@ -1,10 +1,17 @@
 import './App.css';
-import ListPig from './component/hanoi/pig/listPig';
+import ListPig from './components/pigs/listPig';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TestModal from './components/pigs/testModal';
+
+// import TestGrid from './components/pigs/testGrid';
+// import CreatePigForm from './components/pigs/createPigForm';
 function App() {
   return (
     <>
-      <ListPig/>
+      {/* <TestGrid/> */}
+      {/* <CreatePigForm/> */}
+      {/* <ListPig/> */}
+      <TestModal/>
     </>
   );
 }
