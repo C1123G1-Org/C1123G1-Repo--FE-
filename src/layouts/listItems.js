@@ -79,7 +79,7 @@ export const thirdListItems = (
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <ScaleIcon from />
+                <ScaleIcon />
             </ListItemIcon>
             <ListItemText primary="Điều chỉnh khối lượng" />
         </ListItemButton>
