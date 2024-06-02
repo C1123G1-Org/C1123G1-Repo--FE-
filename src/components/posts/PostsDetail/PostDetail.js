@@ -24,19 +24,20 @@ function PostDetail() {
 
     return (
         <>
-            <div className="container">
+            <div className="post-detail">
                 <Header />
-                <div className="row">
-                    <div className="post-detail-container col-lg-9 col-12">
-                        <h1 className="post-detail-title">
-                            {post.title}
-                        </h1>
-                        <div className="post-detail-main-content">
+                <div className="container">
+                    <div className="row">
+                        <div className="post-detail-container col-lg-9 col-12">
+                            <h1 className="post-detail-title">
+                                {post.title}
+                            </h1>
+                            <div className="post-detail-main-content">
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="col-lg-3 col-6 offset-lg-0 offset-3">
-                        <RightSideBar />
+                        <div className="col-lg-3 col-6 offset-lg-0 offset-3">
+                            <RightSideBar />
+                        </div>
                     </div>
                 </div>
                 <Footer />
