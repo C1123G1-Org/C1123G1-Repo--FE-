@@ -8,6 +8,7 @@ import PostsPage from './components/posts/LandingPostsPage/PostsPage';
 import PostsRouter from "./components/posts/PostsRouter";
 import Master from "./layouts/Master";
 import Cote from "./pages/Cote";
+import Pig from './pages/Pig';
 
 // import TestGrid from './components/pigs/testGrid';
 // import CreatePigForm from './components/pigs/createPigForm';
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/admin' element={<Master />}>
             <Route path={"cotes"} element={<Cote />}></Route>
+            <Route path={"pigs"} element={<Pig />}></Route>
           </Route>
         </Routes>
         <PostsRouter />
