@@ -85,6 +85,7 @@ export const StaffComponent = () => {
                       <th>gender</th>
                       <th>identityCode</th>
                       <th>status</th>
+                      <th>chọn</th>
                     </tr>
                   </thead>
                   <tbody>
