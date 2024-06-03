@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllPost } from '../../../services/PostsServices';
+import { getPostsWithPagination } from '../../../services/PostsServices';
 
 function LeftSideBar() {
 
@@ -14,7 +14,7 @@ function LeftSideBar() {
     }, []);
 
     const getPostList = async () => {
-        const postList = await getAllPost();
+        const postList = await getPostsWithPagination();
         setPostsItem(postList);
     }
 
