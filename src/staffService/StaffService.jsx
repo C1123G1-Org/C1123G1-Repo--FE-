@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getAllStaff = async () => {
-  const res = await axios.get("http://localhost:8080/staffs");
+  const res = await axios.get("http://localhost:8080/staff");
   return res.data;
 };
 // export const getCreateStaff = async (st) => {
