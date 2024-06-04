@@ -41,4 +41,14 @@ export default class CoteService{
         const response = await axios.get(`http://localhost:8080/api/cotes/search/close/account?startDate=${startDate}&endDate=${endDate}&code=${code}`)
         return response.data;
     }
+
+    static async findPigsByCote(code){
+        const response = await axios.get(`http://localhost:8080/api/cotes/pigs?code=${code}`)
+        return response.data;
+    }
+
+    static async getCotes(){
+        const response = await axios.get(`http://localhost:8080/api/cotes/getCodes`)
+        return response.data;
+    }
 }
