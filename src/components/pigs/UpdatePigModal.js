@@ -1,10 +1,10 @@
 import {Button, Modal} from "react-bootstrap";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ReactDatePicker from "react-datepicker";
 import {toast} from "react-toastify";
-import PigService from "../../service/PigService";
+import PigService from "../../services/PigService";
 
 export default function UpdatePigModal({
                                             open,
@@ -15,9 +15,11 @@ export default function UpdatePigModal({
                                             dateInUpdate,
                                             setIn,
                                             setOut,
-                                            makeReload
+                                            makeReload,
+                                            cote
                                         }) {
 
+    
     const handleSubmitUpdate = async (value) => {
         value.room = {
             "id": 2,
@@ -56,20 +58,77 @@ export default function UpdatePigModal({
                             <Row>
                                 <Col sm={1}></Col>
                                 <Col>
-                                    <label>Mã lợn:</label>
-                                    <br></br>
-                                    <label>Mã chuồng nuôi:</label>
-                                    <br></br>
-                                    <label>Ngày nhập chuồng:</label>
-                                    <br></br>
-                                    <label>Ngày xuất chuồng:</label>
-                                    <br></br>
-                                    <label>Tình trạng:</label>
-                                    <br></br>
-                                    <label>Cân nặng:</label>
-                                    <br></br>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mã cá thể</td>
+                                                <td><Field name="code" readOnly></Field></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mã chuồng nuôi</td>
+                                                <td>
+                                                    <Field as="select" name="roomIndex">
+                                                        <option value="">Chọn một tùy chọn</option>
+                                                        {cote.map((code, index) => (
+                                                            <option value={index} key={code.id}>C{code.id}</option>
+                                                        ))} 
+                                                    </Field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><ErrorMessage name="codeCote" component={"span"}></ErrorMessage></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày nhập chuồng</td>
+                                                <td>
+                                                    <ReactDatePicker selected={dateInUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setIn(date)} ></ReactDatePicker>
+                                                    <Field name="dateIn" type="hidden"></Field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><ErrorMessage name="dateIn" component={"span"}></ErrorMessage></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày xuất chuồng</td>
+                                                <td>
+                                                    <ReactDatePicker selected={dateOutUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setOut(date)}></ReactDatePicker>
+                                                    <Field name="dateOut" type="hidden"></Field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><ErrorMessage name="dateOut" component={"span"}></ErrorMessage></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tình trạng</td>
+                                                <td><Field name="status"></Field></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><ErrorMessage name="status" component={"span"} className={"error"} ></ErrorMessage></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cân nặng (Kg)</td>
+                                                <td>
+                                                    {/* <TextareaAutosize></TextareaAutosize> */}
+                                                    <Field name="weight"></Field></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><ErrorMessage name="weight" component={"span"} className={"error"} ></ErrorMessage></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </Col>
-                                <Col>
+                                {/* <Col>
                                     <Field name="id" type="hidden"></Field>
                                     <Field name="code"></Field>
                                     <br></br>
@@ -87,7 +146,7 @@ export default function UpdatePigModal({
                                     <br></br>
                                     <Field name="weight"></Field>
                                     <br></br>
-                                </Col>
+                                </Col> */}
                                 <Col sm={1}></Col>
                             </Row>
                         </Modal.Body>

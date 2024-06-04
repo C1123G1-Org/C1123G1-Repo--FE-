@@ -42,7 +42,7 @@ export const secondaryListItems = (
         <ListSubheader component="div" inset>
             Quản lý thông tin đàn
         </ListSubheader>
-        <Link to={"/admin/"}>
+        <Link to={"/admin/pigs"}>
         <ListItemButton>
             <ListItemIcon>
                 <SavingsIcon />

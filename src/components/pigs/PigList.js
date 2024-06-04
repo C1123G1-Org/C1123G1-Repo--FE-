@@ -4,14 +4,15 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { toast } from "react-toastify";
 import "./Pig.css";
-import PigService from "../../service/PigService";
+import PigService from "../../services/PigService";
 import CreatePigModal from "./CreatePigModal";
 import UpdatePigModal from "./UpdatePigModal";
 import { Field, Formik } from "formik";
+import { Await } from "react-router-dom";
 
 function PigList() {
 
-    const [selectedRadio, setSelectedRadio] = useState('')
+    const [selectedRadio, setSelectedRadio] = useState("")
     const [dateInUpdate, setDateInUpdate] = useState(null);
     const [dateOutUpdate, setDateOutUpdate] = useState(null);
     const [form, setForm] = useState({});
@@ -23,16 +24,28 @@ function PigList() {
     const [pageSize, setPageSize] = useState(5);
     const [infoPage, setInfoPage] = useState(false);
     const [page, setPage] = useState(0);
+    const [newPigID, setNewPigID] = useState("");
+    const [cote, setCote] = useState([]);
 
+    useEffect(() => {
+        getAllCote();
+    }, []);
+
+    const getAllCote = async () => {
+        const listCote = await PigService.getAllCote();
+        setCote(listCote);
+    }
   useEffect(() => {
     getAllPig();
   // }, [reload]);
-  }, [reload, pageSize, page]);
+  }, [reload, pageSize, page, newPigID]);
 
   const getAllPig = async () => {
     // const pigList = await PigService.getAllPig();
     const pigList = await PigService.getAllPig(pageSize, page);
+    const pigCodeLast = await pigList.content[0].code;
     setPigs(pigList.content);
+    setNewPigID("L" + (Number(pigCodeLast.slice(1)) + 1));
     setInfoPage(pigList);
   };
 
@@ -68,7 +81,10 @@ function PigList() {
     const handleShowUpdate = () => {
         if (id === -1) {
             toast.warn("Bạn chưa chọn cá thể để sửa")
-        } else setShowUpdate(true);
+        } else {
+          setShowUpdate(true);
+          setSelectedRadio("");
+        };
     };
     const handleCloseUpdate = () => {
         setShowUpdate(false);
@@ -82,19 +98,14 @@ function PigList() {
     setDateInUpdate(pig.dateIn)
     setDateOutUpdate(pig.dateOut)
   }
-//   const handleSubmitSearchStatus = async (value) => {
-//     PigService.searchPigByStatus(value)
-//         .then((res) => {
-//           setPigs(PigService.searchPigByStatus(value).content);
-//           console.log("123");
-//             toast.success("Tìm kiếm thành công");
-//         })
-//         .catch((err) => {
-//             toast.error("Tìm kiếm thất bại");
-//         });
-// };
+  const handleDelete = async () => {
+    await PigService.deletePig(id);
+    setSelectedRadio("")
+    setID(-1);
+    makeReload();
+}
 
-  return (
+return (
     <>
       <Row>
         <Col sm={2}></Col>
@@ -126,7 +137,7 @@ function PigList() {
                   <th>Ngày nhập chuồng</th>
                   <th>Ngày xuất chuồng</th>
                   <th>Tình trạng</th>
-                  <th>Cân nặng</th>
+                  <th>Cân nặng (Kg)</th>
                   <th>Chọn</th>
                 </tr>
               </thead>
@@ -178,16 +189,22 @@ function PigList() {
             <Button onClick={handleShowCreate}>Khởi tạo</Button>
           </div>
         </Col>
-        <Col sm={2}></Col>
         <Col sm={2}>
           <div>
-            <Button onClick={handleShowUpdate}>Chỉnh sửa</Button>
+            <Button onClick={handleShowUpdate} variant="warning">Chỉnh sửa</Button>
+          </div>
+        </Col>
+        <Col sm={2}>
+          <div>
+              <Button onClick={() => handleDelete()} variant='danger'>
+                  Xóa
+              </Button>
           </div>
         </Col>
         <Col sm={3}></Col>
       </Row>
-      <CreatePigModal open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
-      <UpdatePigModal open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
+      <CreatePigModal cote={cote} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
+      <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
     </>
