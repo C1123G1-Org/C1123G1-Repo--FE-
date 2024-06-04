@@ -1,0 +1,7 @@
+.export-table{
+    width: 100%;
+ 
+}
+.export-table__row:nth-child(odd){
+    background-color: #f1f1f1;
+}
