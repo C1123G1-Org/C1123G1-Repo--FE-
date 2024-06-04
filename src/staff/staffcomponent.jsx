@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getAllStaff } from "../staffService/StaffService";
-import Container from "react-bootstrap/Container";
+import "../staff/staff.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Table } from "react-bootstrap";
+import { Field, Formik, Form } from "formik";
+import { StaffCreate } from "./staffcreate";
+import * as staffService from "../staffService/StaffService";
 
 export const StaffComponent = () => {
-  const styleTextCenter = { "text-align": "center" };
-  const styleLeft50 = { "padding-left": "50px" };
-  const styleBorder = { border: "1px solid" };
-  const styleTopBot30 = { "padding-top": "30px", "padding-bottom": "30px" };
-  const styleTopBot5 = { "padding-top": "5px", "padding-bottom": "5px" };
   const [staff, setStaff] = useState();
+  const [show, setShow] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState("");
+  const [form, setForm] = useState({});
+  const [id, setID] = useState(-1);
 
   const getAll = () => {
     getAllStaff().then((res) => {
@@ -21,121 +23,134 @@ export const StaffComponent = () => {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [show]);
+
+  useEffect(() => {
+    console.log("kk");
+    console.log(id);
+  }, [id]);
 
   if (!staff) {
     return <div>loangding...</div>;
   }
 
+  const closeModal = () => {
+    setShow(false);
+  };
+
+  const handleRadioChange = async (id) => {
+    setID(id);
+    // const staff = await staffService.findByID(id);
+    // setForm(staff);
+  };
+
   return (
     <>
-      <Container>
-        {/* Stack the columns on mobile by making one full-width and the other half-width */}
-        <Row style={{ border: "1px solid", height: "40px" }}>
-          <Col>
-            <div>
-              <p></p>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={3} style={styleBorder}>
-            <div style={styleLeft50}>
-              <p>QUẢN LÝ HỆ THỐNG</p>
-            </div>
-          </Col>
-          <Col sm={9} style={styleBorder}>
-            <div style={styleLeft50}>
-              <p>QUẢN LÝ NHÂN VIÊN</p>
-            </div>
-          </Col>
-        </Row>
-        {/* Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop */}
-        <Row style={{ height: "550px" }}>
-          <Col sm={3} style={styleBorder}>
-            <div>Quản lý nhân viên</div>
-            <div>Đăng thông báo</div>
-          </Col>
-          <Col sm={9} style={styleBorder}>
-            <Row>
-              <Col sm={2}></Col>
-              <Col sm={8}>
-                <Row style={styleTopBot30}>
-                  <Col>
-                    <input size={50}></input>
-                  </Col>
-                  <Col>
-                    <Button variant="secondary">Search</Button>
-                  </Col>
-                </Row>
-              </Col>
-              <Col sm={2}></Col>
-            </Row>
-            <Row>
-              <Col>
-                <Table striped bordered hover size="sm" style={styleTextCenter}>
-                  <thead>
-                    <tr>
-                      <th>No.</th>
-                      <th>code</th>
-                      <th>usename</th>
-                      <th>password</th>
-                      <th>fullName</th>
-                      <th>email</th>
-                      <th>gender</th>
-                      <th>identityCode</th>
-                      <th>status</th>
-                      <th>chọn</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {staff.map((staff, index) => (
-                      <tr key={staff.id}>
-                        <td>{index + 1}</td>
-                        <td>{staff.code}</td>
-                        <td>{staff.username}</td>
-                        <td>{staff.password}</td>
-                        <td>{staff.fullName}</td>
-                        <td>{staff.email}</td>
-                        <td>{staff.gender}</td>
-                        <td>{staff.identityCode}</td>
-                        <td>{staff.status}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </Col>
-            </Row>
-            <Row style={styleTopBot30}>
-              <Col sm={3}></Col>
-              <Col sm={2}>
-                <div>
-                  <Button>Thêm</Button>
-                </div>
-              </Col>
-              <Col sm={2}>
-                <div>
-                  <Button>Chỉnh sửa</Button>
-                </div>
-              </Col>
-              <Col sm={2}>
-                <div>
-                  <Button>Xóa</Button>
-                </div>
-              </Col>
-              <Col sm={3}></Col>
-            </Row>
-          </Col>
-        </Row>
-        <Row style={{ border: "1px solid", height: "40px" }}>
-          <Col>
-            <div>
-              <p>Người đăng nhập: admin, Thứ hai, 22/12/2022 9:12:30 AM</p>
-            </div>
-          </Col>
-        </Row>
-        {/* Columns are always 50% wide, on mobile and desktop */}
-      </Container>
+      <Row>
+        <Col>
+          <div className="table-container">
+            <Table
+              striped
+              bordered
+              hover
+              size="sm"
+              style={{ textAlign: "center" }}
+            >
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>code</th>
+                  <th>usename</th>
+                  {/* <th>password</th> */}
+                  <th>fullName</th>
+                  {/* <th>email</th> */}
+                  <th>gender</th>
+                  {/* <th>identityCode</th> */}
+                  <th>ngày sinh </th>
+                  <th>chọn</th>
+                </tr>
+              </thead>
+              <tbody>
+                {staff.map((staff, index) => (
+                  <tr key={staff.id}>
+                    <td>{index + 1}</td>
+                    <td>{staff.code}</td>
+                    <td>{staff.username}</td>
+                    {/* <td>{staff.password}</td> */}
+                    <td>{staff.fullName}</td>
+                    {/* <td>{staff.email}</td> */}
+                    <td>{staff.gender ? <p>Nữ</p> : <p>Nam</p>}</td>
+                    {/* <td>{staff.identityCode}</td> */}
+                    <td>{staff.date}</td>
+                    <td>
+                      <td>
+                        <input
+                          type="radio"
+                          className="radioGroup"
+                          name="radioVi"
+                          value={staff.id}
+                          // checked={selectedRadio === `option` + index}
+                          onChange={() => handleRadioChange(staff.id)}
+                        ></input>
+                      </td>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+          <br></br>
+          {/* {!search &&
+                        <Row>
+                            <Col></Col>
+                            <Col></Col>
+                            <Col></Col>
+                            <Col>
+                                Số lượng bản ghi:&nbsp;&nbsp;
+                                <select className="my-select" value={pageSize} onChange={changePageSize}>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </Col>
+                            <Col>
+                                <Pagination>
+                                    <Pagination.First onClick={handlePrev}/>
+                                    {infoPage && <Pagination.Item>{page + 1}/{infoPage.totalPages}</Pagination.Item>}
+                                    <Pagination.Last onClick={handleNext}/>
+                                </Pagination>
+                            </Col>
+                        </Row>
+                    } */}
+        </Col>
+      </Row>
+      <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
+        <Col sm={3}></Col>
+        <Col sm={2}>
+          <div>
+            <Button
+              onClick={() => {
+                setShow(true);
+              }}
+            >
+              Khởi tạo
+            </Button>
+          </div>
+        </Col>
+        <Col sm={2}></Col>
+        <Col sm={2}>
+          <div>
+            <Button>Chỉnh sửa</Button>
+          </div>
+        </Col>
+        <Col sm={3}></Col>
+      </Row>
+      {/* <CreateCoteModal open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload}/>
+            <UpdateCoteModal open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
+                             dateCloseUpdate={dateCloseUpdate} dateOpenUpdate={dateOpenUpdate}
+                             setOpen={setOpenUpdate} setClose={setCloseUpdate} makeReload={makeReload}/> */}
+
+      <StaffCreate show={show} closeModal={closeModal} />
     </>
   );
 };
