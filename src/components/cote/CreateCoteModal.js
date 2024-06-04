@@ -8,8 +8,12 @@ import CoteService from "../../services/CoteService";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import Validate from "./Validate";
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function CreateCoteModal({open, handleClose, makeReload}) {
+export default function CreateCoteModal({open, handleClose, makeReload, maxId}) {
 
     const [dateOpen, setDateOpen] = useState(new Date());
     const [dateClose, setDateClose] = useState(null);
@@ -26,6 +30,8 @@ export default function CreateCoteModal({open, handleClose, makeReload}) {
             "identityCode": "2",
             "status": false
         };
+        value.code = "C"+(maxId+1)
+        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
         CoteService.createCote(value)
@@ -51,29 +57,26 @@ export default function CreateCoteModal({open, handleClose, makeReload}) {
                 <Modal.Header style={{backgroundColor: "#1976d2"}}>
                     <Modal.Title style={{color: "white"}}>Khởi tạo chuồng nuôi</Modal.Title>
                 </Modal.Header>
-                <Formik initialValues={{}} onSubmit={handleSubmitCreate} validationSchema={Yup.object(Validate.validateCote())}>
+                <Formik initialValues={{quantity: 0}} onSubmit={handleSubmitCreate} validationSchema={Yup.object(Validate.validateCote())}>
                     <Form>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>
                                 <Col>
+                                    {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
+                                    {/*    <DemoContainer components={['DatePicker']}>*/}
+                                    {/*        <DatePicker label="Basic date picker" />*/}
+                                    {/*    </DemoContainer>*/}
+                                    {/*</LocalizationProvider>*/}
                                 <Table>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td ><ErrorMessage name="code" component={"span"} className={"error"} ></ErrorMessage></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mã chuồng nuôi:</td>
-                                        <td><Field name="code"></Field></td>
-                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Mã nhân viên:</td>
-                                        <td><Field name="account" value="NV1" readOnly></Field></td>
+                                        <td><Field name="code" type="hidden"></Field><Field name="account" value="NV1" readOnly></Field></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -81,7 +84,7 @@ export default function CreateCoteModal({open, handleClose, makeReload}) {
                                     </tr>
                                     <tr>
                                         <td>Ngày tạo chuồng:</td>
-                                        <td><ReactDatePicker selected={dateOpen}  dateFormat="dd-MM-YYYY"
+                                        <td><ReactDatePicker selected={dateOpen}  dateFormat="dd-MM-yyyy"
                                                              onChange={(date) => setDateOpen(date)}></ReactDatePicker>
                                             <Field name="dateOpen" type="hidden"></Field></td>
                                     </tr>
@@ -92,8 +95,8 @@ export default function CreateCoteModal({open, handleClose, makeReload}) {
                                     <tr>
                                         <td>Ngày đóng chuồng:</td>
                                         <td><ReactDatePicker selected={dateClose}
-                                                             onChange={(date) => setDateClose(date)} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"></ReactDatePicker>
-                                            <Field name="dateClose" type="hidden" ></Field></td>
+                                                             onChange={(date) => setDateClose(date)} dateFormat="dd-MM-yyyy" placeholderText="dd-mm-yyyy"></ReactDatePicker>
+                                            <Field name="dateClose" type="hidden" readOnly></Field></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -101,7 +104,7 @@ export default function CreateCoteModal({open, handleClose, makeReload}) {
                                     </tr>
                                     <tr>
                                         <td>Số lượng cá thể:</td>
-                                        <td><Field name="quantity"></Field></td>
+                                        <td><Field name="quantity" ></Field></td>
                                     </tr>
                                     </tbody>
                                 </Table>

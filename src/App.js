@@ -9,6 +9,7 @@ import PostsPage from './components/posts/LandingPostsPage/PostsPage';
 import PostDetail from './components/posts/PostsDetail/PostDetail';
 import Master from "./layouts/Master";
 import Cote from "./pages/Cote";
+import CoteDetail from "./pages/CoteDetail";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/admin' element={<Master />}>
             <Route path={"cotes"} element={<Cote />}></Route>
+            <Route path={"cotes/detail/:id"} element={<CoteDetail/>}></Route>
           </Route>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/post-detail/:postId" element={<PostDetail />} />
