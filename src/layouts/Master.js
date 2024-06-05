@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {fourthListItems, mainListItems, secondaryListItems, thirdListItems} from './listItems';
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import Copyright from "./Copyright/Copyright";
 
 const drawerWidth = 240;
@@ -102,7 +102,9 @@ export default function Master() {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
+                            <Link to={"/admin"} style={{color: "white", textDecoration: "none"}}>
                             Quản lý trại chăn nuôi gia súc
+                            </Link>
                         </Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
