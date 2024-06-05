@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import * as Yup from "yup";
 import Validate from "./Validate";
 
+
 export default function UpdateCoteModal({
                                             open,
                                             handleClose,
@@ -32,6 +33,8 @@ export default function UpdateCoteModal({
             "identityCode": "2",
             "status": false
         };
+        if (dateOpenUpdate.getFullYear()<2000 || dateOpenUpdate.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
+        if (dateCloseUpdate.getFullYear()<2000 || dateCloseUpdate.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
         value.dateOpen = dateOpenUpdate;
         value.dateClose = dateCloseUpdate;
 
@@ -64,12 +67,8 @@ export default function UpdateCoteModal({
                                     <Table>
                                         <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td><ErrorMessage name="code" component={"span"} className={"error"}></ErrorMessage></td>
-                                        </tr>
-                                        <tr>
                                             <td>Mã chuồng nuôi:</td>
-                                            <td><Field name="id" type="hidden"></Field><Field name="code"></Field></td>
+                                            <td><Field name="id" type="hidden"></Field><Field name="code" readOnly></Field></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -85,7 +84,7 @@ export default function UpdateCoteModal({
                                         </tr>
                                         <tr>
                                             <td>Ngày tạo chuồng:</td>
-                                            <td><ReactDatePicker selected={dateOpenUpdate}  dateFormat="dd-MM-YYYY"
+                                            <td><ReactDatePicker selected={dateOpenUpdate}  dateFormat="dd-MM-yyyy"
                                                                  onChange={(date) => setOpen(date)}></ReactDatePicker>
                                                 <Field name="dateOpen" type="hidden"></Field></td>
                                         </tr>
@@ -96,7 +95,7 @@ export default function UpdateCoteModal({
                                         <tr>
                                             <td>Ngày đóng chuồng:</td>
                                             <td><ReactDatePicker selected={dateCloseUpdate}
-                                                                 onChange={(date) => setClose(date)} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"></ReactDatePicker>
+                                                                 onChange={(date) => setClose(date)} dateFormat="dd-MM-yyyy" placeholderText="dd-mm-yyyy"></ReactDatePicker>
                                                 <Field name="dateClose" type="hidden" ></Field></td>
                                         </tr>
                                         <tr>
