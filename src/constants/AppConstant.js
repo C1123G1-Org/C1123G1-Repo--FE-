@@ -1,4 +1,2 @@
-export const API1 =
-  "linkapi";
-export const API2 =
-  "linkapi";
+export const POST_API = "http://localhost:8080/api/posts";
+export const API2 = "linkapi";
