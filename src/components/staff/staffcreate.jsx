@@ -10,7 +10,7 @@ import {
 
 import { toast } from "react-toastify";
 
-import * as staffService from "../staffService/StaffService";
+import * as staffService from "../../services/StaffService";
 
 export const StaffCreate = ({ show, closeModal }) => {
   useEffect(() => {

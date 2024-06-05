@@ -16,6 +16,20 @@ export const getCreateStaff = async (staff) => {
 };
 
 export const findByID = async (id) => {
-  const res = await axios.get("http://localhost:8080/staff" + id);
+  const res = await axios.get(`http://localhost:8080/staff/${id}`);
+  console.log(res.data);
+  return res.data;
+};
+
+export const getUpdateStaff = async (staff) => {
+  const res = await axios.put(
+    `http://localhost:8080/staff/update/${staff.id}`,
+    staff
+  );
+  return res.data;
+};
+
+export const removeStaff = async (id) => {
+  const res = await axios.delete(`http://localhost:8080/staff/remove/${id}`);
   return res.data;
 };
