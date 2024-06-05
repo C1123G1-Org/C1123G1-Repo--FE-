@@ -42,7 +42,7 @@ export const secondaryListItems = (
         <ListSubheader component="div" inset>
             Quản lý thông tin đàn
         </ListSubheader>
-        <Link to={"/admin/"}>
+        <Link to={"/admin"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <SavingsIcon />
@@ -50,7 +50,7 @@ export const secondaryListItems = (
             <ListItemText primary="Quản lý cá thể" />
         </ListItemButton>
         </Link>
-        <Link to={"/admin/cotes"}>
+        <Link to={"/admin/cotes"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <HouseSidingIcon />

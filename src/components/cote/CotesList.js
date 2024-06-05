@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {toast} from "react-toastify";
 import CoteService from "../../services/CoteService";
-import "./Cote.css";
+import "../../assets/css/Cote.css";
 import CreateCoteModal from "./CreateCoteModal";
 import UpdateCoteModal from "./UpdateCoteModal";
 import DatePicker from "react-datepicker";
@@ -251,8 +251,10 @@ function CotesList() {
                             <Col></Col>
                             <Col></Col>
                             <Col></Col>
-                            <Col>
+                            <Col style={{whiteSpace: "nowrap"}}>
+                                {/*<label >*/}
                                 Số lượng bản ghi:&nbsp;&nbsp;
+                                {/*</label>*/}
                                 <select className="my-select" value={pageSize} onChange={changePageSize}>
                                     <option value="5">5</option>
                                     <option value="10">10</option>
@@ -279,12 +281,12 @@ function CotesList() {
                 </Col>
                 <Col sm={2} style={{paddingLeft: "5px",width:"127px"}}>
                     <div>
-                        <Button onClick={handleShowUpdate}>Chỉnh sửa</Button>
+                        <Button variant="warning" onClick={handleShowUpdate}>Chỉnh sửa</Button>
                     </div>
                 </Col>
                 <Col sm={1} style={{paddingLeft: "5px"}}>
                     <div>
-                        <Button onClick={handleShowDetail}>Chi tiết</Button>
+                        <Button variant="success" onClick={handleShowDetail}>Chi tiết</Button>
                     </div>
                 </Col>
             </Row>

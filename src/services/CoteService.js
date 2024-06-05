@@ -42,8 +42,8 @@ export default class CoteService{
         return response.data;
     }
 
-    static async findPigsByCote(code){
-        const response = await axios.get(`http://localhost:8080/api/cotes/pigs?code=${code}`)
+    static async findPigsByCote(id){
+        const response = await axios.get(`http://localhost:8080/api/cotes/pigs?id=${id}`)
         return response.data;
     }
 
@@ -51,4 +51,11 @@ export default class CoteService{
         const response = await axios.get(`http://localhost:8080/api/cotes/getCodes`)
         return response.data;
     }
+
+    static async changeCote(object){
+        const response = await axios.put(`http://localhost:8080/api/cotes/changes`,object)
+        return response.data;
+    }
+
+
 }

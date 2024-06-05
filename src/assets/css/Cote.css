@@ -33,11 +33,19 @@ form td {
 
 .table-container {
     max-height: 320px; /* Chiều cao tối đa của table */
+    /*max-width: 1150px; !* Chiều cao tối đa của table *!*/
     overflow-y: auto; /* Thêm thanh cuộn dọc */
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .table {
-    width: 100%; /* Chiều rộng của table */
+     /* Thêm thanh cuộn ngang */
+    /*width: 100%; !* Chiều rộng của table *!*/
+}
+
+button[type="button"]{
+    white-space: nowrap;
 }
 
 .my-select {
