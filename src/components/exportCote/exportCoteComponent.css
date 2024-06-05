@@ -17,6 +17,30 @@
     box-shadow: 0 0 5px 1px gray;
 }
 
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-page-container{
+    display: flex;
+    justify-content: center;
+}
+
 .show-page{
     margin-top: 20px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn--delete{
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+    border: none;
+    background-color: rgb(230, 13, 13);
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import ReactModal from "react-modal"
-import { findAll } from "../../services/exportCoteService"
+import { deleteList, findAll } from "../../services/exportCoteService"
 import './exportCoteComponent.css'
 import { Link } from "react-router-dom"
 import { Pagination } from "react-bootstrap"
@@ -16,9 +16,11 @@ export default function ExportCote(){
 
     useEffect(() => {
         findAll(page)
-        .then(res => {
-            console.log(res);
+        .then(res => {  
             setExportCoteList(res.data)
+        })
+        .catch(e => {
+
         })
     }, [page])
 
@@ -59,12 +61,41 @@ export default function ExportCote(){
                         
                     ))}
                 </table>
-                <Pagination className="show-page">
-                        <Pagination.First onClick={() => {setPage(page-1)}}/>
-                        <Pagination.Item>{page + 1}|{exportCoteList.totalPages}</Pagination.Item>
-                        <Pagination.Last onClick={()=>{setPage(page+1)}}/>
-                </Pagination>
-                <button>Xoá</button>
+                <div className="show-page-container">
+                    <Pagination className="show-page">
+                            <Pagination.First onClick={() => {
+                                if(page != 0){
+                                    setPage(page-1)
+                                }
+                            }}/>
+                            <Pagination.Item>{page + 1}|{exportCoteList.totalPages}</Pagination.Item>
+                            <Pagination.Last onClick={()=>{
+                                if(page != exportCoteList.totalPages - 1){
+                                    setPage(page+1)
+                                }
+                            }}/>
+                    </Pagination>
+                </div>
+                <div className="btn-container">
+                    <button className="btn--delete" onClick={() => {
+                        listID.map(value => {
+                            deleteList(value)
+                            .then(res => {
+                                setListId([listID.filter(val => val!=value)])
+                                findAll(page)
+                                .then(res=>{
+                                    setExportCoteList(res.data)
+                                })
+                                .catch(er => {
+
+                                })
+                            })
+                            .catch(er => {
+
+                            })
+                        })
+                    }}>Xoá</button>
+                </div>
             </div>
         </>
     )
