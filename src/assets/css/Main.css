@@ -1,0 +1,64 @@
+.picture {
+    /*border: 1px solid;*/
+    height: 210px;
+}
+.picture-col{
+    /*border: 1px solid;*/
+}
+.picture-div{
+    /*border: 1px solid;*/
+    height: 210px;
+}
+.text {
+    /*border: 1px solid;*/
+    height: 70px;
+}
+.text-col{
+    /*border: 1px solid;*/
+    text-align: center;
+    vertical-align: bottom;
+}
+.text-div{
+    /*border: 1px solid;*/
+    height: 70px;
+    padding-top: 10px;
+}
+h4 {
+    margin: auto;
+}
+.p1 {
+    font-size: 180px;
+    margin: 20px 85px;
+    color: slategrey;
+}
+.p2 {
+    font-size: 180px;
+    margin: 20px 85px;
+    color: chocolate;
+}
+.p3 {
+    font-size: 180px;
+    margin: 20px 85px;
+    color: yellow;
+}
+.p4 {
+    font-size: 180px;
+    margin: 20px 85px;
+    color: crimson;
+}
+.p5 {
+    font-size: 200px;
+    margin: 15px 75px;
+    color: #1976d2;
+}
+.p6 {
+    font-size: 180px;
+    margin: 15px 85px;
+    color: black;
+}
+.link {
+    text-decoration: none;
+}
+.link:hover{
+    color: black;
+}

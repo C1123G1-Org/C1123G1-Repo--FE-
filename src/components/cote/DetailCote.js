@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {toast} from "react-toastify";
 import CoteService from "../../services/CoteService";
-import "./Cote.css";
+import "../../assets/css/Cote.css";
 import {useNavigate, useParams} from "react-router-dom";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import * as React from "react";
@@ -13,14 +13,16 @@ import * as React from "react";
 function DetailCote() {
 
     const [reload, setReload] = useState(false);
-    const [code,setCode] = useState(false)
+    const [cote,setCote] = useState(false)
     const {id} = useParams()
     const [pigs, setPigs] = useState([]);
+    const [pigsAll, setPigsAll] = useState([]);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const [show, setShow] = useState(false);
-    const [codesCote, setCodesCote] = useState([]);
-    const [selectCodeCote, setSelectCodeCote] = useState("");
+    const [coteList, setCoteList] = useState([]);
+    const [selectedCote, setSelectedCote] = useState("");
     const [selectStatus, setSelectStatus] = useState("All");
+    const [checkAll, setCheckAll] = useState(false);
     const navigate = useNavigate();
 
 
@@ -34,8 +36,8 @@ function DetailCote() {
     }, []);
 
     const getAll = async () => {
-        const  cote = await CoteService.findByID(id)
-        const pigList = await CoteService.findPigsByCote(cote.code);
+        // const  cote = await CoteService.findByID(id)
+        const pigList = await CoteService.findPigsByCote(id);
         for (let i = 0; i < pigList.length; i++) {
             if (selectStatus === "All")
             pigList[i].dateIn = formatDate(pigList[i].dateIn)
@@ -48,19 +50,22 @@ function DetailCote() {
     };
 
     const handleStatusChange = (event)=>{
+        setCheckAll(false)
         setSelectStatus(event.target.value);
         setSelectedCheckboxes([])
     }
 
     const getAllCotes = async () => {
+        const pigList = await CoteService.findPigsByCote(id);
+        setPigsAll(pigList)
         const  cote = await CoteService.findByID(id)
-        const codesCoteList = await CoteService.getCotes()
-        for (let i = 0; i < codesCoteList.length; i++) {
-            if (codesCoteList[i].id === cote.id)
-                codesCoteList.splice(i, 1);
+        const coteList = await CoteService.getCotes()
+        for (let i = 0; i < coteList.length; i++) {
+            if (coteList[i].id === cote.id)
+                coteList.splice(i, 1);
         }
-        setCodesCote(codesCoteList)
-        setCode(cote.code)
+        setCoteList(coteList)
+        setCote(cote)
     };
 
     function formatDate(dateString) {
@@ -68,14 +73,34 @@ function DetailCote() {
         return `${day}-${month}-${year}`;
     }
 
-   const handleCheckboxChange = async(event) =>{
+   const handleCheckboxChange = (event) =>{
        const { value, checked } = event.target;
        if (checked) {
+           if ((selectedCheckboxes.length + 1) === pigs.length) setCheckAll(true);
            setSelectedCheckboxes([...selectedCheckboxes,value]);
        } else {
            setSelectedCheckboxes(selectedCheckboxes.filter(option => option !== value));
+           setCheckAll(false);
        }
    };
+
+    const handleCheckboxAll = (event) =>{
+        if (event.target.checked) {
+            setCheckAll(true)
+            const arrStatus = [];
+            for (let i = 0; i < pigs.length; i++) {
+                if (selectStatus === "All") {
+                    arrStatus.push(pigs[i].code)
+                } else if (selectStatus === pigs[i].status) {
+                    arrStatus.push(pigs[i].code)
+                }
+                setSelectedCheckboxes(arrStatus);
+            }
+        }else {
+            setSelectedCheckboxes([]);
+            setCheckAll(false)
+        }
+    }
     const handleShowModal = (id) => {
         if (selectedCheckboxes.length === 0) toast.warn("Bạn chưa chọn lợn để chuyển chuồng")
         else
@@ -85,16 +110,40 @@ function DetailCote() {
         setShow(false);
     };
 
-    const handleAcceptModal = () => {
-        setShow(false);
-        // OrderService.deleteOrder(id)
-        //     .then((res) => {
-        //         setReload(!reload);
-        //         toast.success("xóa thành công");
-        //     })
-        //     .catch((err) => {
-        //         toast.error("xóa thất bại");
-        //     });
+    const handleAcceptModal = async () => {
+        if (selectedCote === "") toast.warning("Bạn chưa chọn chuồng để chuyển!")
+        else {
+            const pickCote = JSON.parse(selectedCote)
+            if ((pickCote.quantity + selectedCheckboxes.length) > 30) toast.error("Tổng số lợn trong chuồng nhận vượt quá 30 con! Vui lòng chọn lại")
+            else {
+                if (selectedCheckboxes.length === pigsAll.length){
+                    CoteService.changeCote({
+                        oldCote: cote,
+                        newCote: JSON.parse(selectedCote),
+                        pigs: selectedCheckboxes
+                    }).then((res)=> {
+                        toast.success(`Chuyển chuồng thành công`)
+                        toast.info(`Bạn đã chuyển hết lợn trong chuồng đi! Chuồng chuyển trạng thái đóng`)
+                        setSelectedCheckboxes([]);
+                        setSelectedCote("")
+                        setReload(!reload);
+                        setShow(false);
+                    }).catch((err)=> toast.error(`Chuyển chuồng thất bại`))
+                }else {
+                    CoteService.changeCote({
+                        oldCote: cote,
+                        newCote: JSON.parse(selectedCote),
+                        pigs: selectedCheckboxes
+                    }).then((res)=> {
+                        toast.success(`Chuyển chuồng thành công`)
+                        setSelectedCheckboxes([]);
+                        setSelectedCote("")
+                        setReload(!reload);
+                        setShow(false);
+                    }).catch((err)=> toast.error(`Chuyển chuồng thất bại`))
+                }
+            }
+        }
     };
     const handleComeBack = () =>{
         navigate("/admin/cotes")
@@ -103,7 +152,7 @@ function DetailCote() {
         <>
             <Modal show={show} centered size="lg">
                 <Modal.Header style={{backgroundColor: "#1976d2"}} >
-                    <Modal.Title style={{color: "white", textAlign:"center"}}>Chuyển đổi chuồng nuôi {code}</Modal.Title>
+                    <Modal.Title style={{color: "white", textAlign:"center"}}>Chuyển đổi chuồng nuôi {cote.code}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
@@ -139,10 +188,11 @@ function DetailCote() {
 
                         </Col>
                         <Col sm={3} style={{}}>
-                            <select className="form-select" value={selectCodeCote}
-                                    onChange={(event) => setSelectCodeCote(event.target.value)}>
-                                {codesCote.map((cote, index) => (
-                                    <option key={cote.id} value={cote.code} >Chuồng ({cote.code})</option>
+                            <select className="form-select" value={selectedCote}
+                                    onChange={(event) => setSelectedCote(event.target.value)}>
+                                <option value={""} >Chọn chuồng</option>
+                                {coteList.map((cote, index) => (
+                                    <option key={cote.id} value={JSON.stringify(cote)}>Chuồng ({cote.code})</option>
                                 ))}
                             </select>
                         </Col>
@@ -163,7 +213,7 @@ function DetailCote() {
                 <Col sm={3}></Col>
                 <Col sm={6} style={{textAlign:"center"}}>
                     <Row style={{paddingTop: "20px", paddingBottom: "10px",textAlign:"center"}}>
-                       <h4 >Danh sách lợn trong chuồng {code}</h4>
+                       <h4 style={{fontWeight: "bold"}}>Danh sách lợn trong chuồng {cote.code}</h4>
                     </Row>
                 </Col>
                 <Col sm={3}></Col>
@@ -172,7 +222,7 @@ function DetailCote() {
                 <Col sm={3}></Col>
                 <Col sm={3}></Col>
                 <Col sm={3}></Col>
-                <Col sm={3}>
+                <Col sm={3} style={{whiteSpace: "nowrap"}}>
                     Tình trạng:&nbsp;
                     <select className="form-select" value={selectStatus} style={{width: "140px", display: "inline"}}
                             onChange={handleStatusChange}>
@@ -218,28 +268,29 @@ function DetailCote() {
                             </tbody>
                         </Table>
                     </div>
+                    <Row>
+                        <Col sm={9}></Col>
+                        <Col sm={3} style={{paddingRight: "24px", textAlign: "right",whiteSpace: "nowrap"}}>
+                            Chọn tất cả: &nbsp;
+                            <input type={"checkbox"} className="checboxGroup"
+                                   checked={checkAll}
+                                   onChange={handleCheckboxAll}
+                            ></input>
+                        </Col>
+                    </Row>
                     <br></br>
-                        <Row>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col>
-                            </Col>
-                            <Col>
-                            </Col>
-                        </Row>
                 </Col>
             </Row>
             <Row style={{paddingTop: "10px", paddingBottom: "10px"}}>
                 <Col sm={8}></Col>
-                <Col sm={2} style={{paddingLeft: "5px"}}>
+                <Col sm={2} style={{paddingLeft: "5px", marginLeft: "75px", width: "160px"}}>
                     <div>
                         <Button onClick={handleShowModal}>Chuyển chuồng</Button>
                     </div>
                 </Col>
-                <Col sm={2} style={{paddingLeft: "5px"}}>
+                <Col sm={2} style={{paddingLeft: "5px", width: "110px", marginLeft: "5px"}}>
                     <div>
-                        <Button onClick={handleComeBack}>Quay lại</Button>
+                        <Button variant="secondary" onClick={handleComeBack}>Quay lại</Button>
                     </div>
                 </Col>
             </Row>
