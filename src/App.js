@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
+import AuthPage from './components/auth/AuthPage';
 import PostsPage from './components/posts/LandingPostsPage/PostsPage';
 import PostDetail from './components/posts/PostsDetail/PostDetail';
 import Master from "./layouts/Master";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/post-detail/:postId" element={<PostDetail />} />
           <Route path="/" element={<PostsPage />} />
+          <Route path="/auth" element={<AuthPage />} />
           {/* <Route path="*" element={<div> Not Found or You do not have permission.</div>} /> */}
         </Routes>
       </BrowserRouter>
