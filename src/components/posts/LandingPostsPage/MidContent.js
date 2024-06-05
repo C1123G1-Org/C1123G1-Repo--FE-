@@ -24,7 +24,6 @@ function MidContent() {
 
     useEffect(() => {
         getPostList();
-        console.log(postsItem);
     }, []);
 
     const getPostList = async () => {
