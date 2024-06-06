@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {Button, Pagination, Table} from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Pagination, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import CoteService from "../../services/CoteService";
 import "../../assets/css/Cote.css";
 import CreateCoteModal from "./CreateCoteModal";
@@ -13,7 +13,6 @@ import {Link, useNavigate} from "react-router-dom";
 import ExportCoteModal from "./ExportCoteModal";
 
 function CotesList() {
-
     const [selectedRadio, setSelectedRadio] = useState('')
     const [dateOpenUpdate, setDateOpenUpdate] = useState(null);
     const [dateCloseUpdate, setDateCloseUpdate] = useState(null);
@@ -35,26 +34,27 @@ function CotesList() {
     const [dateClose, setDateClose] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // getAll().then(()=>setMaxId(cotes[0].id));
-        getAll().then();
-    }, [reload, pageSize, page]);
+  useEffect(() => {
+    // getAll().then(()=>setMaxId(cotes[0].id));
+    getAll().then();
+  }, [reload, pageSize, page]);
 
-    const getAll = async () => {
-        const coteList = await CoteService.getAll(pageSize, page);
-        let max = -1;
-        for (let i = 0; i < coteList.content.length; i++) {
-            if (max < coteList.content[i].id) max = coteList.content[i].id
-            coteList.content[i].dateOpen = formatDate(coteList.content[i].dateOpen)
-            if (coteList.content[i].dateClose !== null)
-                coteList.content[i].dateClose = formatDate(coteList.content[i].dateClose)
-        }
-        setMaxId(max)
-        setCotes(coteList.content);
-        setInfoPage(coteList);
-        setSearch(false)
-    };
-
+  const getAll = async () => {
+    const coteList = await CoteService.getAll(pageSize, page);
+    let max = -1;
+    for (let i = 0; i < coteList.content.length; i++) {
+      if (max < coteList.content[i].id) max = coteList.content[i].id;
+      coteList.content[i].dateOpen = formatDate(coteList.content[i].dateOpen);
+      if (coteList.content[i].dateClose !== null)
+        coteList.content[i].dateClose = formatDate(
+          coteList.content[i].dateClose
+        );
+    }
+    setMaxId(max);
+    setCotes(coteList.content);
+    setInfoPage(coteList);
+    setSearch(false);
+  };
     function formatDate(dateString) {
         const [year, month, day] = dateString.split("-");
         return `${day}-${month}-${year}`;
@@ -124,7 +124,6 @@ function CotesList() {
             setSelectedRadio("")
             setID(-1);
         }
-
     };
     const handlePrev = async () => {
         if (page > 0) {
@@ -185,7 +184,6 @@ function CotesList() {
         setDateOpenUpdate(cote.dateOpen)
         setDateCloseUpdate(cote.dateClose)
     }
-
     return (
         <>
             <Row id={"date"}>

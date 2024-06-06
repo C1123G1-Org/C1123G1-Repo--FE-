@@ -7,13 +7,28 @@ label {
 }
 form input {
     /* padding-left: 0px; */
-    width: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    width: 170px;
+    height: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 4px;
+    border: 1px solid grey;
+    padding-left: 15px;
 }
+
 td, th {
     vertical-align: middle;
     height: 52px;
+}
+form td {
+    font-size: large;
+    border-bottom: none;
+    height: 34px;
+}
+.error {
+    color: coral; /* Thay đổi màu chữ ở đây */
+    font-size: small;
+    font-style: italic;
 }
 
 .table-container {
@@ -29,4 +44,24 @@ td, th {
     border: none;
     outline: none;
     /*appearance: none; !* Loại bỏ mặc định của trình duyệt *!*/
+}
+
+#date input {
+    width: 100px;
+    height: 35px;
+    border-radius: 6px;
+    border: 1px solid grey;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+#date button {
+    width: 95px;
+    height: 35px;
+}
+.date {
+    width: 160px;
+    height: 35px;
+    border-radius: 6px;
+    /*border-color: grey;*/
+    border: 1px solid grey;
 }
