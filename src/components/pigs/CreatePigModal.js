@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import PigService from "../../services/PigService";
 import ValidatePig from "./ValidatePig";
 import { TextareaAutosize } from "@mui/material";
+import "../../assets/css/Pig.css";
 
 export default function CreatePigModal({newPigID ,open, handleClose, makeReload, cote}) {
 
@@ -64,8 +65,8 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                                             <tr>
                                                 <td>Mã chuồng nuôi</td>
                                                 <td>
-                                                    <Field as="select" name="coteIndex">
-                                                        <option value="">Chọn một tùy chọn</option>
+                                                    <Field as="select" name="coteIndex" style={{ height: "32px", margin: "0px"}}>
+                                                        <option value="">Chọn mã chuồng</option>
                                                         {cote.map((code, index) => (
                                                             <option value={index} key={code.id}>C{code.id}</option>
                                                         ))} 

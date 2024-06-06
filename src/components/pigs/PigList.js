@@ -251,8 +251,8 @@ return (
                                 <Form>
                                     {/* <Field name="keyword" placeholder="Mã chuồng nuôi"
                                            style={{width: "120px", margin: "0px"}}/>&nbsp; */}
-                                           <Field as="select" name="keyword">
-                                                        <option value="">Chọn một tùy chọn</option>
+                                           <Field as="select" name="keyword" style={{ height: "32px", margin: "0px"}}>
+                                                        <option value="" >Chọn mã chuồng</option>
                                                         {cote.map((code, index) => (
                                                             <option value={code.code} key={code.id}>C{code.id}</option>
                                                         ))} 

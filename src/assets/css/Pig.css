@@ -19,6 +19,9 @@ form input {
 td, th {
     vertical-align: middle;
     height: 52px;
+    padding-left: 20px;
+    padding-right: 10px;
+
 }
 form td {
     font-size: large;
