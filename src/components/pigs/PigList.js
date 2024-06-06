@@ -3,7 +3,7 @@ import { Button, Pagination, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { toast } from "react-toastify";
-import "./Pig.css";
+import "../../assets/css/Pig.css";
 import PigService from "../../services/PigService";
 import CreatePigModal from "./CreatePigModal";
 import UpdatePigModal from "./UpdatePigModal";

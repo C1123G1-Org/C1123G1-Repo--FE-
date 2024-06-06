@@ -33,8 +33,9 @@ export default function UpdateCoteModal({
             "identityCode": "2",
             "status": false
         };
-        if (dateOpenUpdate.getFullYear()<2000 || dateOpenUpdate.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
-        if (dateCloseUpdate.getFullYear()<2000 || dateCloseUpdate.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
+        if (dateOpenUpdate.getFullYear()<2000 || dateOpenUpdate.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
+        if (dateCloseUpdate.getFullYear()<2000 || dateCloseUpdate.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
+        if (dateOpenUpdate > dateCloseUpdate) return toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
         value.dateOpen = dateOpenUpdate;
         value.dateClose = dateCloseUpdate;
 
@@ -55,7 +56,7 @@ export default function UpdateCoteModal({
         <>
             <Modal show={open} centered>
                 <Modal.Header style={{backgroundColor: "#1976d2"}}>
-                    <Modal.Title style={{color: "white"}}>Khởi tạo chuồng nuôi</Modal.Title>
+                    <Modal.Title style={{color: "white"}}>Chỉnh sửa chuồng nuôi</Modal.Title>
                 </Modal.Header>
 
                 <Formik initialValues={form} onSubmit={handleSubmitUpdate} validationSchema={Yup.object(Validate.validateCote())}>
@@ -64,7 +65,7 @@ export default function UpdateCoteModal({
                             <Row>
                                 <Col sm={1}></Col>
                                 <Col>
-                                    <Table>
+                                    <Table className={"update"}>
                                         <tbody>
                                         <tr>
                                             <td>Mã chuồng nuôi:</td>
