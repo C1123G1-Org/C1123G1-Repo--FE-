@@ -27,12 +27,14 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Quản lý tin tức" />
         </ListItemButton>
+        <Link to={"/admin/staff"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý nhân viên" />
         </ListItemButton>
+        </Link>
 
     </React.Fragment>
 );

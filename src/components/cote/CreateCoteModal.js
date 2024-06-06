@@ -31,7 +31,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
             "status": false
         };
         value.code = "C"+(maxId+1)
-        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Mời nhập năm trong khoảng 2000-3000")
+        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
         CoteService.createCote(value)
@@ -48,6 +48,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
     };
 
     const handleCloseModalCreate = () => {
+        setDateOpen(new Date())
         setDateClose(null);
         handleClose();
     }
@@ -71,10 +72,6 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                                 <Table>
                                     <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td>Mã nhân viên:</td>
                                         <td><Field name="code" type="hidden"></Field><Field name="account" value="NV1" readOnly></Field></td>
                                     </tr>
@@ -95,7 +92,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                                     <tr>
                                         <td>Ngày đóng chuồng:</td>
                                         <td><ReactDatePicker selected={dateClose}
-                                                             onChange={(date) => setDateClose(date)} dateFormat="dd-MM-yyyy" placeholderText="dd-mm-yyyy"></ReactDatePicker>
+                                                             onChange={(date) => setDateClose(date)} dateFormat="dd-MM-yyyy" placeholderText="dd-mm-yyyy" readOnly></ReactDatePicker>
                                             <Field name="dateClose" type="hidden" readOnly></Field></td>
                                     </tr>
                                     <tr>

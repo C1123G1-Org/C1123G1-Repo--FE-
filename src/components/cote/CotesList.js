@@ -9,7 +9,8 @@ import CreateCoteModal from "./CreateCoteModal";
 import UpdateCoteModal from "./UpdateCoteModal";
 import DatePicker from "react-datepicker";
 import {Field, Form, Formik} from "formik";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import ExportCoteModal from "./ExportCoteModal";
 
 function CotesList() {
 
@@ -21,6 +22,7 @@ function CotesList() {
     const [reload, setReload] = useState(false);
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
+    const [showExport, setShowExport] = useState(false);
     const [id, setID] = useState(-1);
     const [pageSize, setPageSize] = useState(5);
     const [infoPage, setInfoPage] = useState(false);
@@ -82,11 +84,9 @@ function CotesList() {
             }
         } else {
             if (searchStart === null && searchEnd === null) {
-                if (searchStart < searchEnd) {
-                    const coteList = await CoteService.searchAccountCode(value.keyword);
-                    if (coteList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                    setCotes(coteList);
-                } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+                const coteList = await CoteService.searchAccountCode(value.keyword);
+                if (coteList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
+                setCotes(coteList);
             } else if (searchStart === null || searchEnd === null) {
                 toast.info("Vui lòng nhập đủ ngày tháng")
                 setSearch(false)
@@ -134,8 +134,19 @@ function CotesList() {
         }
     };
     const makeReload = () => {
+        setSelectedRadio("")
+        setID(-1);
         setReload(!reload)
     }
+    const handleShowExport = () => {
+        if (id === -1) {
+            toast.warn("Bạn chưa chọn chuồng để xuất")
+        } else if (dateClose !== null) toast.warn("Chuồng bạn chọn đã xuất hết!")
+        else setShowExport(true);
+    };
+    const handleCloseExport = () => {
+        setShowExport(false);
+    };
     const setOpenUpdate = (date) => {
         setDateOpenUpdate(date)
     }
@@ -148,7 +159,6 @@ function CotesList() {
     const handleCloseCreate = () => {
         setShowCreate(false);
     };
-
     const handleShowUpdate = () => {
         if (id === -1) {
             toast.warn("Bạn chưa chọn chuồng để sửa")
@@ -158,13 +168,15 @@ function CotesList() {
         if (id === -1) {
             toast.warn("Bạn chưa chọn chuồng để xem")
         } else if (dateClose !== null) toast.warn("Chuồng bạn chọn đã đóng. Không còn lợn để xem!")
-            else navigate("/admin/cotes/detail/"+id);
+        else navigate("/admin/cotes/detail/" + id);
     };
     const handleCloseUpdate = () => {
+        setDateOpenUpdate(form.dateOpen);
+        setDateCloseUpdate(form.dateClose);
         setShowUpdate(false);
     };
 
-    const handleRadioChange = async (id,date, event) => {
+    const handleRadioChange = async (id, date, event) => {
         setDateClose(date)
         setSelectedRadio(event.target.value)
         setID(id);
@@ -180,7 +192,7 @@ function CotesList() {
                 <Col sm={3}></Col>
                 <Col sm={9} style={{paddingLeft: "0px"}}>
                     <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
-                        <Col sm={2} style={{textAlign: "right"}}>
+                        <Col sm={2} style={{textAlign: "right", marginLeft: "37px"}}>
                             <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
                                         onChange={(date) => setSearchStart(date)}></DatePicker>
                         </Col>
@@ -198,9 +210,7 @@ function CotesList() {
                                 <option value="close">Ngày đóng chuồng</option>
                             </select>
                         </Col>
-                        {/*<Col sm={2} style={{}}>*/}
-                        {/*</Col>*/}
-                        <Col sm={5} style={{paddingLeft: "30px"}}>
+                        <Col sm={5} style={{paddingLeft: "30px", width: "300px"}}>
                             <Formik initialValues={{keyword: ""}} onSubmit={handleSearch}>
                                 <Form>
                                     <Field name="keyword" placeholder="Mã nhân viên"
@@ -215,9 +225,9 @@ function CotesList() {
             </Row>
             <Row>
                 <Col>
-                    <div className="table-container">
+                    <div className="table-container" style={{}}>
                         <Table striped bordered hover size="sm" style={{textAlign: "center"}}>
-                            <thead>
+                            <thead className={"header"}>
                             <tr>
                                 <th>STT</th>
                                 <th>Mã chuồng nuôi</th>
@@ -232,14 +242,20 @@ function CotesList() {
                             {cotes.map((cote, index) => (
                                 <tr key={cote.id}>
                                     <td>{index + 1}</td>
-                                    <td>{cote.code}</td>
+                                    <td>
+                                        <Link to={"/admin/cotes/detail/" + cote.id} style={{textDecoration: "none"}}>
+                                            {cote.code}
+                                        </Link>
+                                    </td>
+
                                     <td>{cote.account.fullName + " (" + cote.account.code + ")"}</td>
                                     <td>{cote.dateOpen}</td>
                                     <td>{cote.dateClose ? cote.dateClose : "Chưa cập nhật"}</td>
                                     <td>{cote.quantity}</td>
                                     <td><input type="radio" className="radioGroup" value={`option` + index}
                                                checked={selectedRadio === `option` + index}
-                                               onChange={(event) => handleRadioChange(cote.id,cote.dateClose, event)}></input></td>
+                                               onChange={(event) => handleRadioChange(cote.id, cote.dateClose, event)}></input>
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>
@@ -273,13 +289,13 @@ function CotesList() {
                 </Col>
             </Row>
             <Row style={{paddingTop: "10px", paddingBottom: "10px"}}>
-                <Col sm={7}></Col>
-                <Col sm={2} style={{paddingLeft: "120px", width: "230px"}}>
+                <Col sm={4}></Col>
+                <Col sm={2} style={{paddingLeft: "120px", width: "230px", marginLeft: "82px"}}>
                     <div>
                         <Button onClick={handleShowCreate}>Khởi tạo</Button>
                     </div>
                 </Col>
-                <Col sm={2} style={{paddingLeft: "5px",width:"127px"}}>
+                <Col sm={2} style={{paddingLeft: "5px", width: "127px"}}>
                     <div>
                         <Button variant="warning" onClick={handleShowUpdate}>Chỉnh sửa</Button>
                     </div>
@@ -289,11 +305,17 @@ function CotesList() {
                         <Button variant="success" onClick={handleShowDetail}>Chi tiết</Button>
                     </div>
                 </Col>
+                <Col sm={2} style={{paddingLeft: ""}}>
+                    <div>
+                        <Button variant="info" onClick={handleShowExport}>Xuất chuồng</Button>
+                    </div>
+                </Col>
             </Row>
             <CreateCoteModal open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} maxId={maxId}/>
             <UpdateCoteModal open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
                              dateCloseUpdate={dateCloseUpdate} dateOpenUpdate={dateOpenUpdate}
                              setOpen={setOpenUpdate} setClose={setCloseUpdate} makeReload={makeReload}/>
+            <ExportCoteModal open={showExport} handleClose={handleCloseExport} makeReload={makeReload} form={form}/>
         </>
     );
 }

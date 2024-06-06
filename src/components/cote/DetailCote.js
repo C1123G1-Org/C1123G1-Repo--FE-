@@ -182,8 +182,6 @@ function DetailCote() {
                             <div style={{ textAlign: "center"}}>
 
                                 <DoubleArrowIcon style={{color: "#1976d2",fontSize: "xxx-large"}} />
-
-                            {/*<DoubleArrowIcon style={{color: "#1976d2",fontSize: "xxx-large"}} />*/}
                             </div>
 
                         </Col>
@@ -192,7 +190,7 @@ function DetailCote() {
                                     onChange={(event) => setSelectedCote(event.target.value)}>
                                 <option value={""} >Chọn chuồng</option>
                                 {coteList.map((cote, index) => (
-                                    <option key={cote.id} value={JSON.stringify(cote)}>Chuồng ({cote.code})</option>
+                                    <option key={cote.id} value={JSON.stringify(cote)}>Chuồng {cote.code} ({cote.quantity}/30)</option>
                                 ))}
                             </select>
                         </Col>
@@ -270,7 +268,7 @@ function DetailCote() {
                     </div>
                     <Row>
                         <Col sm={9}></Col>
-                        <Col sm={3} style={{paddingRight: "24px", textAlign: "right",whiteSpace: "nowrap"}}>
+                        <Col sm={3} style={{paddingRight: "41px", textAlign: "right",whiteSpace: "nowrap"}}>
                             Chọn tất cả: &nbsp;
                             <input type={"checkbox"} className="checboxGroup"
                                    checked={checkAll}

@@ -25,10 +25,22 @@ form td {
     border-bottom: none;
     height: 34px;
 }
+.export td {
+    height: 0px;
+    width: 170px;
+}
+.update td {
+    height: 0px;
+    width: 170px;
+}
 .error {
     color: coral; /* Thay đổi màu chữ ở đây */
     font-size: small;
     font-style: italic;
+}
+.header {
+    /*position: absolute;*/
+    /*width: 100%;*/
 }
 
 .table-container {
@@ -73,3 +85,4 @@ button[type="button"]{
     /*border-color: grey;*/
     border: 1px solid grey;
 }
+
