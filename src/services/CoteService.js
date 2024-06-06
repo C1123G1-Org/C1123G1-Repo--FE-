@@ -57,5 +57,15 @@ export default class CoteService{
         return response.data;
     }
 
+    static async exportCote(exportCote){
+        const response = await axios.post(`http://localhost:8080/api/exportcotes`,exportCote)
+        return response.data;
+    }
+
+    static async updatePigsAfterExportCote(Cote_code){
+        const response = await axios.put(`http://localhost:8080/api/cotes/updatePigsAfterExportCote?code=`+ Cote_code)
+        return response.data;
+    }
+
 
 }

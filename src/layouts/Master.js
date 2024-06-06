@@ -17,6 +17,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import {fourthListItems, mainListItems, secondaryListItems, thirdListItems} from './listItems';
 import {Link, Outlet} from "react-router-dom";
 import Copyright from "./Copyright/Copyright";
+// import myImage from "../../public/logo.PNG"
+import myImage from "../assets/image/logo2.PNG"
 
 const drawerWidth = 240;
 
@@ -123,10 +125,11 @@ export default function Master() {
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
+                            <img src={myImage} alt="My Image" style={{width: "185px"}}/>
+                            <ChevronLeftIcon/>
                         </IconButton>
                     </Toolbar>
-                    <Divider />
+                    <Divider/>
                     <List component="nav">
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />

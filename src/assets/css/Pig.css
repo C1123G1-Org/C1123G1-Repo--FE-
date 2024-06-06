@@ -25,39 +25,19 @@ form td {
     border-bottom: none;
     height: 34px;
 }
-.export td {
-    height: 0px;
-    width: 170px;
-}
-.update td {
-    height: 0px;
-    width: 170px;
-}
 .error {
     color: coral; /* Thay đổi màu chữ ở đây */
     font-size: small;
     font-style: italic;
 }
-.header {
-    /*position: absolute;*/
-    /*width: 100%;*/
-}
 
 .table-container {
     max-height: 320px; /* Chiều cao tối đa của table */
-    /*max-width: 1150px; !* Chiều cao tối đa của table *!*/
     overflow-y: auto; /* Thêm thanh cuộn dọc */
-    overflow-x: auto;
-    white-space: nowrap;
 }
 
 .table {
-     /* Thêm thanh cuộn ngang */
-    /*width: 100%; !* Chiều rộng của table *!*/
-}
-
-button[type="button"]{
-    white-space: nowrap;
+    width: 100%; /* Chiều rộng của table */
 }
 
 .my-select {
@@ -85,4 +65,3 @@ button[type="button"]{
     /*border-color: grey;*/
     border: 1px solid grey;
 }
-

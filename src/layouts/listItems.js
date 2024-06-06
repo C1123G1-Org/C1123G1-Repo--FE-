@@ -13,65 +13,59 @@ import ScaleIcon from "@mui/icons-material/Scale";
 import StoreIcon from "@mui/icons-material/Store";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
 import EventNoteIcon from "@mui/icons-material/EventNote";
-// import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
 
 export const mainListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Quản lý hệ thống
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <NewspaperIcon />
-      </ListItemIcon>
-      <ListItemText primary="Quản lý tin tức" />
-    </ListItemButton>
-    <Link
-      to={"/admin/staff"}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-      <ListItemButton>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Quản lý nhân viên" />
-      </ListItemButton>
-    </Link>
-  </React.Fragment>
+    <React.Fragment>
+        <ListSubheader component="div" inset>
+            Quản lý hệ thống
+        </ListSubheader>
+        <ListItemButton>
+            <ListItemIcon>
+                <NewspaperIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý tin tức" />
+        </ListItemButton>
+        <Link to={"/admin/staff"} style={{textDecoration: "none", color: "black"}}>
+        <ListItemButton>
+            <ListItemIcon>
+                <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý nhân viên" />
+        </ListItemButton>
+        </Link>
+
+    </React.Fragment>
 );
 
 export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Quản lý thông tin đàn
-    </ListSubheader>
-    <Link to={"/admin"} style={{ textDecoration: "none", color: "black" }}>
-      <ListItemButton>
-        <ListItemIcon>
-          <SavingsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Quản lý cá thể" />
-      </ListItemButton>
-    </Link>
-    <Link
-      to={"/admin/cotes"}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-      <ListItemButton>
-        <ListItemIcon>
-          <HouseSidingIcon />
-        </ListItemIcon>
-        <ListItemText primary="Quản lý chuồng nuôi" />
-      </ListItemButton>
-    </Link>
-    <ListItemButton>
-      <ListItemIcon>
-        <LocalShippingIcon />
-      </ListItemIcon>
-      <ListItemText primary="Quản lý xuất chuồng" />
-    </ListItemButton>
-  </React.Fragment>
+    <React.Fragment>
+        <ListSubheader component="div" inset>
+            Quản lý thông tin đàn
+        </ListSubheader>
+        <Link to={"/admin/pigs"} style={{textDecoration: "none", color: "black"}}>
+        <ListItemButton>
+            <ListItemIcon>
+                <SavingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý cá thể" />
+        </ListItemButton>
+        </Link>
+        <Link to={"/admin/cotes"} style={{textDecoration: "none", color: "black"}}>
+        <ListItemButton>
+            <ListItemIcon>
+                <HouseSidingIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý chuồng nuôi"/>
+        </ListItemButton>
+        </Link>
+        <ListItemButton>
+            <ListItemIcon>
+                <LocalShippingIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý xuất chuồng" />
+        </ListItemButton>
+    </React.Fragment>
 );
 export const thirdListItems = (
   <React.Fragment>
