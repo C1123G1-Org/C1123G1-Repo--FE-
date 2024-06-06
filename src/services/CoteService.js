@@ -57,5 +57,9 @@ export default class CoteService{
         return response.data;
     }
 
+    static async exportCote(exportCote){
+        const response = await axios.post(`http://localhost:8080/api/exportcotes`,exportCote)
+        return response.data;
+    }
 
 }

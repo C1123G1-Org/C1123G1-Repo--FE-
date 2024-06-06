@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
-import { StaffComponent } from "../staff/staffcomponent";
+import { StaffComponent } from "../components/staff/staffcomponent";
 
 function Staff() {
   return (
