@@ -253,7 +253,9 @@ function DetailCote() {
                                     <td>{pig.cote.code}</td>
                                     <td>{pig.dateIn}</td>
                                     <td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>
-                                    <td>{pig.status}</td>
+                                    {pig.status === "Khỏe mạnh" ? <td style={{color: "limegreen"}}>{pig.status}</td> :
+                                        <td style={{color: "red"}}>{pig.status}</td>}
+                                    {/*<td>{pig.status}</td>*/}
                                     <td>{pig.weight + "kg"}</td>
                                     <td>
                                         <input type={"checkbox"} value={pig.code} className="checboxGroup"

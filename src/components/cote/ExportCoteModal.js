@@ -16,15 +16,20 @@ export default function ExportCoteModal({open, handleClose, makeReload, form}) {
     const handleSubmitExport = async (value) => {
         value.account_id = 1;
         value.cote_id = form.id
-        CoteService.exportCote(value)
-            .then((res) => {
-                toast.success("Xuất chuồng thành công");
-                makeReload();
-                handleClose();
-            })
-            .catch((err) => {
-                toast.error("Lỗi khi xuất chuồng");
-            });
+        CoteService.updatePigsAfterExportCote(form.code)
+            .then((res)=> {
+                CoteService.exportCote(value)
+                    .then((res) => {
+                        toast.success("Xuất chuồng thành công");
+                        makeReload();
+                        handleClose();
+                    })
+                    .catch((err) => {
+                        toast.error("Lỗi khi xuất chuồng");
+                    });
+            }).catch((err) => {
+            toast.error("Lỗi khi xuất chuồng");
+        });
     };
 
     return (
