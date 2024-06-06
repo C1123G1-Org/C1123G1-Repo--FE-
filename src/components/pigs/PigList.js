@@ -32,6 +32,8 @@ function PigList() {
     const [searchStart, setSearchStart] = useState(null);
     const [searchEnd, setSearchEnd] = useState(null);
     const [selectSearch, setSelectSearch] = useState("open");
+    const [pigsSearch, setPigsSearch] = useState([]);
+
   
     // List Pig
     useEffect(() => {
@@ -151,13 +153,13 @@ function PigList() {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchOpen(convertoDate(searchStart), convertoDate(searchEnd));
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigs(pigList);
+                  setPigsSearch(pigList);
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchClose(convertoDate(searchStart), convertoDate(searchEnd));
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigs(pigList);
+                  setPigsSearch(pigList);
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           }
       } else {
@@ -165,7 +167,7 @@ function PigList() {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchCoteCode(value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigs(pigList);
+                  setPigsSearch(pigList);
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else if (searchStart === null || searchEnd === null) {
               toast.info("Vui lòng nhập đủ ngày tháng")
@@ -174,16 +176,23 @@ function PigList() {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchOpenCote(convertoDate(searchStart), convertoDate(searchEnd), value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigs(pigList);
+                  setPigsSearch(pigList);
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchCloseCote(convertoDate(searchStart), convertoDate(searchEnd), value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigs(pigList);
+                  setPigsSearch(pigList);
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           }
       }
+      for (let i = 0; i < pigsSearch.length; i++) {
+        pigsSearch[i].dateIn = formatDate(pigsSearch[i].dateIn);
+        if (pigsSearch[i].dateOut !== null) {
+          pigsSearch[i].dateOut = formatDate(pigsSearch[i].dateOut);
+        }
+      }
+      setPigs(pigsSearch);
     }
   
     // const handleSearchAbc = async (value) => {
@@ -195,12 +204,33 @@ function PigList() {
 return (
     <>
         <Row id={"date"}>
-          <Col sm={3}></Col>
-          <Col sm={9} style={{paddingLeft: "0px"}}>
+          <Col sm={8}>
+            <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
+              <Col sm={4} style={{textAlign: "right"}}>
+                  <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
+                              onChange={(date) => setSearchStart(date)} style={{size: '30px'}}></DatePicker>
+              </Col>
+              <Col sm={1} style={{width: "6px", padding: "0px", marginTop: "6px"}}>
+                  -
+              </Col>
+              <Col sm={4} style={{width: "120px"}}>
+                  <DatePicker dateFormat="dd-MM-yyyy" selected={searchEnd} placeholderText="Ngày kết thúc"
+                              onChange={(date) => setSearchEnd(date)}></DatePicker>
+              </Col>
+              <Col sm={3} style={{width: "180px", paddingLeft: "30px"}}>
+                  <select className="date" value={selectSearch}
+                          onChange={(event) => setSelectSearch(event.target.value)}>
+                      <option value="open">Ngày nhập chuồng</option>
+                      <option value="close">Ngày xuất chuồng</option>
+                  </select>
+              </Col>
+            </Row>
+          </Col>
+          <Col sm={4} style={{paddingLeft: "0px"}}>
                     <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
-                        <Col sm={2} style={{textAlign: "right"}}>
+                        {/* <Col sm={2} style={{textAlign: "right"}}>
                             <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
-                                        onChange={(date) => setSearchStart(date)}></DatePicker>
+                                        onChange={(date) => setSearchStart(date)} style={{size: '30px'}}></DatePicker>
                         </Col>
                         <Col sm={1} style={{width: "6px", padding: "0px", marginTop: "6px"}}>
                             -
@@ -215,10 +245,8 @@ return (
                                 <option value="open">Ngày nhập chuồng</option>
                                 <option value="close">Ngày xuất chuồng</option>
                             </select>
-                        </Col>
-                        {/*<Col sm={2} style={{}}>*/}
-                        {/*</Col>*/}
-                        <Col sm={5} style={{paddingLeft: "30px"}}>
+                        </Col> */}
+                        <Col sm={12} style={{paddingLeft: "30px"}}>
                             <Formik initialValues={{keyword: ""}} onSubmit={handleSearch}>
                                 <Form>
                                     {/* <Field name="keyword" placeholder="Mã chuồng nuôi"

@@ -19,6 +19,7 @@ form input {
 td, th {
     vertical-align: middle;
     height: 52px;
+    padding-left: 20px;
 }
 form td {
     font-size: large;
@@ -47,7 +48,7 @@ form td {
 }
 
 #date input {
-    width: 100px;
+    width: 120px;
     height: 35px;
     border-radius: 6px;
     border: 1px solid grey;
