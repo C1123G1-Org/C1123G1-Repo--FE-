@@ -1,0 +1,69 @@
+.header-auth-container {
+  background-color: #1976d2;
+  height: 64px;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  display: flex;
+  align-items: center;
+}
+
+.auth-title {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-left: 100px;
+  font-weight: 600;
+}
+
+.auth-main-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+}
+
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 300px;
+  background-color: rgba(25, 118, 210, 0.8);
+  border-radius: 10px;
+}
+
+.greeting {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+.auth-form input {
+  margin-top: 30px;
+  width: 300px;
+  border: none;
+  outline: none;
+}
+
+.signin-btn {
+  margin-top: 50px;
+  border: none;
+  min-width: 150px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.signin-btn:hover {
+  opacity: 0.8;
+}

@@ -1,17 +1,16 @@
-import { Grid, Paper } from "@mui/material";
+import "../../assets/css/AuthPage.css";
+import Footer from "../posts/CommonPostPage/Footer";
+import HeaderAuth from "./HeaderAuth";
+import SignInBox from "./SignInBox";
 
 function AuthPage() {
-    return (
-        <>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <p>Test</p>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </>
-    )
+  return (
+    <>
+      <HeaderAuth />
+      <SignInBox />
+      <Footer />
+    </>
+  );
 }
 
 export default AuthPage;
