@@ -21,14 +21,7 @@ export default function UpdatePigModal({
 
     
     const handleSubmitUpdate = async (value) => {
-        value.room = {
-            "id": 2,
-            "code": "C02",
-            "dateOpen": "2024-05-27",
-            "dateClose": "2024-05-31",
-            "quantity": "0",
-            "accountID": "1"
-        };
+        value.cote = cote[value.coteIndex];
         value.dateIn = dateInUpdate;
         value.dateOut = dateOutUpdate;
 
@@ -71,7 +64,7 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Mã chuồng nuôi</td>
                                                 <td>
-                                                    <Field as="select" name="roomIndex">
+                                                    <Field as="select" name="coteIndex">
                                                         <option value="">Chọn một tùy chọn</option>
                                                         {cote.map((code, index) => (
                                                             <option value={index} key={code.id}>C{code.id}</option>
@@ -86,9 +79,9 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Ngày nhập chuồng</td>
                                                 <td>
-                                                    <ReactDatePicker selected={dateInUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setIn(date)} ></ReactDatePicker>
-                                                    <Field name="dateIn" type="hidden"></Field>
+                                                    {/* <ReactDatePicker selected={dateInUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setIn(date)} ></ReactDatePicker> */}
+                                                    <Field name="dateIn" type="date"></Field>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -98,9 +91,9 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Ngày xuất chuồng</td>
                                                 <td>
-                                                    <ReactDatePicker selected={dateOutUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setOut(date)}></ReactDatePicker>
-                                                    <Field name="dateOut" type="hidden"></Field>
+                                                    {/* <ReactDatePicker selected={dateOutUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setOut(date)}></ReactDatePicker> */}
+                                                    <Field name="dateOut" type="date"></Field>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -128,25 +121,6 @@ export default function UpdatePigModal({
                                         </tbody>
                                     </table>
                                 </Col>
-                                {/* <Col>
-                                    <Field name="id" type="hidden"></Field>
-                                    <Field name="code"></Field>
-                                    <br></br>
-                                    <Field name="room" value="C02"></Field>
-                                    <br></br>
-                                    <ReactDatePicker selected={dateInUpdate}
-                                                     onChange={(date) => setIn(date)}></ReactDatePicker>
-                                    <Field name="dateIn" type="hidden"></Field>
-                                    <br></br>
-                                    <ReactDatePicker selected={dateOutUpdate}
-                                                     onChange={(date) => setOut(date)}></ReactDatePicker>
-                                    <Field name="dateOut" type="hidden"></Field>
-                                    <br></br>
-                                    <Field name="status"></Field>
-                                    <br></br>
-                                    <Field name="weight"></Field>
-                                    <br></br>
-                                </Col> */}
                                 <Col sm={1}></Col>
                             </Row>
                         </Modal.Body>

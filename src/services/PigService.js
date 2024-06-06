@@ -24,7 +24,7 @@ export default class PigService{
     }
 
     static async searchPigByStatus(status){
-        const response = await axios.get("http://localhost:8080/api/pigs/statusSearch", status)
+        const response = await axios.get(`http://localhost:8080/api/pigs/statusSearch?status=${status}`)
         return response.data;
     }
     static async deletePig(id){
@@ -42,4 +42,26 @@ export default class PigService{
     //     const response = await axios.get(`http://localhost:8080/orders?_sort=money&_order=desc&_page=${page}&_limit=${limit}`);
     //     return response.data;
     // }
+
+    static async searchCoteCode(code){
+        const response = await axios.get(`http://localhost:8080/api/pigs/search?code=${code}`)
+        return response.data;
+    }
+    static async searchOpen(startDate,endDate){
+        const response = await axios.get(`http://localhost:8080/api/pigs/search/in?startDate=${startDate}&endDate=${endDate}`)
+        return response.data;
+    }
+    static async searchOpenCote(startDate,endDate,code){
+        const response = await axios.get(`http://localhost:8080/api/pigs/search/in/cote?startDate=${startDate}&endDate=${endDate}&code=${code}`)
+        return response.data;
+    }
+
+    static async searchClose(startDate,endDate){
+        const response = await axios.get(`http://localhost:8080/api/pigs/search/out?startDate=${startDate}&endDate=${endDate}`)
+        return response.data;
+    }
+    static async searchCloseCote(startDate,endDate,code){
+        const response = await axios.get(`http://localhost:8080/api/pigs/search/out/account?startDate=${startDate}&endDate=${endDate}&code=${code}`)
+        return response.data;
+    }
 }

@@ -11,6 +11,7 @@ import Master from "./layouts/Master";
 import Cote from "./pages/Cote";
 import CoteDetail from "./pages/CoteDetail";
 import Staff from "./pages/Staff";
+import Pig from "./pages/Pig";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/admin" element={<Master />}>
             <Route path={"cotes"} element={<Cote />}></Route>
+            <Route path={"pigs"} element={<Pig />}></Route>
             <Route path={"cotes/detail/:id"} element={<CoteDetail/>}></Route>
             <Route path="staff" element={<Staff />} />
           </Route>

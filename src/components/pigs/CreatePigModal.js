@@ -17,7 +17,7 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
 
     const handleSubmitCreate = async (value) => {
         value.code = newPigID;
-        value.room = cote[value.roomIndex];
+        value.cote = cote[value.coteIndex];
         value.dateIn = dateIn;
         value.dateOut = dateOut;
         PigService.createPig(value)
@@ -64,7 +64,7 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                                             <tr>
                                                 <td>Mã chuồng nuôi</td>
                                                 <td>
-                                                    <Field as="select" name="roomIndex">
+                                                    <Field as="select" name="coteIndex">
                                                         <option value="">Chọn một tùy chọn</option>
                                                         {cote.map((code, index) => (
                                                             <option value={index} key={code.id}>C{code.id}</option>
@@ -79,9 +79,9 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                                             <tr>
                                                 <td>Ngày nhập chuồng</td>
                                                 <td>
-                                                    <ReactDatePicker selected={dateIn} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setDateIn(date)}></ReactDatePicker>
-                                                    <Field name="dateIn" type="hidden"></Field>
+                                                    {/* <ReactDatePicker selected={dateIn} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setDateIn(date)}></ReactDatePicker> */}
+                                                    <Field name="dateIn" type="date"></Field>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -91,9 +91,9 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                                             <tr>
                                                 <td>Ngày xuất chuồng</td>
                                                 <td>
-                                                    <ReactDatePicker selected={dateOut} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setDateOut(date)}></ReactDatePicker>
-                                                    <Field name="dateOut" type="hidden"></Field>
+                                                    {/* <ReactDatePicker selected={dateOut} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
+                                                        onChange={(date) => setDateOut(date)}></ReactDatePicker> */}
+                                                    <Field name="dateOut" type="date"></Field>
                                                 </td>
                                             </tr>
                                             <tr>
