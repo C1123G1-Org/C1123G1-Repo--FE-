@@ -199,7 +199,7 @@ function CotesList() {
                         </Col>
                         <Col sm={2} style={{width: "120px"}}>
                             <DatePicker dateFormat="dd-MM-yyyy" selected={searchEnd} placeholderText="Ngày kết thúc"
-                                        onChange={(date) => setSearchEnd(date)}></DatePicker>
+                                        onChange={(date) => setSearchEnd(date)} style={{width: "120px"}}></DatePicker>
                         </Col>
                         <Col sm={2} style={{width: "180px", paddingLeft: "30px"}}>
                             <select className="date" value={selectSearch}
@@ -248,7 +248,8 @@ function CotesList() {
 
                                     <td>{cote.account.fullName + " (" + cote.account.code + ")"}</td>
                                     <td>{cote.dateOpen}</td>
-                                    <td>{cote.dateClose ? cote.dateClose : "Chưa cập nhật"}</td>
+                                    {/*<td>{cote.dateClose ? cote.dateClose : "Chưa cập nhật"}</td>*/}
+                                    {cote.dateClose ? (<td style = {{color: "red"}}>{cote.dateClose}</td>) : <td>Chưa cập nhật</td>}
                                     <td>{cote.quantity}</td>
                                     <td><input type="radio" className="radioGroup" value={`option` + index}
                                                checked={selectedRadio === `option` + index}
