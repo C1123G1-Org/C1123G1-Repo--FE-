@@ -2,14 +2,17 @@ import { useEffect, useState } from "react"
 import ReactModal from "react-modal"
 import { deleteList, findAll } from "../../services/exportCoteService"
 import './exportCoteComponent.css'
-import { Link } from "react-router-dom"
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { Pagination } from "react-bootstrap"
 
+import { toast } from "react-toastify";
 export default function ExportCote(){
 
     const [page, setPage] = useState(0)
     const [listID, setListId] = useState([])
-
+    const [isShow, setIsShow] = useState(false)
     const [exportCoteList, setExportCoteList] = useState({
         content: []
     })
@@ -23,6 +26,10 @@ export default function ExportCote(){
 
         })
     }, [page])
+
+
+    const handleClose = () => setIsShow(false);
+    const handleShow = () => setIsShow(true);
 
     return (
         <>
@@ -45,7 +52,13 @@ export default function ExportCote(){
                             <td className="export-table__row--col">{ele.partner}</td>
                             <td className="export-table__row--col">{ele.weight}</td>
                             <td className="export-table__row--col">{ele.amount}</td>
-                            <td className="export-table__row--col">{ele.dateExport}</td>
+                            <td className="export-table__row--col">{new Date(ele.dateExport).toLocaleString('vi-VN', { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit', 
+                                })}</td>
                             <td className="export-table__row--col">{ele.price}</td>
                             <td className="export-table__row--col">{ele.account.fullName}</td>
                             <td className="export-table__row--col">
@@ -68,7 +81,7 @@ export default function ExportCote(){
                                     setPage(page-1)
                                 }
                             }}/>
-                            <Pagination.Item>{page + 1}|{exportCoteList.totalPages}</Pagination.Item>
+                            <Pagination.Item>{page + 1}/{exportCoteList.totalPages}</Pagination.Item>
                             <Pagination.Last onClick={()=>{
                                 if(page != exportCoteList.totalPages - 1){
                                     setPage(page+1)
@@ -77,26 +90,44 @@ export default function ExportCote(){
                     </Pagination>
                 </div>
                 <div className="btn-container">
-                    <button className="btn--delete" onClick={() => {
-                        listID.map(value => {
-                            deleteList(value)
-                            .then(res => {
-                                setListId([listID.filter(val => val!=value)])
-                                findAll(page)
-                                .then(res=>{
-                                    setExportCoteList(res.data)
-                                })
-                                .catch(er => {
+                    <button className="btn--delete" onClick={handleShow}>Xoá</button>
+                </div>
 
-                                })
+                <Modal show={isShow} centered onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Xác nhận xoá</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Bạn thật sự muốn xoá chứ?</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={() => {
+                    listID.map(value => {
+                        deleteList(value)
+                        .then(res => {
+                            setListId([listID.filter(val => val!=value)])
+                            findAll(page)
+                            .then(res=>{
+                                setExportCoteList(res.data)
+                                toast.success(`Đã xoá `)
                             })
                             .catch(er => {
-
+                                toast.error("Thất bại")
                             })
                         })
-                    }}>Xoá</button>
-                </div>
+                        .catch(er => {
+                    
+                        })
+                    })
+                    handleClose()
+                }}>
+                    Đồng ý
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Huỷ
+                </Button>
+                </Modal.Footer>
+            </Modal>
             </div>
         </>
     )
 }
+
