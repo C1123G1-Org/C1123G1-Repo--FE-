@@ -70,7 +70,7 @@ function Main() {
                                 </Col>
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
-                                        <Link to={"/admin/pigs"} className={"link"}>
+                                        <Link to={"/admin/export-cote"} className={"link"}>
                                         <LocalShippingIcon className={"p5"} style={{fontSize: "200px"}}/>
                                         </Link>
                                     </div>
@@ -89,7 +89,9 @@ function Main() {
                                 </Col>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
+                                        <Link to={"/admin/export-cote"} className={"link"}>
                                         <h4>QUẢN LÝ XUẤT CHUỒNG </h4>
+                                        </Link>
                                     </div>
                                 </Col>
                                 <Col className={"text-col"}>
