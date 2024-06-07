@@ -33,6 +33,8 @@ function SignInBox() {
       Cookies.set("user", response.data.token, {
         expires: expiredTime,
       });
+      localStorage.setItem("username", response.data.username);
+      Cookies.set('role', response.data.authorities[0].authority, { expires: expiredTime });
       navigate("/admin/cotes");
     } catch (error) {
       toast.error("Đăng nhập thất bại");
