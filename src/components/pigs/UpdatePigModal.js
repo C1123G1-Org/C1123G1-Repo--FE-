@@ -64,8 +64,8 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Mã chuồng nuôi</td>
                                                 <td>
-                                                    <Field as="select" name="coteIndex">
-                                                        <option value="">Chọn một tùy chọn</option>
+                                                    <Field as="select" name="coteIndex" style={{ height: "32px", margin: "0px"}}>
+                                                        <option value="">Chọn mã chuồng</option>
                                                         {cote.map((code, index) => (
                                                             <option value={index} key={code.id}>C{code.id}</option>
                                                         ))} 

@@ -285,3 +285,7 @@
 .logo-on-header img {
   height: 80px;
 }
+
+a[aria-label^="Page"] {
+  display: none;
+}

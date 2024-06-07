@@ -26,26 +26,30 @@ export default function UpdateCoteModal({
             "id": 1,
             "code": "NV1",
             "username": "a",
-            "password": null,
+            "password": "$2a$12$WedUTeX7g1rc.5TrAXz.B.KQHtBP2OsTCinFwkrzUT5Vtky6mWaP2",
             "fullName": null,
             "email": null,
             "gender": true,
             "identityCode": "2",
             "status": false
         };
-        if (dateOpenUpdate.getFullYear()<2000 || dateOpenUpdate.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
-        if (dateCloseUpdate.getFullYear()<2000 || dateCloseUpdate.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
-        if (dateOpenUpdate > dateCloseUpdate) return toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+        const dateOpen = new Date(dateOpenUpdate);
+        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
+        if (dateCloseUpdate !== null) {
+            const dateClose = new Date(dateCloseUpdate);
+            if (dateClose.getFullYear() < 2000 || dateClose.getFullYear() > 3000) return toast.warn("Vui lòng nhập năm đóng chuồng trong khoảng 2000-3000")
+            if (dateOpen > dateClose) return toast.warn("Vui lòng nhập ngày tạo chuồng nhỏ hơn ngày đóng chuồng")
+        }
         value.dateOpen = dateOpenUpdate;
         value.dateClose = dateCloseUpdate;
-
+        console.log(value)
         CoteService.updateCote(value, id)
             .then((res) => {
                 toast.success("Chỉnh sửa thành công");
                 makeReload();
             })
             .catch((err) => {
-                toast.error("Bạn nhập trùng mã chuồng");
+                toast.error("Lỗi khi cập nhật chuồng nuôi");
             });
     };
 

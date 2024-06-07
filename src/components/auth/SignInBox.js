@@ -33,7 +33,10 @@ function SignInBox() {
       Cookies.set("user", response.data.token, {
         expires: expiredTime,
       });
-      navigate("/admin/cotes");
+      localStorage.setItem("username", response.data.username);
+
+      navigate("/admin");
+
     } catch (error) {
       toast.error("Đăng nhập thất bại");
       throw error;
@@ -75,7 +78,7 @@ function SignInBox() {
               onChange={changeHandler}
             />
             <input
-              type="text"
+              type="password"
               className="password"
               placeholder="Password"
               name="password"
