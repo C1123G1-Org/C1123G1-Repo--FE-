@@ -185,7 +185,7 @@ function DetailCote() {
                             </div>
 
                         </Col>
-                        <Col sm={3} style={{}}>
+                        <Col sm={3} style={{width: "220px"}}>
                             <select className="form-select" value={selectedCote}
                                     onChange={(event) => setSelectedCote(event.target.value)}>
                                 <option value={""} >Chọn chuồng</option>

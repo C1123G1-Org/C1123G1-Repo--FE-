@@ -11,6 +11,7 @@ import CoteService from "../../services/CoteService";
 import CreateCoteModal from "./CreateCoteModal";
 import ExportCoteModal from "./ExportCoteModal";
 import UpdateCoteModal from "./UpdateCoteModal";
+import Cookies from "js-cookie";
 
 function CotesList() {
   const [selectedRadio, setSelectedRadio] = useState("");
@@ -199,10 +200,25 @@ function CotesList() {
     setSelectedRadio(event.target.value);
     setID(id);
     const cote = await CoteService.findByID(id);
+    if (cote.dateClose === null) cote.dateClose = "";
     setForm(cote);
     setDateOpenUpdate(cote.dateOpen);
     setDateCloseUpdate(cote.dateClose);
   };
+
+  const handleClickLink = (event, date, username) => {
+    if (Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+        && localStorage.getItem("username") === username)) {
+      if (date !== null) {
+        toast.warn("Chuồng bạn chọn đã đóng. Không còn lợn để xem!");
+        event.preventDefault(); // Dừng hành động chuyển trang của thẻ <Link>
+      }
+    }else {
+      toast.error("Bạn không có quyền truy cập vào chuồng của người khác")
+      event.preventDefault();
+    }
+  };
+
   return (
     <>
       <Row id={"date"}>
@@ -314,6 +330,7 @@ function CotesList() {
                       <Link
                         to={"/admin/cotes/detail/" + cote.id}
                         style={{ textDecoration: "none" }}
+                        onClick={(event)=> handleClickLink(event,cote.dateClose,cote.account.username)}
                       >
                         {cote.code}
                       </Link>
@@ -331,6 +348,8 @@ function CotesList() {
                     )}
                     <td>{cote.quantity}</td>
                     <td>
+                      {(Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+                          && localStorage.getItem("username") === cote.account.username)) ?
                       <input
                         type="radio"
                         className="radioGroup"
@@ -340,6 +359,9 @@ function CotesList() {
                           handleRadioChange(cote.id, cote.dateClose, event)
                         }
                       ></input>
+                          :
+                          <input type={"radio"} disabled></input>
+                      }
                     </td>
                   </tr>
                 ))}
