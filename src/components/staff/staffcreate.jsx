@@ -11,6 +11,7 @@ import {
 import { toast } from "react-toastify";
 
 import * as staffService from "../../services/StaffService";
+import { Try } from "@mui/icons-material";
 
 export const StaffCreate = ({ show, closeModal }) => {
   useEffect(() => {
@@ -18,9 +19,13 @@ export const StaffCreate = ({ show, closeModal }) => {
   }, [show]);
 
   const handleCreateStaff = async (value) => {
-    const res = await staffService.getCreateStaff(value);
-    toast.success("thêm mới thành công");
-    closeModal();
+    try {
+      const res = await staffService.getCreateStaff(value);
+      toast.success("thêm mới thành công");
+      closeModal();
+    } catch (error) {
+      toast.error("thêm mới thất bại");
+    }
   };
 
   return (
@@ -96,7 +101,9 @@ export const StaffCreate = ({ show, closeModal }) => {
                   </td>
                 </tr>
               </table>
-              <button type="submit">luu</button>
+              <button type="submit" className="k-btn">
+                Lưu
+              </button>
             </Form>
           </Formik>
         </ModalBody>
@@ -106,8 +113,9 @@ export const StaffCreate = ({ show, closeModal }) => {
             onClick={() => {
               closeModal();
             }}
+            className="btn btn-danger"
           >
-            Dong
+            Đóng
           </Button>
         </ModalFooter>
       </Modal>
