@@ -7,17 +7,22 @@ import {
   ModalFooter,
   ModalHeader,
 } from "react-bootstrap";
-
+import * as Yup from "yup";
 import { toast } from "react-toastify";
 
 import * as staffService from "../../services/StaffService";
-import { Try } from "@mui/icons-material";
 
 export const StaffCreate = ({ show, closeModal }) => {
   const [errorCode, setErrorCode] = useState("");
   const [errorUsername, setErrorUsername] = useState("");
   const [errorIdenty, setErrorIdenty] = useState("");
-  const [a, setA] = useState([]);
+
+  const today = new Date();
+  const minAgeDate = new Date(
+    today.getFullYear() - 16,
+    today.getMonth(),
+    today.getDate()
+  );
 
   useEffect(() => {
     console.log(errorCode);
@@ -26,6 +31,7 @@ export const StaffCreate = ({ show, closeModal }) => {
   }, [errorCode, errorUsername, errorIdenty]);
 
   const handleCreateStaff = async (value) => {
+    console.log("ok");
     try {
       const res = await staffService.getCreateStaff(value);
       let result;
@@ -49,12 +55,32 @@ export const StaffCreate = ({ show, closeModal }) => {
           setErrorIdenty("");
         }
       } else {
-        console.log("ko co");
+        closeModal();
+        toast.success("thêm mới thành công");
       }
     } catch (error) {
       toast.error("thêm mới thất bại");
     }
   };
+
+  // const vali = {
+  //   code: Yup.string()
+  //     .required("vui lòng không để trống")
+  //     .min(3, "Nhập ít nhất 3 kí tự")
+  //     .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
+  //   identityCode: Yup.number()
+  //     .typeError("vui lòng nhập số")
+  //     .required("vui lòng không để trống"),
+  //   email: Yup.string()
+  //     .required("vui lòng không để trống")
+  //     .matches(
+  //       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+  //       "nhập đúng định dạng : **@gmail.com"
+  //     ),
+  //   date: Yup.date()
+  //     .max(minAgeDate, "Bạn chưa đủ 18 tuổi!")
+  //     .required("Ngày sinh không được bỏ trống"),
+  // };
 
   return (
     <div>
@@ -74,6 +100,20 @@ export const StaffCreate = ({ show, closeModal }) => {
                   identityCode: "",
                 }}
                 onSubmit={handleCreateStaff}
+                validationSchema={Yup.object({
+                  // code: Yup.string()
+                  //   .required("vui lòng không để trống")
+                  //   .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
+                  identityCode: Yup.number().required(
+                    "vui lòng không để trống"
+                  ),
+                  // email: Yup.string()
+                  //   .email()
+                  //   .required("vui lòng không để trống"),
+                  // date: Yup.date()
+                  //   .max(minAgeDate, "Bạn chưa đủ 18 tuổi!")
+                  //   .required("Ngày sinh không được bỏ trống"),
+                })}
               >
                 <Form>
                   <table>
