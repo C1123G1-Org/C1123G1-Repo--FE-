@@ -81,7 +81,7 @@ export default function UpdateCoteModal({
                                         </tr>
                                         <tr>
                                             <td>Mã nhân viên:</td>
-                                            <td><Field name="account" value="NV1" readOnly></Field></td>
+                                            <td><Field name="account.code"  readOnly></Field></td>
                                         </tr>
                                         <tr>
                                             <td></td>

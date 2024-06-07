@@ -13,7 +13,7 @@ import Validate from "./Validate";
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function CreateCoteModal({open, handleClose, makeReload, maxId}) {
+export default function CreateCoteModal({open, handleClose, makeReload, maxId, user}) {
 
     const [dateOpen, setDateOpen] = useState(new Date());
     const [dateClose, setDateClose] = useState(null);
@@ -73,7 +73,9 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                                     <tbody>
                                     <tr>
                                         <td>Mã nhân viên:</td>
-                                        <td><Field name="code" type="hidden"></Field><Field name="account" value="NV1" readOnly></Field></td>
+                                        {user &&
+                                        <td><Field name="code" type="hidden"></Field><Field name="account" value={user.code} readOnly></Field></td>
+                                        }
                                     </tr>
                                     <tr>
                                         <td></td>

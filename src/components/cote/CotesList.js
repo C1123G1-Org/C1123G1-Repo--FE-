@@ -33,13 +33,21 @@ function CotesList() {
   const [selectSearch, setSelectSearch] = useState("open");
   const [maxId, setMaxId] = useState(-1);
   const [dateClose, setDateClose] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // getAll().then(()=>setMaxId(cotes[0].id));
     getAll().then();
   }, [reload, pageSize, page]);
 
+  useEffect(() => {
+    getUser().then();
+  }, []);
+
+  const getUser = async ()=>{
+    const account = await CoteService.getUser(localStorage.getItem("username"))
+    setUser(account);
+  }
   const getAll = async () => {
     const coteList = await CoteService.getAll(pageSize, page);
     let max = -1;
@@ -454,6 +462,7 @@ function CotesList() {
         </Col>
       </Row>
       <CreateCoteModal
+          user={user}
         open={showCreate}
         handleClose={handleCloseCreate}
         makeReload={makeReload}
