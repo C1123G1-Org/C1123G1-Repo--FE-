@@ -9,6 +9,8 @@ import CreatePigModal from "./CreatePigModal";
 import UpdatePigModal from "./UpdatePigModal";
 import { Field,Form,  Formik } from "formik";
 import DatePicker from "react-datepicker";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function PigList() {
 
@@ -32,7 +34,8 @@ function PigList() {
     const [searchStart, setSearchStart] = useState(null);
     const [searchEnd, setSearchEnd] = useState(null);
     const [selectSearch, setSelectSearch] = useState("open");
-    const [pigsSearch, setPigsSearch] = useState([]);
+    // const [pigsSearch, setPigsSearch] = useState([]);
+    const [sort, setSort] = useState(false);
 
   
     // List Pig
@@ -50,9 +53,9 @@ function PigList() {
         }
       }
       setPigs(pigList.content);
-      if (Number(pigCodeLast.slice(1)) >= 0) {
+      if (Number(pigCodeLast.slice(1)) < 9) {
         setNewPigID("L0" + (Number(pigCodeLast.slice(1)) + 1));
-      } else if ((Number(pigCodeLast.slice(1)) >= 10)) {
+      } else if ((Number(pigCodeLast.slice(1)) >= 9)) {
         setNewPigID("L" + (Number(pigCodeLast.slice(1)) + 1));
       }
       setInfoPage(pigList);
@@ -71,16 +74,20 @@ function PigList() {
 
     // Event
     const changePageSize = (event) => {
+      setSort(false)
       setPageSize(event.target.value);
       setPage(0);
     }
     const handleNext = async () => {
-      if (page !== infoPage.totalPages - 1)
+      if (page !== infoPage.totalPages - 1) {
         setPage(page + 1)
+      }
     };
     const handlePrev = async () => {
       if (page > 0)
-        setPage(page - 1)
+        { 
+          setPage(page - 1)
+        }
     };
     const makeReload = () => {
       setReload(!reload)
@@ -153,22 +160,22 @@ function PigList() {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchOpen(convertoDate(searchStart), convertoDate(searchEnd));
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigsSearch(pigList);
+                  setPigs(pigSearchDateConvert(pigList));
               } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchClose(convertoDate(searchStart), convertoDate(searchEnd));
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigsSearch(pigList);
-              } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+                    setPigs(pigSearchDateConvert(pigList));
+                } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           }
       } else {
           if (searchStart === null && searchEnd === null) {
-              if (searchStart < searchEnd) {
+              // if (searchStart < searchEnd) {
                   const pigList = await PigService.searchCoteCode(value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigsSearch(pigList);
-              } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+                    setPigs(pigSearchDateConvert(pigList));
+                // } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else if (searchStart === null || searchEnd === null) {
               toast.info("Vui lòng nhập đủ ngày tháng")
               setSearch(false)
@@ -176,30 +183,42 @@ function PigList() {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchOpenCote(convertoDate(searchStart), convertoDate(searchEnd), value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigsSearch(pigList);
-              } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+                    setPigs(pigSearchDateConvert(pigList));
+                } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           } else {
               if (searchStart < searchEnd) {
                   const pigList = await PigService.searchCloseCote(convertoDate(searchStart), convertoDate(searchEnd), value.keyword);
                   if (pigList.length === 0) toast.info("Không tìm thấy bản ghi phù hợp")
-                  setPigsSearch(pigList);
-              } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
+                    setPigs(pigSearchDateConvert(pigList));
+                } else toast.warn("Vui lòng nhập ngày bắt đầu nhỏ hơn ngày kết thúc")
           }
       }
-      for (let i = 0; i < pigsSearch.length; i++) {
-        pigsSearch[i].dateIn = formatDate(pigsSearch[i].dateIn);
-        if (pigsSearch[i].dateOut !== null) {
-          pigsSearch[i].dateOut = formatDate(pigsSearch[i].dateOut);
+      
+      function pigSearchDateConvert(pigsSearch) {
+        for (let i = 0; i < pigsSearch.length; i++) {
+          pigsSearch[i].dateIn = formatDate(pigsSearch[i].dateIn);
+          if (pigsSearch[i].dateOut !== null) {
+            pigsSearch[i].dateOut = formatDate(pigsSearch[i].dateOut);
+          }
         }
+        return pigsSearch;
       }
-      setPigs(pigsSearch);
+      
+      // setPigs(pigsSearch);
     }
   
-    // const handleSearchAbc = async (value) => {
-    //   console.log("123");
-    //   const pigListByStatus = await PigService.searchPigByStatus(value.status);
-    //   setPigs(pigListByStatus);
-    // }
+    const handleSortPigWeightUp = async () => {
+      setSort(true)
+      const arr = await pigs.sort((a,b) => a.weight - b.weight);
+      setPigs(arr);
+      setSort(false)
+    }
+    const handleSortPigWeightDown = async () => {
+      setSort(true)
+      const arr = await pigs.sort((a,b) => b.weight - a.weight);
+      setPigs(arr);
+      setSort(false)
+    }
 
 return (
     <>
@@ -228,29 +247,9 @@ return (
           </Col>
           <Col sm={4} style={{paddingLeft: "0px"}}>
                     <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
-                        {/* <Col sm={2} style={{textAlign: "right"}}>
-                            <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
-                                        onChange={(date) => setSearchStart(date)} style={{size: '30px'}}></DatePicker>
-                        </Col>
-                        <Col sm={1} style={{width: "6px", padding: "0px", marginTop: "6px"}}>
-                            -
-                        </Col>
-                        <Col sm={2} style={{width: "120px"}}>
-                            <DatePicker dateFormat="dd-MM-yyyy" selected={searchEnd} placeholderText="Ngày kết thúc"
-                                        onChange={(date) => setSearchEnd(date)}></DatePicker>
-                        </Col>
-                        <Col sm={2} style={{width: "180px", paddingLeft: "30px"}}>
-                            <select className="date" value={selectSearch}
-                                    onChange={(event) => setSelectSearch(event.target.value)}>
-                                <option value="open">Ngày nhập chuồng</option>
-                                <option value="close">Ngày xuất chuồng</option>
-                            </select>
-                        </Col> */}
                         <Col sm={12} style={{paddingLeft: "30px"}}>
                             <Formik initialValues={{keyword: ""}} onSubmit={handleSearch}>
                                 <Form>
-                                    {/* <Field name="keyword" placeholder="Mã chuồng nuôi"
-                                           style={{width: "120px", margin: "0px"}}/>&nbsp; */}
                                            <Field as="select" name="keyword" style={{ height: "32px", margin: "0px"}}>
                                                         <option value="" >Chọn mã chuồng</option>
                                                         {cote.map((code, index) => (
@@ -277,7 +276,11 @@ return (
                   <th>Ngày nhập chuồng</th>
                   <th>Ngày xuất chuồng</th>
                   <th>Tình trạng</th>
-                  <th>Cân nặng (Kg)</th>
+                  <th>
+                   Cân nặng(Kg)
+                    <ArrowDropUpIcon onClick={handleSortPigWeightUp}></ArrowDropUpIcon>
+                    <ArrowDropDownIcon onClick={handleSortPigWeightDown}></ArrowDropDownIcon>
+                  </th>
                   <th>Chọn</th>
                 </tr>
               </thead>
@@ -289,7 +292,10 @@ return (
                     <td>{pig.cote.code}</td>
                     <td>{pig.dateIn}</td>
                     <td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>
-                    <td>{pig.status}</td>
+                    <td>
+                    {pig.status === "Khỏe mạnh" ? <td style={{color: "limegreen"}}>{pig.status}</td> :
+                                        <td style={{color: "red"}}>{pig.status}</td>}
+                    </td>
                     <td>{pig.weight}</td>
                     <td><input type="radio" className="radioGroup" value={`option` + index}
                       checked={selectedRadio === `option` + index}
@@ -300,26 +306,6 @@ return (
             </Table>
           </div>
           <br></br>
-          {/* <Row>
-            <Col></Col>
-            <Col></Col>
-            <Col></Col>
-            <Col>
-              Số lượng bản ghi:&nbsp;&nbsp;
-              <select className="my-select" value={pageSize} onChange={changePageSize}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-              </select>
-            </Col>
-            <Col>
-              <Pagination>
-                <Pagination.First onClick={handlePrev} />
-                {infoPage && <Pagination.Item>{page + 1}/{infoPage.totalPages}</Pagination.Item>}
-                <Pagination.Last onClick={handleNext} />
-              </Pagination>
-            </Col>
-          </Row> */}
           {!search &&
                         <Row>
                             <Col></Col>
@@ -345,25 +331,31 @@ return (
         </Col>
       </Row>
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={3}></Col>
-        <Col sm={2}>
-          <div>
-            <Button onClick={handleShowCreate}>Khởi tạo</Button>
-          </div>
+        <Col sm={8} lg={8}>
         </Col>
-        <Col sm={2}>
-          <div>
-            <Button onClick={handleShowUpdate} variant="warning">Chỉnh sửa</Button>
-          </div>
+        <Col sm={2} lg={4}>
+          <Row>
+            <Col sm={12} lg={3}>
+              <div style={{ justifyContent:'center', display:'flex', alignItems:'center'}}> 
+                <Button onClick={handleShowCreate}>Khởi tạo</Button>
+              </div>
+            </Col>
+            <Col sm={12} lg={6}>
+              <div style={{ justifyContent:'center', display:'flex', alignItems:'center'}}> 
+                <Button  onClick={handleShowUpdate} variant="warning">Chỉnh sửa</Button>
+              </div>
+            </Col>
+            <Col sm={12} lg={3}>
+              <div style={{ justifyContent:'center', display:'flex', alignItems:'center'}}> 
+                <Button onClick={() => handleDelete()} variant='danger'>
+                      Xóa
+                  </Button>
+              </div>
+            </Col>
+          </Row>
         </Col>
-        <Col sm={2}>
-          <div>
-              <Button onClick={() => handleDelete()} variant='danger'>
-                  Xóa
-              </Button>
-          </div>
-        </Col>
-        <Col sm={3}></Col>
+        
+        {/* <Col sm={3}></Col> */}
       </Row>
       <CreatePigModal cote={cote} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
       <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}

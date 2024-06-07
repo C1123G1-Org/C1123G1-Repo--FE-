@@ -34,7 +34,7 @@ function SignInBox() {
         expires: expiredTime,
       });
       localStorage.setItem("username", response.data.username);
-      navigate("/admin/cotes");
+      navigate("/admin");
     } catch (error) {
       toast.error("Đăng nhập thất bại");
       throw error;
