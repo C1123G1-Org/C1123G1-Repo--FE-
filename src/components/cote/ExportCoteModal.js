@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import Validate from "./Validate";
 
 
-export default function ExportCoteModal({open, handleClose, makeReload, form}) {
+export default function ExportCoteModal({open, handleClose, makeReload, form, userExport}) {
 
     // const [dateTimeExport, setDateTimeExport] = useState(new Date());
 
@@ -53,7 +53,7 @@ export default function ExportCoteModal({open, handleClose, makeReload, form}) {
                                         </tr>
                                         <tr>
                                             <td>Nhân viên:</td>
-                                            <td><Field name="account_id" value="NV1" readOnly></Field></td>
+                                            <td><Field name="account_id" value={userExport.code} readOnly></Field></td>
                                         </tr>
                                         <tr>
                                             <td>Đơn vị:</td>

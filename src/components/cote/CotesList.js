@@ -18,6 +18,7 @@ function CotesList() {
   const [dateOpenUpdate, setDateOpenUpdate] = useState(null);
   const [dateCloseUpdate, setDateCloseUpdate] = useState(null);
   const [form, setForm] = useState({});
+  const [userByForm, setUserByForm] = useState({});
   const [cotes, setCotes] = useState([]);
   const [reload, setReload] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
@@ -164,11 +165,19 @@ function CotesList() {
     setID(-1);
     setReload(!reload);
   };
-  const handleShowExport = () => {
+  const handleShowExport = async () => {
     if (id === -1) {
       toast.warn("Bạn chưa chọn chuồng để xuất");
     } else if (dateClose !== null) toast.warn("Chuồng bạn chọn đã xuất hết!");
-    else setShowExport(true);
+    else {
+      const pigList = await CoteService.findPigsByCote(id);
+      let pigIll = 0;
+      for (let i = 0; i < pigList.length; i++) {
+        if (pigList[i].status !== "Khỏe mạnh") pigIll++;
+      }
+      if (pigIll !== 0) toast.warn(`Chuồng bạn chọn có ${pigIll} con lợn bị bệnh. Vui lòng chuyển lợn bệnh sang chuồng khác trước khi xuất chuồng!`);
+      else setShowExport(true);
+    }
   };
   const handleCloseExport = () => {
     setShowExport(false);
@@ -210,6 +219,7 @@ function CotesList() {
     const cote = await CoteService.findByID(id);
     if (cote.dateClose === null) cote.dateClose = "";
     setForm(cote);
+    setUserByForm(cote.account)
     setDateOpenUpdate(cote.dateOpen);
     setDateCloseUpdate(cote.dateClose);
   };
@@ -484,6 +494,7 @@ function CotesList() {
         handleClose={handleCloseExport}
         makeReload={makeReload}
         form={form}
+        userExport={userByForm}
       />
     </>
   );

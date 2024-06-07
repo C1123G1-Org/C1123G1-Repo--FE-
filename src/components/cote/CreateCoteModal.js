@@ -19,17 +19,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId, u
     const [dateClose, setDateClose] = useState(null);
 
     const handleSubmitCreate = async (value) => {
-        value.account = {
-            "id": 1,
-            "code": "NV1",
-            "username": "a",
-            "password": null,
-            "fullName": null,
-            "email": null,
-            "gender": true,
-            "identityCode": "2",
-            "status": false
-        };
+        value.account_id = user.id;
         value.code = "C"+(maxId+1)
         if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
@@ -74,7 +64,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId, u
                                     <tr>
                                         <td>Mã nhân viên:</td>
                                         {user &&
-                                        <td><Field name="code" type="hidden"></Field><Field name="account" value={user.code} readOnly></Field></td>
+                                        <td><Field name="code" type="hidden"></Field><Field name="account_id" value={user.code} readOnly></Field></td>
                                         }
                                     </tr>
                                     <tr>
