@@ -80,7 +80,7 @@ export const StaffCreate = ({ show, closeModal }) => {
                     <tr>
                       <td>Mã nhân viên: </td>
                       <td>
-                        <Field type="text" name="code"></Field>
+                        <Field type="text" name="code" required></Field>
                       </td>
                     </tr>
                     <tr>
@@ -94,13 +94,13 @@ export const StaffCreate = ({ show, closeModal }) => {
                     <tr>
                       <td> họ và tên: </td>
                       <td>
-                        <Field type="text" name="fullName"></Field>
+                        <Field type="text" name="fullName" required></Field>
                       </td>
                     </tr>
                     <tr>
                       <td> tên tài khoản: </td>
                       <td>
-                        <Field type="text" name="username"></Field>
+                        <Field type="text" name="username" required></Field>
                       </td>
                     </tr>
                     <tr>
@@ -114,13 +114,13 @@ export const StaffCreate = ({ show, closeModal }) => {
                     <tr>
                       <td> mật khẩu: </td>
                       <td>
-                        <Field type="text" name="password"></Field>
+                        <Field type="text" name="password" required></Field>
                       </td>
                     </tr>
                     <tr>
                       <td> email: </td>
                       <td>
-                        <Field type="text" name="email"></Field>
+                        <Field type="text" name="email" required></Field>
                       </td>
                     </tr>
                     <tr>
@@ -144,7 +144,11 @@ export const StaffCreate = ({ show, closeModal }) => {
                     <tr>
                       <td> cmnd </td>
                       <td>
-                        <Field type="number" name="identityCode"></Field>
+                        <Field
+                          type="number"
+                          name="identityCode"
+                          required
+                        ></Field>
                       </td>
                     </tr>
                     <tr>
