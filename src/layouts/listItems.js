@@ -60,12 +60,14 @@ export const secondaryListItems = (
             <ListItemText primary="Quản lý chuồng nuôi"/>
         </ListItemButton>
         </Link>
+        <Link to={"/admin/export-cote"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <LocalShippingIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý xuất chuồng" />
         </ListItemButton>
+        </Link>
     </React.Fragment>
 );
 export const thirdListItems = (

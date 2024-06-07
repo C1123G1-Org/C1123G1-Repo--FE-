@@ -1,7 +1,13 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import "react-datepicker/dist/react-datepicker.css";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import ExportCote from "./components/exportCote/exportCoteComponent";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+import "react-datepicker/dist/react-datepicker.css";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -16,11 +22,13 @@ import Pig from "./pages/Pig";
 import Main from "./layouts/Main";
 import "./assets/css/Main.css"
 
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+
           <Route path="/admin" element={<Master />}>
             <Route path={"cotes"} element={<Cote />}></Route>
             <Route path={"pigs"} element={<Pig />}></Route>
@@ -28,6 +36,7 @@ function App() {
 
             <Route path="staff" element={<Staff />} />
             <Route path="" element={<Main />} />
+            <Route path="export-cote" element={<ExportCote/>}/>
           </Route>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/post-detail/:postId" element={<PostDetail />} />
@@ -37,6 +46,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer />
+
     </>
   );
 }
