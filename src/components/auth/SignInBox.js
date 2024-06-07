@@ -77,7 +77,7 @@ function SignInBox() {
               onChange={changeHandler}
             />
             <input
-              type="text"
+              type="password"
               className="password"
               placeholder="Password"
               name="password"
