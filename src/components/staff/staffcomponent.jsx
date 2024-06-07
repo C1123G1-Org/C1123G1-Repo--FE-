@@ -84,22 +84,7 @@ export const StaffComponent = () => {
         />
         <button onClick={(e) => onHandLeSearch(e)}>Tìm Kiếm</button>
       </form>
-      {/* <Formik
-      onSubmit={onHandLeSearch()}>
-        <Form>
-          <Field
-            
-            name="keyword"
-            placeholder="tên nhân viên"
-            style={{ width: "200px", margin: "10px" }}
-            type="text"
-          />
-          &nbsp;
-          <button variant="info" type="submit" style={{ marginLeft: "30px" }}>
-            Tìm kiếm
-          </button>
-        </Form>
-      </Formik> */}
+
       <Row>
         <Col>
           <div className="table-container">

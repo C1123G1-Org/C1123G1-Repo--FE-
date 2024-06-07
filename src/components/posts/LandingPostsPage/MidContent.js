@@ -93,22 +93,22 @@ function MidContent() {
 
         <div className="d-flex justify-content-center">
           <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next"
+            // breakLabel="..."
+            nextLabel="»"
+            previousLabel="«"
             onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
+            // pageRangeDisplayed={2}
             pageCount={pageCount}
-            previousLabel="Previous"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
+            // pageClassName="page-item"
+            // pageLinkClassName="page-link"
             previousClassName="page-item"
             previousLinkClassName="page-link"
             nextClassName="page-item"
             nextLinkClassName="page-link"
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
+            // breakClassName="page-item"
+            // breakLinkClassName="page-link"
             containerClassName="pagination"
-            activeClassName="active"
+            // activeClassName="active"
           />
         </div>
       </div>
