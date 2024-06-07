@@ -31,7 +31,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
             "status": false
         };
         value.code = "C"+(maxId+1)
-        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm trong khoảng 2000-3000")
+        if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
         CoteService.createCote(value)
@@ -43,7 +43,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                 handleCloseModalCreate()
             })
             .catch((err) => {
-                toast.error("Bạn nhập trùng mã chuồng");
+                toast.error("Lỗi khi thêm mới");
             });
     };
 

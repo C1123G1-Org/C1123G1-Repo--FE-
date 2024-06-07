@@ -112,7 +112,9 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
                     </td>
                   </tr>
                 </table>
-                <button type="submit">sửa</button>
+                <button type="submit" className="k-btn">
+                  sửa
+                </button>
               </Form>
             </Formik>
           </ModalBody>
@@ -122,8 +124,9 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
               onClick={() => {
                 closeModal();
               }}
+              className="btn btn-danger"
             >
-              Dong
+              Đóng
             </Button>
           </ModalFooter>
         </Modal>

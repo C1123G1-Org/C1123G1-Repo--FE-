@@ -2,5 +2,38 @@
   /* top: 187px; */
 }
 .vivi {
-  top: 180px;
+  top: 50px;
+}
+.k-btn {
+  position: absolute;
+  bottom: -54px;
+  right: 92px;
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  color: white;
+  border-radius: 6px;
+  padding: 5px 15px;
+  font-size: 17px;
+}
+.k-btn:hover {
+  background-color: #0c5eda;
+}
+
+.vi2 table {
+  width: 100%;
+}
+.vi2 input {
+  width: 100%;
+}
+.vi2 select {
+  width: 50%;
+  padding: 7px 0px;
+}
+.vivi .modal-content {
+  width: 130%;
+}
+.vivi span {
+  color: red;
+}
+.vivi td {
 }

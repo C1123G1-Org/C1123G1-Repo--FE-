@@ -7,8 +7,9 @@ import { Button, Table } from "react-bootstrap";
 import { Field, Formik, Form } from "formik";
 import { StaffCreate } from "./staffcreate";
 import { StaffUpdate } from "./staffupdate";
-import * as staffService from "../../services/StaffService";
 import { StaffDelete } from "./staffdelete";
+import ReactPaginate from "react-paginate";
+import { Input } from "@mui/material";
 
 export const StaffComponent = () => {
   const [staff, setStaff] = useState();
@@ -16,23 +17,32 @@ export const StaffComponent = () => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [id, setId] = useState(-1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState("");
 
   const getAll = () => {
-    getAllStaff().then((res) => {
-      setStaff(res);
+    getAllStaff(0, search).then((res) => {
+      setStaff(res.content);
+      setTotalPages(res.totalPages);
     });
   };
+
+  useEffect(() => {
+    getAll();
+  }, [show, showUpdate, showDelete]);
+  // useEffect(() => {
+  //   getAll();
+  //   console.log("a");
+  // }, []);
 
   const handleRadioChange = (id) => {
     setId(id);
   };
-  useEffect(() => {
-    getAll();
-  }, [show, showUpdate, showDelete]);
 
-  if (!staff) {
-    return <div>loangding...</div>;
-  }
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   const closeModal = () => {
     setShow(false);
@@ -40,8 +50,41 @@ export const StaffComponent = () => {
     setShowDelete(false);
   };
 
+  const onHandLeSearch = (e) => {
+    e.preventDefault();
+    console.log(search);
+    getAllStaff(0, search).then((res) => {
+      setStaff(res.content);
+      setTotalPages(res.totalPages);
+    });
+  };
+
+  const handlePageClick = (e) => {
+    const pageNumber = e.selected;
+    setCurrentPage(pageNumber);
+    console.log(pageNumber);
+    getAllStaff(pageNumber, search).then((res) => {
+      setStaff(res.content);
+      setTotalPages(res.totalPages);
+    });
+  };
+
+  if (!staff) {
+    return <div>loangding...</div>;
+  }
+
   return (
     <>
+      <form action="">
+        <input
+          placeholder="tên nhân viên"
+          style={{ width: "200px", margin: "10px" }}
+          type="text"
+          onChange={onSearch}
+        />
+        <button onClick={(e) => onHandLeSearch(e)}>Tìm Kiếm</button>
+      </form>
+
       <Row>
         <Col>
           <div className="table-container">
@@ -57,11 +100,8 @@ export const StaffComponent = () => {
                   <th>No.</th>
                   <th>Mã Nhân Viên</th>
                   <th>Tên</th>
-
                   <th>Họ và Tên</th>
-
                   <th>Giới Tính</th>
-
                   <th>Ngày Sinh </th>
                   <th>Chọn</th>
                 </tr>
@@ -97,6 +137,30 @@ export const StaffComponent = () => {
           <br></br>
         </Col>
       </Row>
+      {totalPages > 1 && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <ReactPaginate
+            forcePage={currentPage}
+            breakLabel="..."
+            nextLabel="Trang Sau"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={2}
+            pageCount={totalPages}
+            previousLabel="Trang Trước"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination"
+            activeClassName="active"
+          />
+        </div>
+      )}
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
         <Col sm={7}></Col>
         <Col sm={2} style={{ paddingLeft: "120px", width: "230px" }}>
@@ -125,7 +189,7 @@ export const StaffComponent = () => {
         <Col sm={1} style={{ paddingLeft: "5px" }}>
           <div>
             <Button
-              variant="success"
+              variant="danger"
               onClick={() => {
                 setShowDelete(true);
               }}

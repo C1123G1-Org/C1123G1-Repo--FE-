@@ -14,6 +14,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const mainListItems = (
     <React.Fragment>
@@ -52,19 +53,21 @@ export const secondaryListItems = (
         </ListItemButton>
         </Link>
         <Link to={"/admin/cotes"} style={{textDecoration: "none", color: "black"}}>
-        <ListItemButton>
+        <ListItemButton >
             <ListItemIcon>
                 <HouseSidingIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý chuồng nuôi"/>
         </ListItemButton>
         </Link>
+        <Link to={"/admin/export-cote"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <LocalShippingIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý xuất chuồng" />
         </ListItemButton>
+        </Link>
     </React.Fragment>
 );
 export const thirdListItems = (
