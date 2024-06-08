@@ -8,7 +8,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SavingsIcon from '@mui/icons-material/Savings';
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+// import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import {Link} from "react-router-dom";

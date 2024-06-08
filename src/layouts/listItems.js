@@ -14,7 +14,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 export const mainListItems = (
     <React.Fragment>
