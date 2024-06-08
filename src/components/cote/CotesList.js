@@ -422,10 +422,10 @@ function CotesList() {
         </Col>
       </Row>
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={4}></Col>
+        <Col sm={5}></Col>
         <Col
           sm={2}
-          style={{ paddingLeft: "120px", width: "230px", marginLeft: "82px" }}
+          style={{ paddingLeft: "120px", width: "230px", marginLeft: "22px" }}
         >
           <div>
             <Button onClick={handleShowCreate}>Khởi tạo</Button>
@@ -459,7 +459,7 @@ function CotesList() {
         </Col>
         <Col
           sm={2}
-          style={{ paddingLeft: "" }}
+          style={{ width: "140px", }}
         >
           <div>
             <Button
