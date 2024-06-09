@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {useContext, useEffect, useState} from "react"
 import ReactModal from "react-modal"
 import { deleteList, findAll } from "../../services/exportCoteService"
 import './exportCoteComponent.css'
@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Pagination } from "react-bootstrap"
 
 import { toast } from "react-toastify";
+import {AppContext} from "../../layouts/AppContext";
 export default function ExportCote(){
 
     const [page, setPage] = useState(0)
@@ -16,6 +17,14 @@ export default function ExportCote(){
     const [exportCoteList, setExportCoteList] = useState({
         content: []
     })
+    // sáng nút
+    const {setNut6 } = useContext(AppContext);
+
+    // Sáng nút
+    useEffect(() => {
+        setNut6(true)
+        return () => setNut6(false)
+    }, []);
 
     useEffect(() => {
         findAll(page)

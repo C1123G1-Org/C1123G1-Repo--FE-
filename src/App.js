@@ -22,14 +22,15 @@ import Pig from "./pages/Pig";
 import Main from "./layouts/Main";
 import "./assets/css/Main.css"
 import Post from "./pages/Post";
+import {AppContextProvider} from "./layouts/AppContext";
 
 
 function App() {
   return (
     <>
+    <AppContextProvider>
       <BrowserRouter>
         <Routes>
-
           <Route path="/admin" element={<Master />}>
             <Route path="cotes" element={<Cote />}></Route>
             <Route path="pigs" element={<Pig />}></Route>
@@ -46,6 +47,7 @@ function App() {
           {/* <Route path="*" element={<div> Not Found or You do not have permission.</div>} /> */}
         </Routes>
       </BrowserRouter>
+    </AppContextProvider>
       <ToastContainer />
 
     </>

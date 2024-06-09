@@ -14,11 +14,12 @@ import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {fourthListItems, mainListItems, secondaryListItems, thirdListItems} from './listItems';
+// import {fourthListItems, mainListItems, secondaryListItems, thirdListItems} from './listItems';
 import {Link, Outlet} from "react-router-dom";
 import Copyright from "./Copyright/Copyright";
 // import myImage from "../../public/logo.PNG"
 import myImage from "../assets/image/logo2.PNG"
+import ListItems2 from "./listItems2";
 
 const drawerWidth = 240;
 
@@ -131,13 +132,14 @@ export default function Master() {
                     </Toolbar>
                     <Divider/>
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {thirdListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {fourthListItems}
+                        {/*{mainListItems}*/}
+                        {/*<Divider sx={{ my: 1 }} />*/}
+                        {/*{secondaryListItems}*/}
+                        {/*<Divider sx={{ my: 1 }} />*/}
+                        {/*{thirdListItems}*/}
+                        {/*<Divider sx={{ my: 1 }} />*/}
+                        {/*{fourthListItems}*/}
+                        <ListItems2></ListItems2>
                     </List>
                 </Drawer>
                 <Box

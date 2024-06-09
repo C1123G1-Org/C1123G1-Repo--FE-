@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { Button, Pagination, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -12,6 +12,7 @@ import CreateCoteModal from "./CreateCoteModal";
 import ExportCoteModal from "./ExportCoteModal";
 import UpdateCoteModal from "./UpdateCoteModal";
 import Cookies from "js-cookie";
+import {AppContext} from "../../layouts/AppContext";
 
 function CotesList() {
   const [selectedRadio, setSelectedRadio] = useState("");
@@ -36,6 +37,14 @@ function CotesList() {
   const [dateClose, setDateClose] = useState(null);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  // sáng nút
+  const {setNut5 } = useContext(AppContext);
+
+  // Sáng nút
+  useEffect(() => {
+    setNut5(true)
+    return () => setNut5(false)
+  }, []);
 
   useEffect(() => {
     getAll().then();

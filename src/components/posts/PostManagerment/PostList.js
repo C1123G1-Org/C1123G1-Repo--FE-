@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Button, Pagination, Table} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -8,6 +8,7 @@ import {getPostWithPageAndStatus, getPostById} from "../../../services/PostsServ
 import DeletePostModal from "./DeletePostModal";
 import CreatePostModal from "./CreatePostModal";
 import UpdatePostModal from "./UpdatePostModal";
+import {AppContext} from "../../../layouts/AppContext";
 // import Cookies from "js-cookie";
 
 function CotesList() {
@@ -23,15 +24,23 @@ function CotesList() {
     const [showDelete, setShowDelete] = useState(false);
     const [postToUpdate, setPostToUpdate] = useState({});
     // const [userByForm, setUserByForm] = useState({});
+    //Sáng nút
+    const {setNut1 } = useContext(AppContext);
 
     useEffect(() => {
         getAllPosts().then();
     }, [reload, page, status]);
 
+    //Sáng nút
+    useEffect(() => {
+        setNut1(true)
+        return () => setNut1(false)
+    }, []);
+
     const getAllPosts = async () => {
         const posts = await getPostWithPageAndStatus(page,status);
         for (let i = 0; i < posts.content.length; i++) {
-            console.log(posts.content[i].postDate)
+            // console.log(posts.content[i].postDate)
             posts.content[i].postDate = formatDate(posts.content[i].postDate);
         }
         setPosts(posts.content);
