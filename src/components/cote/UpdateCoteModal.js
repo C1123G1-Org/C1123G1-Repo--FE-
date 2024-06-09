@@ -53,7 +53,7 @@ export default function UpdateCoteModal({
                 </Modal.Header>
 
                 <Formik initialValues={form} onSubmit={handleSubmitUpdate} validationSchema={Yup.object(Validate.validateCote())}>
-                    <Form>
+                    <Form className={"form-cote"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>

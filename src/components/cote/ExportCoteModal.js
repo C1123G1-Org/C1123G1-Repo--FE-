@@ -40,7 +40,7 @@ export default function ExportCoteModal({open, handleClose, makeReload, form, us
                 </Modal.Header>
                 <Formik initialValues={{partner: "", weight: "", price: ""}} onSubmit={handleSubmitExport}
                         validationSchema={Yup.object(Validate.validateExportCote())}>
-                    <Form>
+                    <Form className={"form-cote"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>

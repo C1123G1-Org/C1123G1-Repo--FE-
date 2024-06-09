@@ -23,7 +23,7 @@ function Main() {
                             <Row className={"picture"} >
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
-                                        <Link to={"/admin/staff"} className={"link"}>
+                                        <Link to={"/admin/posts-mgt"} className={"link"}>
                                         <SettingsIcon className={"p1"} style={{fontSize: "180px"}}/>
                                         </Link>
                                     </div>
@@ -44,7 +44,7 @@ function Main() {
                             <Row className={"text"}>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
-                                        <Link to={"/admin/staff"} className={"link"}>
+                                        <Link to={"/admin/posts-mgt"} className={"link"}>
                                         <h4>QUẢN LÝ HỆ THỐNG</h4>
                                         </Link>
                                     </div>

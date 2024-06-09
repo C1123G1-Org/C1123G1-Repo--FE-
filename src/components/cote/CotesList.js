@@ -391,11 +391,20 @@ function CotesList() {
             <Row>
               <Col></Col>
               <Col></Col>
+              <Col>
+                <Pagination style={{ paddingLeft: "40px"}}>
+                  <Pagination.First onClick={handlePrev} />
+                  {infoPage && (
+                      <Pagination.Item>
+                        {page + 1}/{infoPage.totalPages}
+                      </Pagination.Item>
+                  )}
+                  <Pagination.Last onClick={handleNext} />
+                </Pagination>
+              </Col>
               <Col></Col>
               <Col style={{ whiteSpace: "nowrap" }}>
-                {/*<label >*/}
                 Số lượng bản ghi:&nbsp;&nbsp;
-                {/*</label>*/}
                 <select
                   className="my-select"
                   value={pageSize}
@@ -405,17 +414,6 @@ function CotesList() {
                   <option value="10">10</option>
                   <option value="15">15</option>
                 </select>
-              </Col>
-              <Col>
-                <Pagination>
-                  <Pagination.First onClick={handlePrev} />
-                  {infoPage && (
-                    <Pagination.Item>
-                      {page + 1}/{infoPage.totalPages}
-                    </Pagination.Item>
-                  )}
-                  <Pagination.Last onClick={handleNext} />
-                </Pagination>
               </Col>
             </Row>
           )}

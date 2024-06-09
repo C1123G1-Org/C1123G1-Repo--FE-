@@ -21,6 +21,7 @@ import Staff from "./pages/Staff";
 import Pig from "./pages/Pig";
 import Main from "./layouts/Main";
 import "./assets/css/Main.css"
+import Post from "./pages/Post";
 
 
 function App() {
@@ -30,10 +31,10 @@ function App() {
         <Routes>
 
           <Route path="/admin" element={<Master />}>
-            <Route path={"cotes"} element={<Cote />}></Route>
-            <Route path={"pigs"} element={<Pig />}></Route>
-            <Route path={"cotes/detail/:id"} element={<CoteDetail/>}></Route>
-
+            <Route path="cotes" element={<Cote />}></Route>
+            <Route path="pigs" element={<Pig />}></Route>
+            <Route path="cotes/detail/:id" element={<CoteDetail/>}></Route>
+            <Route path="posts-mgt" element={<Post />} />
             <Route path="staff" element={<Staff />} />
             <Route path="" element={<Main />} />
             <Route path="export-cote" element={<ExportCote/>}/>

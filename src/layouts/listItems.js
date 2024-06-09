@@ -21,12 +21,14 @@ export const mainListItems = (
         <ListSubheader component="div" inset>
             Quản lý hệ thống
         </ListSubheader>
+        <Link to={"/admin/posts-mgt"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <NewspaperIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý tin tức" />
         </ListItemButton>
+        </Link>
         <Link to={"/admin/staff"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>

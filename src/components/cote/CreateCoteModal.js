@@ -24,17 +24,18 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId, u
         if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
-        CoteService.createCote(value)
-            .then((res) => {
-                toast.success("Thêm mới thành công");
-                setDateOpen(new Date());
-                setDateClose(null);
-                makeReload();
-                handleCloseModalCreate()
-            })
-            .catch((err) => {
-                toast.error("Lỗi khi thêm mới");
-            });
+        console.log(value)
+        // CoteService.createCote(value)
+        //     .then((res) => {
+        //         toast.success("Thêm mới thành công");
+        //         setDateOpen(new Date());
+        //         setDateClose(null);
+        //         makeReload();
+        //         handleCloseModalCreate()
+        //     })
+        //     .catch((err) => {
+        //         toast.error("Lỗi khi thêm mới");
+        //     });
     };
 
     const handleCloseModalCreate = () => {
@@ -49,7 +50,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId, u
                     <Modal.Title style={{color: "white"}}>Khởi tạo chuồng nuôi</Modal.Title>
                 </Modal.Header>
                 <Formik initialValues={{quantity: 0}} onSubmit={handleSubmitCreate} validationSchema={Yup.object(Validate.validateCote())}>
-                    <Form>
+                    <Form className={"form-cote"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>
