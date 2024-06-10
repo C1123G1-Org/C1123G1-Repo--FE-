@@ -34,7 +34,7 @@ function SignInBox() {
         expires: expiredTime,
       });
       localStorage.setItem("username", response.data.username);
-
+      Cookies.set("role", response.data.authorities[0].authority , {expires: expiredTime});
       navigate("/admin");
 
     } catch (error) {
@@ -78,7 +78,7 @@ function SignInBox() {
               onChange={changeHandler}
             />
             <input
-              type="text"
+              type="password"
               className="password"
               placeholder="Password"
               name="password"

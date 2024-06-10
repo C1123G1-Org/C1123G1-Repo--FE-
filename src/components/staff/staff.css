@@ -2,7 +2,7 @@
   /* top: 187px; */
 }
 .vivi {
-  top: 180px;
+  top: 50px;
 }
 .k-btn {
   position: absolute;
@@ -17,4 +17,23 @@
 }
 .k-btn:hover {
   background-color: #0c5eda;
+}
+
+.vi2 table {
+  width: 100%;
+}
+.vi2 input {
+  width: 100%;
+}
+.vi2 select {
+  width: 50%;
+  padding: 7px 0px;
+}
+.vivi .modal-content {
+  width: 130%;
+}
+.vivi span {
+  color: red;
+}
+.vivi td {
 }
