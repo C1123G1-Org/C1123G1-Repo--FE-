@@ -111,7 +111,6 @@ export default function ExportCote(){
                 <Button variant="secondary" onClick={() => {         
                         deleteList({idList:listID})
                         .then(res => {
-                            console.log('ads');
                             setListId([])
                             findAll(page)
                             .then(res=>{
