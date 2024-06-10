@@ -53,13 +53,16 @@ export const StaffDelete = ({ closeModal, id, showDelete }) => {
           </Formik>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleDelete}>xóa</Button>{" "}
+          <Button onClick={handleDelete} variant="warning">
+            xóa
+          </Button>{" "}
           <Button
             onClick={() => {
               closeModal();
             }}
+            className="btn btn-closeeee"
           >
-            Dong
+            Hủy bỏ
           </Button>
         </ModalFooter>
       </Modal>

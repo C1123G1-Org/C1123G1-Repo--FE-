@@ -75,16 +75,33 @@ export const StaffComponent = () => {
 
   return (
     <>
-      <form action="">
-        <input
-          placeholder="tên nhân viên"
-          style={{ width: "200px", margin: "10px" }}
-          type="text"
-          onChange={onSearch}
-        />
-        <button onClick={(e) => onHandLeSearch(e)}>Tìm Kiếm</button>
-      </form>
-
+      <div className="d-flex">
+        <div className="col-4"></div>
+        <div className="col-4"></div>
+        <div className="col-4">
+          <form action="">
+            <input
+              placeholder="Tên nhân viên"
+              style={{
+                width: "200px",
+                marginLeft: "",
+              }}
+              type="text"
+              onChange={onSearch}
+            />
+            <button
+              className="btn btn-secondary"
+              style={{
+                marginLeft: "",
+                color: "white",
+              }}
+              onClick={(e) => onHandLeSearch(e)}
+            >
+              Tìm Kiếm
+            </button>
+          </form>
+        </div>
+      </div>
       <Row>
         <Col>
           <div className="table-container">
@@ -99,7 +116,7 @@ export const StaffComponent = () => {
                 <tr>
                   <th>No.</th>
                   <th>Mã Nhân Viên</th>
-                  <th>Tên</th>
+                  <th>Tên Tài Khoản</th>
                   <th>Họ và Tên</th>
                   <th>Giới Tính</th>
                   <th>Ngày Sinh </th>
@@ -142,12 +159,12 @@ export const StaffComponent = () => {
           <ReactPaginate
             forcePage={currentPage}
             breakLabel="..."
-            nextLabel="Trang Sau"
+            nextLabel=">>"
             onPageChange={handlePageClick}
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
             pageCount={totalPages}
-            previousLabel="Trang Trước"
+            previousLabel="<<"
             pageClassName="page-item"
             pageLinkClassName="page-link"
             previousClassName="page-item"
