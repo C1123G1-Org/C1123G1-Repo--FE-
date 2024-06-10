@@ -118,13 +118,13 @@ export default class PigService{
     // }
 
     static async searchCoteCode(code){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search?code=${code}`, 
+        const response = await axios.get(`http://localhost:8080/api/pigs/search?code=${code}`,
             {
                 headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${Cookies.get("user")}`,
                 },
-              }
+            }
         )
         return response.data;
     }
