@@ -114,16 +114,16 @@ export default function ExportCote(){
                             setListId([])
                             findAll(page)
                             .then(res=>{
-                                setExportCoteList(res.data)
-                                toast.success(`Đã xoá `)
+                                setExportCoteList(res.data)    
                             })
                             .catch(er => {
-                                toast.error("Thất bại")
+                                toast.error("Lấy dữ liệu mới thất bại")
                             })
+                            toast.success(`Xoá thành công`)
                         })
                         .catch(er => {
                             console.log(er);
-                            alert("Lỗi xoá")
+                            toast.error('Xoá thất bại')
                         })
                     
                     handleClose()
