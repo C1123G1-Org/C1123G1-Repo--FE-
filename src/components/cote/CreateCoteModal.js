@@ -13,38 +13,29 @@ import Validate from "./Validate";
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function CreateCoteModal({open, handleClose, makeReload, maxId}) {
+export default function CreateCoteModal({open, handleClose, makeReload, maxId, user}) {
 
     const [dateOpen, setDateOpen] = useState(new Date());
     const [dateClose, setDateClose] = useState(null);
 
     const handleSubmitCreate = async (value) => {
-        value.account = {
-            "id": 1,
-            "code": "NV1",
-            "username": "a",
-            "password": null,
-            "fullName": null,
-            "email": null,
-            "gender": true,
-            "identityCode": "2",
-            "status": false
-        };
+        value.account_id = user.id;
         value.code = "C"+(maxId+1)
         if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
-        CoteService.createCote(value)
-            .then((res) => {
-                toast.success("Thêm mới thành công");
-                setDateOpen(new Date());
-                setDateClose(null);
-                makeReload();
-                handleCloseModalCreate()
-            })
-            .catch((err) => {
-                toast.error("Lỗi khi thêm mới");
-            });
+        console.log(value)
+        // CoteService.createCote(value)
+        //     .then((res) => {
+        //         toast.success("Thêm mới thành công");
+        //         setDateOpen(new Date());
+        //         setDateClose(null);
+        //         makeReload();
+        //         handleCloseModalCreate()
+        //     })
+        //     .catch((err) => {
+        //         toast.error("Lỗi khi thêm mới");
+        //     });
     };
 
     const handleCloseModalCreate = () => {
@@ -59,7 +50,7 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                     <Modal.Title style={{color: "white"}}>Khởi tạo chuồng nuôi</Modal.Title>
                 </Modal.Header>
                 <Formik initialValues={{quantity: 0}} onSubmit={handleSubmitCreate} validationSchema={Yup.object(Validate.validateCote())}>
-                    <Form>
+                    <Form className={"form-cote"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>
@@ -73,7 +64,9 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId}) 
                                     <tbody>
                                     <tr>
                                         <td>Mã nhân viên:</td>
-                                        <td><Field name="code" type="hidden"></Field><Field name="account" value="NV1" readOnly></Field></td>
+                                        {user &&
+                                        <td><Field name="code" type="hidden"></Field><Field name="account_id" value={user.code} readOnly></Field></td>
+                                        }
                                     </tr>
                                     <tr>
                                         <td></td>

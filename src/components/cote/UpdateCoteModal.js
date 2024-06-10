@@ -22,17 +22,7 @@ export default function UpdateCoteModal({
                                         }) {
 
     const handleSubmitUpdate = async (value) => {
-        value.account = {
-            "id": 1,
-            "code": "NV1",
-            "username": "a",
-            "password": "$2a$12$WedUTeX7g1rc.5TrAXz.B.KQHtBP2OsTCinFwkrzUT5Vtky6mWaP2",
-            "fullName": null,
-            "email": null,
-            "gender": true,
-            "identityCode": "2",
-            "status": false
-        };
+        value.account_id = form.account.id;
         const dateOpen = new Date(dateOpenUpdate);
         if (dateOpen.getFullYear()<2000 || dateOpen.getFullYear()>3000) return toast.warn("Vui lòng nhập năm tạo chuồng trong khoảng 2000-3000")
         if (dateCloseUpdate !== null) {
@@ -42,7 +32,6 @@ export default function UpdateCoteModal({
         }
         value.dateOpen = dateOpenUpdate;
         value.dateClose = dateCloseUpdate;
-        console.log(value)
         CoteService.updateCote(value, id)
             .then((res) => {
                 toast.success("Chỉnh sửa thành công");
@@ -64,7 +53,7 @@ export default function UpdateCoteModal({
                 </Modal.Header>
 
                 <Formik initialValues={form} onSubmit={handleSubmitUpdate} validationSchema={Yup.object(Validate.validateCote())}>
-                    <Form>
+                    <Form className={"form-cote"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>
@@ -81,7 +70,7 @@ export default function UpdateCoteModal({
                                         </tr>
                                         <tr>
                                             <td>Mã nhân viên:</td>
-                                            <td><Field name="account" value="NV1" readOnly></Field></td>
+                                            <td><Field name="account.code" readOnly></Field></td>
                                         </tr>
                                         <tr>
                                             <td></td>

@@ -14,19 +14,21 @@ import StoreIcon from "@mui/icons-material/Store";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 export const mainListItems = (
     <React.Fragment>
         <ListSubheader component="div" inset>
             Quản lý hệ thống
         </ListSubheader>
+        <Link to={"/admin/posts-mgt"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>
                 <NewspaperIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý tin tức" />
         </ListItemButton>
+        </Link>
         <Link to={"/admin/staff"} style={{textDecoration: "none", color: "black"}}>
         <ListItemButton>
             <ListItemIcon>

@@ -127,7 +127,6 @@ export default class CoteService {
   }
 
   static async getCotes() {
-    console.log(Cookies.get("user"));
     const response = await axios.get(
       `http://localhost:8080/api/cotes/getCodes`,
       {
@@ -178,4 +177,17 @@ export default class CoteService {
     );
     return response.data;
   }
+
+    static async getUser(username) {
+        const response = await axios.get(
+            `http://localhost:8080/api/cotes/findUser/`+username,
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${Cookies.get("user")}`,
+                },
+            }
+        );
+        return response.data;
+    }
 }
