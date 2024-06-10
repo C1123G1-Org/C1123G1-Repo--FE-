@@ -8,7 +8,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SavingsIcon from '@mui/icons-material/Savings';
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+// import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import {Link} from "react-router-dom";
@@ -23,12 +23,14 @@ function Main() {
                             <Row className={"picture"} >
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
+                                        <Link to={"/admin/posts-mgt"} className={"link"}>
                                         <SettingsIcon className={"p1"} style={{fontSize: "180px"}}/>
+                                        </Link>
                                     </div>
                                 </Col>
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
-                                        <Link to={"/admin/cotes"} className={"link"}>
+                                        <Link to={"/admin/pigs"} className={"link"}>
                                         <SavingsIcon className={"p2"} style={{fontSize: "180px"}}/>
                                         </Link>
                                     </div>
@@ -42,12 +44,14 @@ function Main() {
                             <Row className={"text"}>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
+                                        <Link to={"/admin/posts-mgt"} className={"link"}>
                                         <h4>QUẢN LÝ HỆ THỐNG</h4>
+                                        </Link>
                                     </div>
                                 </Col>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
-                                        <Link to={"/admin/cotes"} className={"link"}>
+                                        <Link to={"/admin/pigs"} className={"link"}>
                                         <h4>QUẢN LÝ THÔNG TIN ĐÀN</h4>
                                         </Link>
                                     </div>
@@ -66,7 +70,9 @@ function Main() {
                                 </Col>
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
+                                        <Link to={"/admin/export-cote"} className={"link"}>
                                         <LocalShippingIcon className={"p5"} style={{fontSize: "200px"}}/>
+                                        </Link>
                                     </div>
                                 </Col>
                                 <Col className={"picture-col"}>
@@ -83,7 +89,9 @@ function Main() {
                                 </Col>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
+                                        <Link to={"/admin/export-cote"} className={"link"}>
                                         <h4>QUẢN LÝ XUẤT CHUỒNG </h4>
+                                        </Link>
                                     </div>
                                 </Col>
                                 <Col className={"text-col"}>

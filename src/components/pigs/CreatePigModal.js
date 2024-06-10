@@ -47,7 +47,7 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                 </Modal.Header>
 
                 <Formik initialValues={{}} onSubmit={handleSubmitCreate}>
-                    <Form>
+                    <Form className={"form-pig"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>
