@@ -102,7 +102,6 @@ export default class PigService {
   //     const response = await axios.get(`http://localhost:8080/orders?_sort=money&_order=desc&_page=${page}&_limit=${limit}`);
   //     return response.data;
   // }
-
   static async searchCoteCode(code) {
     const response = await axios.get(
       `http://localhost:8080/api/pigs/search?code=${code}`,

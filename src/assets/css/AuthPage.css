@@ -67,3 +67,6 @@
 .signin-btn:hover {
   opacity: 0.8;
 }
+form input {
+  height: 40px;
+}

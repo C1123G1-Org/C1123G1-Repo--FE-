@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {useContext, useEffect, useState} from "react"
 import ReactModal from "react-modal"
 import { deleteList, findAll } from "../../services/exportCoteService"
 import './exportCoteComponent.css'
@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Pagination } from "react-bootstrap"
 
 import { toast } from "react-toastify";
+import {AppContext} from "../../layouts/AppContext";
 export default function ExportCote(){
 
     const [page, setPage] = useState(0)
@@ -16,6 +17,14 @@ export default function ExportCote(){
     const [exportCoteList, setExportCoteList] = useState({
         content: []
     })
+    // sáng nút
+    const {setNut6 } = useContext(AppContext);
+
+    // Sáng nút
+    useEffect(() => {
+        setNut6(true)
+        return () => setNut6(false)
+    }, []);
 
     useEffect(() => {
         findAll(page)
@@ -99,24 +108,24 @@ export default function ExportCote(){
                 </Modal.Header>
                 <Modal.Body>Bạn thật sự muốn xoá chứ?</Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => {
-                    listID.map(value => {
-                        deleteList(value)
+                <Button variant="secondary" onClick={() => {         
+                        deleteList({idList:listID})
                         .then(res => {
-                            setListId([listID.filter(val => val!=value)])
+                            setListId([])
                             findAll(page)
                             .then(res=>{
-                                setExportCoteList(res.data)
-                                toast.success(`Đã xoá `)
+                                setExportCoteList(res.data)    
                             })
                             .catch(er => {
-                                toast.error("Thất bại")
+                                toast.error("Lấy dữ liệu mới thất bại")
                             })
+                            toast.success(`Xoá thành công`)
                         })
                         .catch(er => {
-                    
+                            console.log(er);
+                            toast.error('Xoá thất bại')
                         })
-                    })
+                    
                     handleClose()
                 }}>
                     Đồng ý

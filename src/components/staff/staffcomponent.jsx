@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { getAllStaff } from "../../services/StaffService";
 import "./staff.css";
 import Row from "react-bootstrap/Row";
@@ -10,6 +10,7 @@ import { StaffUpdate } from "./staffupdate";
 import { StaffDelete } from "./staffdelete";
 import ReactPaginate from "react-paginate";
 import { Input } from "@mui/material";
+import {AppContext} from "../../layouts/AppContext";
 
 export const StaffComponent = () => {
   const [staff, setStaff] = useState();
@@ -20,6 +21,8 @@ export const StaffComponent = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
+  // sáng nút
+  const {setNut2 } = useContext(AppContext);
 
   const getAll = () => {
     getAllStaff(0, search).then((res) => {
@@ -27,6 +30,12 @@ export const StaffComponent = () => {
       setTotalPages(res.totalPages);
     });
   };
+
+  //Sáng nút
+  useEffect(() => {
+    setNut2(true)
+    return () => setNut2(false)
+  }, []);
 
   useEffect(() => {
     getAll();
