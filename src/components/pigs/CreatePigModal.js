@@ -37,7 +37,6 @@ export default function CreatePigModal({
       });
   };
 
-<<<<<<< HEAD
   const handleCloseModalCreate = () => {
     setDateOut(null);
     handleClose();
@@ -105,45 +104,6 @@ export default function CreatePigModal({
                       <tr>
                         <td>Ngày nhập chuồng</td>
                         <td>
-                          {/* <ReactDatePicker selected={dateIn} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-=======
-                <Formik initialValues={{}} onSubmit={handleSubmitCreate}>
-                    <Form className={"form-pig"}>
-                        <Modal.Body>
-                            <Row>
-                                <Col sm={1}></Col>
-                                <Col>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mã cá thể</td>
-                                                <td>{newPigID}</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mã chuồng nuôi</td>
-                                                <td>
-                                                    <Field as="select" name="coteIndex" style={{ height: "32px", margin: "0px"}}>
-                                                        <option value="">Chọn mã chuồng</option>
-                                                        {cote.map((code, index) => (
-                                                            <option value={index} key={code.id}>C{code.id}</option>
-                                                        ))} 
-                                                    </Field>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td><ErrorMessage name="codeCote" component={"span"}></ErrorMessage></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ngày nhập chuồng</td>
-                                                <td>
-                                                    {/* <ReactDatePicker selected={dateIn} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
->>>>>>> a77461e60a1aae016f63d4617802fa63085fbb61
-                                                        onChange={(date) => setDateIn(date)}></ReactDatePicker> */}
                           <Field
                             name="dateIn"
                             type="date"
