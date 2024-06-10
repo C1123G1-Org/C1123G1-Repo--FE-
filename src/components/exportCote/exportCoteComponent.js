@@ -99,11 +99,11 @@ export default function ExportCote(){
                 </Modal.Header>
                 <Modal.Body>Bạn thật sự muốn xoá chứ?</Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => {
-                    listID.map(value => {
-                        deleteList(value)
+                <Button variant="secondary" onClick={() => {         
+                        deleteList({idList:listID})
                         .then(res => {
-                            setListId([listID.filter(val => val!=value)])
+                            console.log('ads');
+                            setListId([])
                             findAll(page)
                             .then(res=>{
                                 setExportCoteList(res.data)
@@ -114,9 +114,10 @@ export default function ExportCote(){
                             })
                         })
                         .catch(er => {
-                    
+                            console.log(er);
+                            alert("Lỗi xoá")
                         })
-                    })
+                    
                     handleClose()
                 }}>
                     Đồng ý
