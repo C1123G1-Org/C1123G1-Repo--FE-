@@ -277,7 +277,7 @@ return (
       <Row>
         <Col>
           <div className="table-container">
-            <Table striped bordered hover size="sm" style={{ textAlign: "center" }}>
+            <Table striped bordered hover size="sm" style={{ textAlign: "center" }} className={"pig-table"}>
               <thead>
                 <tr>
                   <th>STT</th>
