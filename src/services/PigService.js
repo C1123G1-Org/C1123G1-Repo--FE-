@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 export default class PigService{
     // static async getAllPig(){
     static async getAllPig(pageSize,page){
-        // const response = await axios.get(`http://localhost:8080/api/pigs`)
         const response = await axios.get(`http://localhost:8080/api/pigs/${pageSize}?page=${page}`,
             {
                 headers: {
@@ -15,6 +14,29 @@ export default class PigService{
         )
         return response.data;
     }
+
+    static async getAllPigLitst(){
+      const response = await axios.get(`http://localhost:8080/api/pigs`,
+          {
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${Cookies.get("user")}`,
+              },
+            }
+      )
+      return response.data;
+  }
+  static async getAllDateInListByMonth(month){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByMonth?month=${month}`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
+    return response.data;
+}
     static async getAllCote(){
         // const response = await axios.get(`http://localhost:8080/api/pigs`)
         const response = await axios.get(`http://localhost:8080/api/pigs/coteList`, 

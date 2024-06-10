@@ -19,8 +19,8 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
     const handleSubmitCreate = async (value) => {
         value.code = newPigID;
         value.cote = cote[value.coteIndex];
-        value.dateIn = dateIn;
-        value.dateOut = dateOut;
+        value.dateIn = value.dateIn;
+        value.dateOut = value.dateOut;
         PigService.createPig(value)
             .then((res) => {
                 toast.success("Thêm mới thành công");
