@@ -11,9 +11,8 @@ import { Field,Form,  Formik } from "formik";
 import DatePicker from "react-datepicker";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import PigChartList from "./PigChartList";
 import {AppContext} from "../../layouts/AppContext";
-
+import PigChartList from "./PigChartList";
 
 function PigList() {
 
@@ -374,7 +373,7 @@ return (
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
 
       <div>
-        <PigChartList  makeReload={makeReload}/>
+        <PigChartList makeReload={makeReload}/>
       </div>
     </>
   );
