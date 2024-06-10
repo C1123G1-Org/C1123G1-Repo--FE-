@@ -16,7 +16,7 @@ label {
     padding-left: 15px;
 }
 
-td, th {
+.pig-table td, th {
     vertical-align: middle;
     height: 52px;
     padding-left: 20px;
@@ -34,12 +34,12 @@ form td {
 }
 
 .table-container {
-    max-height: 320px; /* Chiều cao tối đa của table */
+    max-height: 330px; /* Chiều cao tối đa của table */
     overflow-y: auto; /* Thêm thanh cuộn dọc */
 }
 
 .table {
-    width: 100%; /* Chiều rộng của table */
+    /*width: 100%; !* Chiều rộng của table *!*/
 }
 
 .my-select {
