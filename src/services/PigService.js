@@ -37,8 +37,8 @@ export default class PigService{
     )
     return response.data;
   }
-  static async getAllDateInListByMonth(month){
-    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByMonth?month=${month}`,
+  static async getAllDateInListByMonth( month, year){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByMonth?month=${month}&&year=${year}`,
         {
             headers: {
               "Content-type": "application/json",
