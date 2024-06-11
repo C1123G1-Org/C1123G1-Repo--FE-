@@ -108,24 +108,24 @@ export default function ExportCote(){
                 </Modal.Header>
                 <Modal.Body>Bạn thật sự muốn xoá chứ?</Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => {
-                    listID.map(value => {
-                        deleteList(value)
+                <Button variant="secondary" onClick={() => {         
+                        deleteList({idList:listID})
                         .then(res => {
-                            setListId([listID.filter(val => val!=value)])
+                            setListId([])
                             findAll(page)
                             .then(res=>{
-                                setExportCoteList(res.data)
-                                toast.success(`Đã xoá `)
+                                setExportCoteList(res.data)    
                             })
                             .catch(er => {
-                                toast.error("Thất bại")
+                                toast.error("Lấy dữ liệu mới thất bại")
                             })
+                            toast.success(`Xoá thành công`)
                         })
                         .catch(er => {
-                    
+                            console.log(er);
+                            toast.error('Xoá thất bại')
                         })
-                    })
+                    
                     handleClose()
                 }}>
                     Đồng ý

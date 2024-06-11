@@ -10,11 +10,14 @@ export async function findAll(page){
     return res;
 }
 
-export async function deleteList(id){
-    let res = await axios.delete(`http://localhost:8080/api/exportcotes/${id}` , {
+export async function deleteList(listId){
+
+    let res = await axios.delete(`http://localhost:8080/api/exportcotes` , {
         headers: {
+             "Content-Type": "application/json",
             'Authorization': 'Bearer ' + Cookies.get('user')
-        }
+        }, 
+        data: JSON.stringify(listId)
     })
     return res;
 }
