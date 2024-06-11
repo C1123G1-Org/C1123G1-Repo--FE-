@@ -16,6 +16,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import {Link} from "react-router-dom";
 import {useContext} from "react";
 import {AppContext} from "./AppContext";
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 // import Cookies from "js-cookie";
 
 export default function ListItems2() {
@@ -40,6 +41,14 @@ export default function ListItems2() {
                             <PeopleIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Quản lý nhân viên"/>
+                    </ListItemButton>
+                </Link>
+                <Link to={"/admin/pig-stat"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton selected = {nut3}>
+                        <ListItemIcon>
+                            <LeaderboardIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Thống kê"/>
                     </ListItemButton>
                 </Link>
 
