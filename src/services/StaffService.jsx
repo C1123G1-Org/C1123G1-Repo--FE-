@@ -63,3 +63,17 @@ export const removeStaff = async (id) => {
   });
   return res.data;
 };
+
+export const detailstaff = async (staff) => {
+  const res = await axios.get(
+    `http://localhost:8080/staff/detail/${staff.id}`,
+    staff,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${Cookies.get("user")}`,
+      },
+    }
+  );
+  return res.data;
+};
