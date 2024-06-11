@@ -17,14 +17,12 @@ export default function CreatePigModal({
   const [dateIn, setDateIn] = useState(new Date());
   const [dateOut, setDateOut] = useState(null);
 
-  const handleSubmitCreate = async (value) => {
-    value.code = newPigID;
-    value.cote = cote[value.coteIndex];
-    value.dateIn = dateIn;
-    value.dateOut = dateOut;
-    console.log(value);
-
-<<<<<<< HEAD
+  // const handleSubmitCreate = async (value) => {
+  //   value.code = newPigID;
+  //   value.cote = cote[value.coteIndex];
+  //   value.dateIn = dateIn;
+  //   value.dateOut = dateOut;
+  //   console.log(value);
     const handleSubmitCreate = async (value) => {
         value.code = newPigID;
         value.cote = cote[value.coteIndex];
@@ -44,21 +42,21 @@ export default function CreatePigModal({
             
     };
 
-    const handleCloseModalCreate = () => {
-=======
-    PigService.createPig(value)
-      .then((res) => {
-        toast.success("Thêm mới thành công");
-        setDateIn(new Date());
->>>>>>> 9cb5bd45f5d2439af86eef431ea8a168d289db01
-        setDateOut(null);
-        makeReload();
-        handleCloseModalCreate();
-      })
-      .catch((err) => {
-        toast.error("Lỗi thêm mới");
-      });
-  };
+//     const handleCloseModalCreate = () => {
+// =======
+//     PigService.createPig(value)
+//       .then((res) => {
+//         toast.success("Thêm mới thành công");
+//         setDateIn(new Date());
+// >>>>>>> 9cb5bd45f5d2439af86eef431ea8a168d289db01
+//         setDateOut(null);
+//         makeReload();
+//         handleCloseModalCreate();
+//       })
+//       .catch((err) => {
+//         toast.error("Lỗi thêm mới");
+//       });
+//   };
 
   const handleCloseModalCreate = () => {
     setDateOut(null);
