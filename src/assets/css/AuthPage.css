@@ -54,6 +54,8 @@
   width: 300px;
   border: none;
   outline: none;
+  border-radius: 5px;
+  padding-left: 20px;
 }
 
 .signin-btn {
