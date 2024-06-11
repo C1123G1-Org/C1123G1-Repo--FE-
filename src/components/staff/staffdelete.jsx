@@ -44,7 +44,7 @@ export const StaffDelete = ({ closeModal, id, showDelete }) => {
   return (
     <div>
       <Modal show={showDelete} className="vivi">
-        <ModalHeader>wanning!</ModalHeader>
+        <ModalHeader>wanning!!!</ModalHeader>
         <ModalBody>
           <Formik>
             <Form>

@@ -10,12 +10,14 @@ import { StaffUpdate } from "./staffupdate";
 import { StaffDelete } from "./staffdelete";
 import ReactPaginate from "react-paginate";
 import { Input } from "@mui/material";
+import { DetailStaff } from "./detailstaff";
 
 export const StaffComponent = () => {
   const [staff, setStaff] = useState();
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [id, setId] = useState(-1);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,7 +32,7 @@ export const StaffComponent = () => {
 
   useEffect(() => {
     getAll();
-  }, [show, showUpdate, showDelete]);
+  }, [show, showUpdate, showDelete, showDetail]);
   // useEffect(() => {
   //   getAll();
   //   console.log("a");
@@ -48,6 +50,7 @@ export const StaffComponent = () => {
     setShow(false);
     setShowUpdate(false);
     setShowDelete(false);
+    setShowDetail(false);
   };
 
   const onHandLeSearch = (e) => {
@@ -85,6 +88,7 @@ export const StaffComponent = () => {
               style={{
                 width: "200px",
                 marginLeft: "",
+                marginBottom: "10px",
               }}
               type="text"
               onChange={onSearch}
@@ -92,7 +96,7 @@ export const StaffComponent = () => {
             <button
               className="btn btn-secondary"
               style={{
-                marginLeft: "",
+                marginLeft: "10px",
                 color: "white",
               }}
               onClick={(e) => onHandLeSearch(e)}
@@ -179,8 +183,11 @@ export const StaffComponent = () => {
         </div>
       )}
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={7}></Col>
-        <Col sm={2} style={{ paddingLeft: "120px", width: "230px" }}>
+        <Col sm={4}></Col>
+        <Col
+          sm={2}
+          style={{ paddingLeft: "120px", width: "230px", marginLeft: "82px" }}
+        >
           <div>
             <Button
               onClick={() => {
@@ -206,18 +213,31 @@ export const StaffComponent = () => {
         <Col sm={1} style={{ paddingLeft: "5px" }}>
           <div>
             <Button
+              variant="success"
+              onClick={() => {
+                setShowDetail(true);
+              }}
+            >
+              Chi tiết
+            </Button>
+          </div>
+        </Col>
+        <Col sm={2} style={{ paddingLeft: "" }}>
+          <div>
+            <Button
               variant="danger"
               onClick={() => {
                 setShowDelete(true);
               }}
             >
-              xóa
+              Xóa
             </Button>
           </div>
         </Col>
       </Row>
       <StaffCreate show={show} closeModal={closeModal} />
       <StaffUpdate showUpdate={showUpdate} closeModal={closeModal} id={id} />
+      <DetailStaff showDetail={showDetail} closeModal={closeModal} id={id} />
       <StaffDelete closeModal={closeModal} id={id} showDelete={showDelete} />
     </>
   );
