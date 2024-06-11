@@ -23,6 +23,7 @@ import Main from "./layouts/Main";
 import "./assets/css/Main.css"
 import Post from "./pages/Post";
 import {AppContextProvider} from "./layouts/AppContext";
+import PigChartList from "./components/pigs/PigChartList";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/admin" element={<Master />}>
             <Route path="cotes" element={<Cote />}></Route>
             <Route path="pigs" element={<Pig />}></Route>
+            <Route path="pig-stat" element={<PigChartList />}></Route>
             <Route path="cotes/detail/:id" element={<CoteDetail/>}></Route>
             <Route path="posts-mgt" element={<Post />} />
             <Route path="staff" element={<Staff />} />

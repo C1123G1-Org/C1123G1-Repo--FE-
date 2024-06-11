@@ -48,6 +48,17 @@ export default class PigService{
     )
     return response.data;
 }
+  static async getAllDateInListByYear(year){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByYear?year=${year}`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
+    return response.data;
+  }
     static async getAllCote(){
         // const response = await axios.get(`http://localhost:8080/api/pigs`)
         const response = await axios.get(`http://localhost:8080/api/pigs/coteList`, 
