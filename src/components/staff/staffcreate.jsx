@@ -191,7 +191,7 @@ export const StaffCreate = ({ show, closeModal }) => {
                     </tr>
                     <td></td>
                     <tr>
-                      <td> Giới tính </td>
+                      <td> Giới tính: </td>
                       <td>
                         <Field as="select" name="gender" required>
                           <option selected disabled value="">
@@ -204,7 +204,7 @@ export const StaffCreate = ({ show, closeModal }) => {
                     </tr>
                     <td></td>
                     <tr>
-                      <td> CMND </td>
+                      <td> CMND: </td>
                       <td>
                         <Field
                           type="number"
