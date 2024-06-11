@@ -242,7 +242,8 @@ function PigList() {
 return (
     <>
         <Row id={"date"}>
-          <Col sm={8}>
+        <Col sm={3}></Col>
+          <Col sm={5}>
             <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
               <Col sm={4} style={{textAlign: "right"}}>
                   <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
@@ -325,28 +326,36 @@ return (
             </Table>
           </div>
           <br></br>
-          {!search &&
-                        <Row>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col>
-                                Số lượng bản ghi:&nbsp;&nbsp;
-                                <select className="my-select" value={pageSize} onChange={changePageSize}>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                </select>
-                            </Col>
-                            <Col>
-                                <Pagination>
-                                    <Pagination.First onClick={handlePrev}/>
-                                    {infoPage && <Pagination.Item>{page + 1}/{infoPage.totalPages}</Pagination.Item>}
-                                    <Pagination.Last onClick={handleNext}/>
-                                </Pagination>
-                            </Col>
-                        </Row>
-                    }
+          {!search && (
+            <Row>
+              <Col></Col>
+              <Col></Col>
+              <Col>
+                <Pagination style={{ paddingLeft: "40px"}}>
+                  <Pagination.First onClick={handlePrev} />
+                  {infoPage && (
+                      <Pagination.Item>
+                        {page + 1}/{infoPage.totalPages}
+                      </Pagination.Item>
+                  )}
+                  <Pagination.Last onClick={handleNext} />
+                </Pagination>
+              </Col>
+              <Col></Col>
+              <Col style={{ whiteSpace: "nowrap" }}>
+                Số lượng bản ghi:&nbsp;&nbsp;
+                <select
+                  className="my-select"
+                  value={pageSize}
+                  onChange={changePageSize}
+                >
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </Col>
+            </Row>
+          )}
         </Col>
       </Row>
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
