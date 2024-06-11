@@ -19,8 +19,8 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
     const handleSubmitCreate = async (value) => {
         value.code = newPigID;
         value.cote = cote[value.coteIndex];
-        value.dateIn = dateIn;
-        value.dateOut = dateOut;
+        value.dateIn = value.dateIn;
+        value.dateOut = value.dateOut;
         PigService.createPig(value)
             .then((res) => {
                 toast.success("Thêm mới thành công");
@@ -47,7 +47,7 @@ export default function CreatePigModal({newPigID ,open, handleClose, makeReload,
                 </Modal.Header>
 
                 <Formik initialValues={{}} onSubmit={handleSubmitCreate}>
-                    <Form>
+                    <Form className={"form-pig"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>

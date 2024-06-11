@@ -5,7 +5,7 @@ label {
     margin-bottom: 20px;
     /* padding-right: 0px; */
 }
-form input {
+.form-cote input {
     /* padding-left: 0px; */
     width: 170px;
     height: 40px;
@@ -18,7 +18,11 @@ form input {
 
 td, th {
     vertical-align: middle;
-    height: 52px;
+    height: 60px;
+}
+.cote-table td, th {
+    vertical-align: middle;
+    height: 60px;
 }
 form td {
     font-size: large;
@@ -44,7 +48,7 @@ form td {
 }
 
 .table-container {
-    max-height: 320px; /* Chiều cao tối đa của table */
+    max-height: 330px; /* Chiều cao tối đa của table */
     /*max-width: 1150px; !* Chiều cao tối đa của table *!*/
     overflow-y: auto; /* Thêm thanh cuộn dọc */
     overflow-x: auto;

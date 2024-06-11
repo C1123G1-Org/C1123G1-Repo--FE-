@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { Button, Pagination, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -12,12 +12,14 @@ import CreateCoteModal from "./CreateCoteModal";
 import ExportCoteModal from "./ExportCoteModal";
 import UpdateCoteModal from "./UpdateCoteModal";
 import Cookies from "js-cookie";
+import {AppContext} from "../../layouts/AppContext";
 
 function CotesList() {
   const [selectedRadio, setSelectedRadio] = useState("");
   const [dateOpenUpdate, setDateOpenUpdate] = useState(null);
   const [dateCloseUpdate, setDateCloseUpdate] = useState(null);
   const [form, setForm] = useState({});
+  const [userByForm, setUserByForm] = useState({});
   const [cotes, setCotes] = useState([]);
   const [reload, setReload] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
@@ -33,13 +35,29 @@ function CotesList() {
   const [selectSearch, setSelectSearch] = useState("open");
   const [maxId, setMaxId] = useState(-1);
   const [dateClose, setDateClose] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  // sáng nút
+  const {setNut5 } = useContext(AppContext);
+
+  // Sáng nút
+  useEffect(() => {
+    setNut5(true)
+    return () => setNut5(false)
+  }, []);
 
   useEffect(() => {
-    // getAll().then(()=>setMaxId(cotes[0].id));
     getAll().then();
   }, [reload, pageSize, page]);
 
+  useEffect(() => {
+    getUser().then();
+  }, []);
+
+  const getUser = async ()=>{
+    const account = await CoteService.getUser(localStorage.getItem("username"))
+    setUser(account);
+  }
   const getAll = async () => {
     const coteList = await CoteService.getAll(pageSize, page);
     let max = -1;
@@ -156,11 +174,19 @@ function CotesList() {
     setID(-1);
     setReload(!reload);
   };
-  const handleShowExport = () => {
+  const handleShowExport = async () => {
     if (id === -1) {
       toast.warn("Bạn chưa chọn chuồng để xuất");
     } else if (dateClose !== null) toast.warn("Chuồng bạn chọn đã xuất hết!");
-    else setShowExport(true);
+    else {
+      const pigList = await CoteService.findPigsByCote(id);
+      let pigIll = 0;
+      for (let i = 0; i < pigList.length; i++) {
+        if (pigList[i].status !== "Khỏe mạnh") pigIll++;
+      }
+      if (pigIll !== 0) toast.warn(`Chuồng bạn chọn có ${pigIll} con lợn bị bệnh. Vui lòng chuyển lợn bệnh sang chuồng khác trước khi xuất chuồng!`);
+      else setShowExport(true);
+    }
   };
   const handleCloseExport = () => {
     setShowExport(false);
@@ -202,12 +228,13 @@ function CotesList() {
     const cote = await CoteService.findByID(id);
     if (cote.dateClose === null) cote.dateClose = "";
     setForm(cote);
+    setUserByForm(cote.account)
     setDateOpenUpdate(cote.dateOpen);
     setDateCloseUpdate(cote.dateClose);
   };
 
   const handleClickLink = (event, date, username) => {
-    if (Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+    if (Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") !== "ROLE_ADMIN"
         && localStorage.getItem("username") === username)) {
       if (date !== null) {
         toast.warn("Chuồng bạn chọn đã đóng. Không còn lợn để xem!");
@@ -304,7 +331,7 @@ function CotesList() {
             className="table-container"
             style={{}}
           >
-            <Table
+            <Table className={"cote-table"}
               striped
               bordered
               hover
@@ -348,7 +375,7 @@ function CotesList() {
                     )}
                     <td>{cote.quantity}</td>
                     <td>
-                      {(Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+                      {(Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") !== "ROLE_ADMIN"
                           && localStorage.getItem("username") === cote.account.username)) ?
                       <input
                         type="radio"
@@ -373,11 +400,20 @@ function CotesList() {
             <Row>
               <Col></Col>
               <Col></Col>
+              <Col>
+                <Pagination style={{ paddingLeft: "40px"}}>
+                  <Pagination.First onClick={handlePrev} />
+                  {infoPage && (
+                      <Pagination.Item>
+                        {page + 1}/{infoPage.totalPages}
+                      </Pagination.Item>
+                  )}
+                  <Pagination.Last onClick={handleNext} />
+                </Pagination>
+              </Col>
               <Col></Col>
               <Col style={{ whiteSpace: "nowrap" }}>
-                {/*<label >*/}
                 Số lượng bản ghi:&nbsp;&nbsp;
-                {/*</label>*/}
                 <select
                   className="my-select"
                   value={pageSize}
@@ -388,26 +424,15 @@ function CotesList() {
                   <option value="15">15</option>
                 </select>
               </Col>
-              <Col>
-                <Pagination>
-                  <Pagination.First onClick={handlePrev} />
-                  {infoPage && (
-                    <Pagination.Item>
-                      {page + 1}/{infoPage.totalPages}
-                    </Pagination.Item>
-                  )}
-                  <Pagination.Last onClick={handleNext} />
-                </Pagination>
-              </Col>
             </Row>
           )}
         </Col>
       </Row>
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={4}></Col>
+        <Col sm={5}></Col>
         <Col
           sm={2}
-          style={{ paddingLeft: "120px", width: "230px", marginLeft: "82px" }}
+          style={{ paddingLeft: "120px", width: "230px", marginLeft: "22px" }}
         >
           <div>
             <Button onClick={handleShowCreate}>Khởi tạo</Button>
@@ -441,7 +466,7 @@ function CotesList() {
         </Col>
         <Col
           sm={2}
-          style={{ paddingLeft: "" }}
+          style={{ width: "140px", }}
         >
           <div>
             <Button
@@ -454,6 +479,7 @@ function CotesList() {
         </Col>
       </Row>
       <CreateCoteModal
+          user={user}
         open={showCreate}
         handleClose={handleCloseCreate}
         makeReload={makeReload}
@@ -475,6 +501,7 @@ function CotesList() {
         handleClose={handleCloseExport}
         makeReload={makeReload}
         form={form}
+        userExport={userByForm}
       />
     </>
   );

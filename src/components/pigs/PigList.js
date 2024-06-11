@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { Button, Pagination, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -11,6 +11,8 @@ import { Field,Form,  Formik } from "formik";
 import DatePicker from "react-datepicker";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {AppContext} from "../../layouts/AppContext";
+import PigChartList from "./PigChartList";
 
 function PigList() {
 
@@ -36,12 +38,20 @@ function PigList() {
     const [selectSearch, setSelectSearch] = useState("open");
     // const [pigsSearch, setPigsSearch] = useState([]);
     const [sort, setSort] = useState(false);
+    // sáng nút
+    const {setNut4 } = useContext(AppContext);
 
-  
+
     // List Pig
     useEffect(() => {
       getAllPig();
     }, [reload, pageSize, page, newPigID]);
+
+    // Sáng nút
+    useEffect(() => {
+        setNut4(true)
+        return () => setNut4(false)
+    }, []);
 
     const getAllPig = async () => {
       const pigList = await PigService.getAllPig(pageSize, page);
@@ -267,7 +277,7 @@ return (
       <Row>
         <Col>
           <div className="table-container">
-            <Table striped bordered hover size="sm" style={{ textAlign: "center" }}>
+            <Table striped bordered hover size="sm" style={{ textAlign: "center" }} className={"pig-table"}>
               <thead>
                 <tr>
                   <th>STT</th>
@@ -361,6 +371,10 @@ return (
       <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
+
+      <div>
+        <PigChartList makeReload={makeReload}/>
+      </div>
     </>
   );
 }
