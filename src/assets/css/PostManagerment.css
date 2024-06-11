@@ -79,6 +79,7 @@ button[type="button"]{
 .test {
     margin-left: 7%;
     width: 86%;
+    /*min-width: 86%;*/
 
     /*max-height: 600px;*/
 }

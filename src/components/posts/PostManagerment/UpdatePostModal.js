@@ -2,7 +2,7 @@ import {Button, Modal} from "react-bootstrap";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import * as PostService from "../../../services/PostsServices";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
@@ -14,17 +14,25 @@ import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "./Firebase";
 import {v4} from "uuid";
 
-export default function UpdatePostModal({handleOpen, handleClose,form, makeReload}) {
-    const [selectedRadio, setSelectedRadio] = useState("");
+export default function UpdatePostModal({handleOpen, handleClose,form, makeReload,id}) {
+    const [selectedRadio, setSelectedRadio] = useState("Hiển thị");
     const [imageUpload, setImageUpload] = useState(null);
     const [urlImage, setUrlImage] = useState("");
     const [data, setData] = useState("")
+    const [point, setPoint] = useState(false)
 
 
-    useEffect(() => {
-        setData(form.content);
-        setSelectedRadio(form.status)
-    }, []);
+    // useEffect( () => {
+    //     getPost().then()
+    // }, []);
+    //
+    // const getPost =async ()=>{
+    //     const post = await getPostById(id);
+    //     console.log(post.status)
+    //     await setSelectedRadio(post.status)
+    //     // await setPoint(post.focalPoint)
+    //     // makeReload();
+    // }
     const handleChange =async (event)=>{
         await setImageUpload(event.target.files[0]);
         setUrlImage(URL.createObjectURL(event.target.files[0]));
@@ -38,8 +46,10 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
             const url = await getDownloadURL(snapshot.ref);
             value.image = url;
         }
+        if (point === true) value.focalPoint = true
         value.status = selectedRadio;
         value.content = data;
+        console.log(value)
         PostService.updatePost(form.id,value)
             .then((res) => {
                 toast.success("Cập nhật thành công");
@@ -64,6 +74,7 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
         setSelectedRadio(event.target.value);
     };
 
+
     return (
         <>
             <Modal show={handleOpen} size="lg" style={{marginTop: "50px"}}>
@@ -81,8 +92,20 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                                         <Row style={{whiteSpace: "nowrap"}}>
                                             <Field name="accountId" type ="hidden"/>
                                             <Field name="postDate" type ="hidden"/>
-                                            Tiêu đề: &nbsp; <ErrorMessage name="title" component={"span"}
-                                                                          className={"error1"}/>
+                                            <Field name="focalPoint" type ="hidden"/>
+                                            <Col style={{paddingLeft: "0px",whiteSpace: "nowrap"}} sm={9}>
+                                                Tiêu đề: &nbsp; <ErrorMessage name="title" component={"span"}
+                                                                              className={"error1"}/>
+                                            </Col>
+                                            <Col sm={3}>
+                                                Tiêu điểm: <input style={{height: "20px", width: "60px"}}
+                                                                  type="radio"
+                                                                  // value={`Hiển thị`}
+                                                                  checked={point}
+                                                                  onClick={(event) =>
+                                                                      setPoint(!point)
+                                                                  }/>
+                                            </Col>
                                         </Row>
                                         <Row>
                                             <Field as="textarea" name="title"></Field>
@@ -120,10 +143,10 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                                         <Row>
                                             <Col style={{}}>
                                                 {(urlImage !== "") &&
-                                                    <img src={urlImage} width={"120px"} height={"80px"}/>
+                                                    <img src={urlImage} width={"120px"} height={"80px"} alt={"..."}/>
                                                 }
                                                 {(form.image !== "") &&
-                                                    <img src={form.image} width={"120px"} height={"80px"}/>
+                                                    <img src={form.image} width={"120px"} height={"80px"} alt={"..."}/>
                                                 }
                                             </Col>
                                         </Row>

@@ -116,7 +116,6 @@ function CotesList() {
         // setUserByForm(cote.account)
     };
 
-
     return (
         <>
             <Row>
@@ -135,23 +134,26 @@ function CotesList() {
                             <thead className={"header"}>
                             <tr>
                                 <th>STT</th>
-                                <th>Nội dung bài viết</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tiêu đề bài viết&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th>Hình ảnh</th>
                                 <th>Ngày đăng bài</th>
                                 <th>Trạng thái</th>
+                                <th>Tiêu điểm</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             {posts.map((post, index) => (
                                 <tr key={post.id}>
                                     <td>{index + 1}</td>
-                                    <td>{post.title}</td>
+                                    <td style={{whiteSpace: "wrap"}}>{post.title}</td>
 
                                     <td>
                                         <img src={post.image} alt={"..."} width="150" height="100" />
                                     </td>
                                     <td>{post.postDate}</td>
                                     <td>{post.status}</td>
+                                    <td>{post.focalPoint === true ? "Có" :"Không"}</td>
                                     <td>
                                         <input
                                             type="radio"
@@ -245,9 +247,9 @@ function CotesList() {
             <UpdatePostModal
                 handleOpen={showUpdate}
                 handleClose={handleCloseUpdate}
-                // id={id}
                 form={postToUpdate}
                 makeReload={makeReload}
+                id={id}
             />
             <DeletePostModal
                 handleOpen={showDelete}

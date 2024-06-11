@@ -17,9 +17,9 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 export default function CreatePostModal({handleOpen, handleClose, makeReload}) {
     const [selectedRadio, setSelectedRadio] = useState("Hiển thị");
     const [imageUpload, setImageUpload] = useState(null);
-    // const [imageListURL, setImageListURL] = useState([]);
     const [urlImage, setUrlImage] = useState("");
     const [data, setData] = useState("")
+    const [point, setPoint] = useState(false)
 
 
     const handleChange =async (event)=>{
@@ -35,6 +35,7 @@ export default function CreatePostModal({handleOpen, handleClose, makeReload}) {
         const imageRef = ref(storage, `anh/${imageUpload.name +v4()}`);
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
+        if (point === true) value.focalPoint = true
         value.status = selectedRadio;
         value.postDate = new Date()
         value.accountId = 1
@@ -80,8 +81,19 @@ export default function CreatePostModal({handleOpen, handleClose, makeReload}) {
                                 {/*<Col sm={1}></Col>*/}
                                 <Col>
                                     <Row style={{whiteSpace: "nowrap"}}>
+                                        <Col style={{paddingLeft: "0px",whiteSpace: "nowrap"}} sm={9}>
                                         Tiêu đề: &nbsp; <ErrorMessage name="title" component={"span"}
                                                                       className={"error1"}/>
+                                        </Col>
+                                        <Col sm={3}>
+                                            Tiêu điểm: <input style={{height: "20px", width: "60px"}}
+                                                              type="radio"
+                                            // value={`Hiển thị`}
+                                            //                   checked={false}
+                                                              onChange={(event) =>
+                                                                  setPoint(true)
+                                                              }/>
+                                        </Col>
                                     </Row>
                                     <Row>
                                         <Field as="textarea" name="title"></Field>
@@ -94,7 +106,7 @@ export default function CreatePostModal({handleOpen, handleClose, makeReload}) {
                                         <Row style={{}} className={"editor"}>
                                             <CKEditor style={{}}
                                                       editor={Editor}
-                                                      data="<p>Hello from Nông Trại thiên đường</p>"
+                                                      data="<p>Nông Trại thiên đường xin chào !!!</p>"
                                                       onReady={editor => {
                                                           // You can store the "editor" and use when it is needed.
                                                           console.log('Editor is ready to use!', editor);
@@ -110,7 +122,7 @@ export default function CreatePostModal({handleOpen, handleClose, makeReload}) {
                                         <Row style={{whiteSpace: "nowrap"}}>
                                             Chọn hình ảnh: &nbsp;
                                             <input className={"file"}
-                                                   style={{width: "270px", border: "none"}}
+                                                   style={{width: "500px", border: "none"}}
                                                    multiple
                                                    type="file"
                                                    onChange={handleChange}
