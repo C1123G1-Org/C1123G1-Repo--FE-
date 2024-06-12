@@ -69,8 +69,8 @@ export const StaffCreate = ({ show, closeModal }) => {
   const vali = {
     code: Yup.string()
       .required("vui lòng không để trống")
-      .min(4, "Nhập ít nhất 3 kí tự")
-      .matches(/^NV[0-9].$/, "nhập theo định dạng : N**"),
+      .min(4, "Nhập ít nhất 4 kí tự")
+      .matches(/^NV[0-9].$/, "nhập theo định dạng : NV**"),
     identityCode: Yup.number()
       .typeError("vui lòng nhập số")
       .required("vui lòng không để trống")

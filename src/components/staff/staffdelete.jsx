@@ -56,7 +56,7 @@ export const StaffDelete = ({ closeModal, id, showDelete }) => {
         <ModalBody>
           <Formik>
             <Form>
-              <p>Bạn có muốn xóa {staff.username} không?</p>
+              <p>Bạn có muốn xóa "{staff.username}" không?</p>
             </Form>
           </Formik>
         </ModalBody>

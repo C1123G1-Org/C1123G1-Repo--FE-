@@ -16,7 +16,7 @@ class validate {
       code: Yup.string()
         .required("vui lòng không để trống")
         .min(3, "Nhập ít nhất 3 kí tự")
-        .matches(/^N[0-9])/, "nhập theo định dạng : N**"),
+        .matches(/^N[0-9]/, "nhập theo định dạng : N**"),
       identityCode: Yup.number()
         .typeError("vui lòng nhập số")
         .required("vui lòng không để trống"),
