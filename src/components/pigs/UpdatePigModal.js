@@ -16,13 +16,13 @@ export default function UpdatePigModal({
                                             setIn,
                                             setOut,
                                             makeReload,
-                                            cote
+                                            coteAvaiable
                                         }) {
 
     
     const handleSubmitUpdate = async (value) => {
         if (value.coteIndex !== undefined) {
-            value.cote = cote[value.coteIndex];
+            value.cote = coteAvaiable[value.coteIndex];
         }
         value.dateIn = value.dateIn;
         value.dateOut = value.dateOut;
@@ -68,7 +68,7 @@ export default function UpdatePigModal({
                                                 <td>
                                                     <Field as="select" name="coteIndex" style={{ height: "32px", margin: "0px"}}>
                                                         <option value="">Chọn mã chuồng</option>
-                                                        {cote.map((code, index) => (
+                                                        {coteAvaiable.map((code, index) => (
                                                             <option value={index} key={code.id}>C{code.id}</option>
                                                         ))} 
                                                     </Field>

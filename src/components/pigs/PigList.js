@@ -31,6 +31,7 @@ function PigList() {
     // Create - Update
     const [newPigID, setNewPigID] = useState("");
     const [cote, setCote] = useState([]);
+    const [coteAvaiable, setCoteAvaiable] = useState([]);
     // Search
     const [search, setSearch] = useState(false);
     const [searchStart, setSearchStart] = useState(null);
@@ -85,6 +86,15 @@ function PigList() {
     const getAllCote = async () => {
         const listCote = await PigService.getAllCote();
         setCote(listCote);
+    }
+
+    useEffect(() => {
+      getAllCoteAvaiable();
+    }, []);
+
+    const getAllCoteAvaiable = async () => {
+        const listCoteAvaiable = await PigService.getAllCoteAvaiable();
+        setCoteAvaiable(listCoteAvaiable);
     }
 
     // Event
@@ -311,12 +321,7 @@ return (
                     <td>{pig.code}</td>
                     <td>{pig.cote.code}</td>
                     <td>{pig.dateIn}</td>
-                    {/*<td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>*/}
-                      {pig.dateOut ? (
-                          <td style={{ color: "#FFA500" }}>{pig.dateOut}</td>
-                      ) : (
-                          <td>Chưa cập nhật</td>
-                      )}
+                    <td>{pig.dateOut ? <span style={{color: "#FFA500"}}>{pig.dateOut}</span> : "Chưa cập nhật"}</td>
                     <td>
                     {pig.status === "Khỏe mạnh" ? <td style={{color: "limegreen"}}>{pig.status}</td> :
                                         <td style={{color: "red"}}>{pig.status}</td>}
@@ -390,8 +395,8 @@ return (
         
         {/* <Col sm={3}></Col> */}
       </Row>
-      <CreatePigModal cote={cote} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
-      <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
+      <CreatePigModal coteAvaiable={coteAvaiable} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
+      <UpdatePigModal coteAvaiable={coteAvaiable} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
     </>

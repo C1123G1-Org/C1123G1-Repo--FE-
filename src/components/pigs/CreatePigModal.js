@@ -12,7 +12,7 @@ export default function CreatePigModal({
   open,
   handleClose,
   makeReload,
-  cote,
+  coteAvaiable,
 }) {
   const [dateIn, setDateIn] = useState(new Date());
   const [dateOut, setDateOut] = useState(null);
@@ -20,7 +20,7 @@ export default function CreatePigModal({
 
     const handleSubmitCreate = async (value) => {
         value.code = newPigID;
-        value.cote = cote[value.coteIndex];
+        value.cote = coteAvaiable[value.coteIndex];
         value.dateIn = value.dateIn;
         value.dateOut = value.dateOut;
         PigService.createPig(value)
@@ -86,7 +86,7 @@ export default function CreatePigModal({
                             style={{ height: "32px", margin: "0px" }}
                           >
                             <option value="">Chọn mã chuồng</option>
-                            {cote.map((code, index) => (
+                            {coteAvaiable.map((code, index) => (
 
                               <option
                                 value={index}
