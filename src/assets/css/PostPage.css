@@ -20,6 +20,7 @@
   align-items: center;
   height: 30px;
   flex: 1;
+  position: relative;
 }
 
 .search-form {
@@ -28,6 +29,7 @@
   flex: 0.8;
   height: 45px;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .search-form:hover {
@@ -46,7 +48,7 @@
   border-left: 1px solid #ccc;
   background-color: transparent;
   margin: 2px 0;
-  padding-left: 10px;
+  padding: 0 10px;
 }
 
 .post-detail-main-content {
@@ -163,6 +165,10 @@
 .news-forcused-container-title {
   background-color: #fff;
   display: flex;
+}
+
+.btn-nav {
+  padding: 0 10px;
 }
 
 .news-forcused-container-title button {
@@ -289,4 +295,25 @@
 
 a[aria-label^="Page"] {
   display: none;
+}
+
+.search-item-container {
+  background-color: #eef8f9;
+  position: absolute;
+  top: 30px;
+  left: 100px;
+  z-index: 100;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.search-item {
+  border-bottom: 1px solid #333;
+  margin: 0;
+  padding: 10px 0 10px 10px;
+}
+
+.search-item:hover {
+  background-color: #9ff2fa;
+  cursor: pointer;
 }
