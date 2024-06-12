@@ -186,4 +186,15 @@ export default class PigService{
     );
     return response.data;
   }
+  static async getAllDateInListByWeek(){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByWeek`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
+    return response.data;
+  }
 }
