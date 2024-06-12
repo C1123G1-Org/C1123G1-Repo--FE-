@@ -1,8 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ExportCote from "./components/exportCote/exportCoteComponent";
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+
+
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +23,10 @@ import Cote from "./pages/Cote";
 import CoteDetail from "./pages/CoteDetail";
 import Pig from "./pages/Pig";
 import Post from "./pages/Post";
+
+
 import PigChartList from "./components/pigs/PigChartList";
+
 import Staff from "./pages/Staff";
 
 function App() {
@@ -32,7 +39,9 @@ function App() {
               path="/admin"
               element={<Master />}
             >
+
               <Route path="pig-stat" element={<PigChartList />}></Route>
+
               <Route
                 path="cotes"
                 element={<Cote />}

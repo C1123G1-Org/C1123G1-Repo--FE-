@@ -1,19 +1,21 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export default class PigService{
-    // static async getAllPig(){
-    static async getAllPig(pageSize,page){
-        const response = await axios.get(`http://localhost:8080/api/pigs/${pageSize}?page=${page}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
+export default class PigService {
+  // static async getAllPig(){
+  static async getAllPig(pageSize, page) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/${pageSize}?page=${page}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
+
 
   //   static async getAllPigLitst(){
   //     const response = await axios.get(`http://localhost:8080/api/pigs`,
@@ -104,6 +106,7 @@ export default class PigService{
         )
     }
 
+
   static async searchPigByStatus(status) {
     const response = await axios.get(
       `http://localhost:8080/api/pigs/statusSearch?status=${status}`,
@@ -186,6 +189,7 @@ export default class PigService{
     );
     return response.data;
   }
+
   static async getAllDateInListByWeek(){
     const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByWeek`,
         {
@@ -197,4 +201,5 @@ export default class PigService{
     )
     return response.data;
   }
+
 }

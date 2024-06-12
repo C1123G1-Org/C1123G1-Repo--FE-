@@ -44,6 +44,10 @@
 .btn-closeeee {
   background-color: #6c757d;
 }
-/* .vivi3 td {
+.vivi3 {
   font-weight: bold;
-} */
+}
+.dele {
+  background-color: blue;
+  color: white;
+}
