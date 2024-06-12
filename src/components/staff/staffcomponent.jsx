@@ -25,10 +25,18 @@ export const StaffComponent = () => {
 
   const getAll = () => {
     getAllStaff(0, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });
   };
+
+  function formatDate(dateString) {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  }
 
   useEffect(() => {
     getAll();
@@ -57,6 +65,9 @@ export const StaffComponent = () => {
     e.preventDefault();
     console.log(search);
     getAllStaff(0, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });
@@ -67,6 +78,9 @@ export const StaffComponent = () => {
     setCurrentPage(pageNumber);
     console.log(pageNumber);
     getAllStaff(pageNumber, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });

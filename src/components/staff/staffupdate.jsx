@@ -42,24 +42,12 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
         result = res.toString().split("");
       }
       if (result) {
-        if (result.includes("1")) {
-          setErrorCode("Mã đã tồn tại");
-        } else {
-          setErrorCode("");
-        }
-        if (result.includes("2")) {
-          setErrorUsername("Tên đăng nhập đã tồn tại");
-        } else {
-          setErrorUsername("");
-        }
         if (result.includes("3")) {
           setErrorIdenty("Căn cước đã tồn tại");
         } else {
           setErrorIdenty("");
         }
       } else {
-        setErrorCode("");
-        setErrorUsername("");
         setErrorIdenty("");
         closeModal();
         toast.success("update thành công");
@@ -82,10 +70,10 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
     return <div></div>;
   }
   const vali = {
-    code: Yup.string()
-      .required("vui lòng không để trống")
-      .min(3, "Nhập ít nhất 3 kí tự")
-      .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
+    // code: Yup.string()
+    //   .required("vui lòng không để trống")
+    //   .min(3, "Nhập ít nhất 3 kí tự")
+    //   .matches(/^NV[0-9].$/, "nhập theo định dạng : N**"),
     identityCode: Yup.number()
       .typeError("vui lòng nhập số")
       .required("vui lòng không để trống"),
@@ -120,7 +108,7 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
                 >
                   <Form>
                     <table>
-                      <tr>
+                      {/* <tr>
                         <td>Mã nhân viên: </td>
                         <td>
                           <Field type="text" name="code"></Field>
@@ -130,13 +118,13 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
                             style={{ color: "red" }}
                           />
                         </td>
-                      </tr>
-                      <td></td>
-                      <td>
+                      </tr> */}
+                      {/* <td></td> */}
+                      {/* <td>
                         <div>
                           <span>{errorCode}</span>
                         </div>
-                      </td>
+                      </td> */}
                       <tr>
                         <td> Họ và tên: </td>
                         <td>
@@ -149,7 +137,7 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
                         </td>
                       </tr>
                       <td></td>
-                      <tr>
+                      {/* <tr>
                         <td> Tên tài khoản: </td>
                         <td>
                           <Field type="text" name="username"></Field>
@@ -159,19 +147,19 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
                             style={{ color: "red" }}
                           />
                         </td>
-                      </tr>
-                      <td></td>
-                      <td>
+                      </tr> */}
+                      {/* <td></td> */}
+                      {/* <td>
                         <div>
                           <span>{errorUsername}</span>
                         </div>
-                      </td>
-                      <tr>
+                      </td> */}
+                      {/* <tr>
                         <td> Mật khẩu: </td>
                         <td>
                           <Field type="text" name="password"></Field>
                         </td>
-                      </tr>
+                      </tr> */}
                       <td></td>
                       <tr>
                         <td> Email: </td>

@@ -77,3 +77,13 @@ export const detailstaff = async (staff) => {
   );
   return res.data;
 };
+
+// export const findCote = async (staff) => {
+//   const res = await axios.get(`http://localhost:8080/staff/cote-a`, staff, {
+//     headers: {
+//       "Content-type": "application/json",
+//       Authorization: `Bearer ${Cookies.get("user")}`,
+//     },
+//   });
+//   return res.data;
+// };
