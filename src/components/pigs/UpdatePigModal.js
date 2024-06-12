@@ -79,8 +79,6 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Ngày nhập chuồng</td>
                                                 <td>
-                                                    {/* <ReactDatePicker selected={dateInUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setIn(date)} ></ReactDatePicker> */}
                                                     <Field name="dateIn" type="date"></Field>
                                                 </td>
                                             </tr>
@@ -91,8 +89,6 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Ngày xuất chuồng</td>
                                                 <td>
-                                                    {/* <ReactDatePicker selected={dateOutUpdate} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
-                                                        onChange={(date) => setOut(date)}></ReactDatePicker> */}
                                                     <Field name="dateOut" type="date"></Field>
                                                 </td>
                                             </tr>
@@ -111,7 +107,6 @@ export default function UpdatePigModal({
                                             <tr>
                                                 <td>Cân nặng (Kg)</td>
                                                 <td>
-                                                    {/* <TextareaAutosize></TextareaAutosize> */}
                                                     <Field name="weight"></Field></td>
                                             </tr>
                                             <tr>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
 import "chart.js/auto";
 import PigService from '../../services/PigService';
@@ -8,35 +8,54 @@ import Row from "react-bootstrap/Row";
 import { Field,Form,  Formik } from "formik";
 import { toast } from "react-toastify";
 import BarChartIcon from '@mui/icons-material/BarChart';
+import {AppContext} from "../../layouts/AppContext";
 
 const PigChartList = () => {
     const [monthPicked, setMonthPicked] = useState(1);
     const [yearPicked, setYearPicked] = useState(1);
     const [reload, setReload] = useState(false);
-    const [timeStat, setTimeStat] = useState('');
+    
+    const {setNut3 } = useContext(AppContext);
 
     useEffect(() => {
         getAllDateInList();
     }, [reload, monthPicked, yearPicked]);
     
-    // const weekBase = [1, 2, 3, 4];
+    useEffect(() => {
+      setNut3(true)
+      return () => setNut3(false)
+    }, []);
+
     const monthBase = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const yearBase = [2020, 2021, 2022, 2023, 2024, 2025, 2026];
     const [dateInList, setDateInList] = useState([]);
     const [valueList, setValueList] = useState([]);
     const getAllDateInList = async () => {
-        const dateInAndValueList = await PigService.getAllDateInListByMonth(monthPicked, yearPicked);
-        let dateInNotConvert = Object.keys(dateInAndValueList);
-        let dateInConvert = [dateInNotConvert.length];
-        if (dateInNotConvert.length === 0 && yearPicked !== 1 && yearPicked !== "") {
-          toast.error("Không có bản ghi nào được tìm thấy");
+      const dateInListByWeek = await PigService.getAllDateInListByWeek();
+      const dateInAndValueList = await PigService.getAllDateInListByMonth(monthPicked, yearPicked);
+        if (monthPicked === 1 && yearPicked === 1) {
+          toast.info("Thống kê theo tuần gần đây nhất");          let dateInNotConvert = Object.keys(dateInListByWeek);
+          let dateInConvert = [dateInNotConvert.length];
+          if (dateInNotConvert.length === 0) {
+            toast.error("Không có bản ghi nào được tìm thấy");
+          }
+          for (let i=0; i< dateInNotConvert.length; i++) {
+            dateInConvert[i] = formatDate(dateInNotConvert[i]);
+          }
+           setDateInList(dateInConvert);
+           setValueList(Object.values(dateInListByWeek));
+        } else {
+          let dateInNotConvert = Object.keys(dateInAndValueList);
+          let dateInConvert = [dateInNotConvert.length];
+          if (dateInNotConvert.length === 0 && yearPicked !== 1 && yearPicked !== "") {
+            toast.error("Không có bản ghi nào được tìm thấy");
+          }
+          for (let i=0; i< dateInNotConvert.length; i++) {
+            dateInConvert[i] = formatDate(dateInNotConvert[i]);
+          }
+           setDateInList(dateInConvert);
+           setValueList(Object.values(dateInAndValueList));
         }
-        for (let i=0; i< dateInNotConvert.length; i++) {
-          dateInConvert[i] = formatDate(dateInNotConvert[i]);
-        }
-         setDateInList(dateInConvert);
-         setValueList(Object.values(dateInAndValueList));
-        setTimeStat('Ngày');
     }
 
     function formatDate(dateString) {
@@ -44,9 +63,7 @@ const PigChartList = () => {
       return `${day}-${month}-${year}`;
     }
   const data = {
-    labels: [...dateInList
-      ,'Thời gian(' + timeStat + ')'
-    ],
+    labels: [...dateInList],
     datasets: [
       {
         type: 'bar',
@@ -58,9 +75,7 @@ const PigChartList = () => {
           'rgba(255, 206, 86, 0.6)',
           'rgba(75, 192, 192, 0.6)',
           'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          // 'rgba(255, 99, 132, 0.6)',
-          
+          'rgba(255, 159, 64, 0.6)',          
         ],
         borderWidth: 3,
         borderColor: '#777',
@@ -72,7 +87,6 @@ const PigChartList = () => {
         label: 'Cá thể heo (Kiểu dữ liệu Line)',
         data: [...valueList, ''],
         borderWidth: 3,
-        // borderColor: '#777',
         hoverBorderWidth: 5,
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
@@ -95,7 +109,6 @@ const PigChartList = () => {
   };
 
   const handleStat = async (value) => {
-    // setStat(true);
     const monthPick = await value.monthIn;
     const yearPick = await value.yearIn;
     if (monthPick === undefined || yearPick === undefined) {
@@ -116,7 +129,6 @@ const PigChartList = () => {
     setMonthPicked(monthPick);
     setYearPicked(yearPick); 
     }
-    setTimeStat('Tháng'); 
   }
     }
   return (

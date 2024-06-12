@@ -389,10 +389,6 @@ return (
       <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
-
-      {/* <div>
-        <PigChartList makeReload={makeReload}/>
-      </div> */}
     </>
   );
 }

@@ -15,28 +15,28 @@ export default class PigService{
         return response.data;
     }
 
-    static async getAllPigLitst(){
-      const response = await axios.get(`http://localhost:8080/api/pigs`,
-          {
-              headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${Cookies.get("user")}`,
-              },
-            }
-      )
-      return response.data;
-  }
-  static async getAllDateInList(){
-    const response = await axios.get(`http://localhost:8080/api/pigs/dateInList`,
-        {
-            headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${Cookies.get("user")}`,
-            },
-          }
-    )
-    return response.data;
-  }
+  //   static async getAllPigLitst(){
+  //     const response = await axios.get(`http://localhost:8080/api/pigs`,
+  //         {
+  //             headers: {
+  //               "Content-type": "application/json",
+  //               Authorization: `Bearer ${Cookies.get("user")}`,
+  //             },
+  //           }
+  //     )
+  //     return response.data;
+  // }
+  // static async getAllDateInList(){
+  //   const response = await axios.get(`http://localhost:8080/api/pigs/dateInList`,
+  //       {
+  //           headers: {
+  //             "Content-type": "application/json",
+  //             Authorization: `Bearer ${Cookies.get("user")}`,
+  //           },
+  //         }
+  //   )
+  //   return response.data;
+  // }
   static async getAllDateInListByMonth( month, year){
     const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByMonth?month=${month}&&year=${year}`,
         {
@@ -60,7 +60,6 @@ export default class PigService{
     return response.data;
   }
     static async getAllCote(){
-        // const response = await axios.get(`http://localhost:8080/api/pigs`)
         const response = await axios.get(`http://localhost:8080/api/pigs/coteList`, 
             {
                 headers: {
