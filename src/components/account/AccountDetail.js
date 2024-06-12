@@ -211,100 +211,107 @@ const AccountDetail = () => {
             className="account-form"
             onSubmit={submitHandler}
           >
-            <h1 className="account-form-title">Thông tin cá nhân của bạn</h1>
-            <div className="account-items">
-              <label
-                htmlFor="username"
-                className="account-item-lable"
-              >
-                Tên tài khoản:
-              </label>
-              <input
-                id="username"
-                type="text"
-                className="account-item-input readonly"
-                readOnly
-                value={account.username}
-              />
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="employee-code"
-                className="account-item-lable"
-              >
-                Mã nhân viên:
-              </label>
-              <input
-                id="employee-code"
-                type="text"
-                className="account-item-input readonly"
-                readOnly
-                value={account.code}
-              />
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="fullname"
-                className="account-item-lable"
-              >
-                Họ và tên:
-              </label>
-              <input
-                id="fullname"
-                name="fullName"
-                type="text"
-                className="account-item-input"
-                onBlur={catchError}
-                onChange={changeHandler}
-                value={account.fullName}
-              />
-              {error.fullName && (
-                <p className="account-error">{error.fullName}</p>
-              )}
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="email"
-                className="account-item-lable"
-              >
-                Email:
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="text"
-                className="account-item-input"
-                value={account.email}
-                onBlur={catchError}
-                onChange={changeHandler}
-              />
-              {error.email && <p className="account-error">{error.email}</p>}
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="gender"
-                className="account-item-lable"
-              >
-                Giới tính:
-              </label>
-              <input
-                id="gender"
-                name="gender"
-                type="text"
-                className="account-item-input"
-                readOnly
-                value={account.gender ? "Nam" : "Nữ"}
-                onClick={changeGender}
-              />
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="birth"
-                className="account-item-lable"
-              >
-                Ngày sinh:
-              </label>
-              {/* <input
+            {/* <h1 className="account-form-title">Thông tin cá nhân của bạn</h1> */}
+
+            <div className="information-container">
+              <div className="information-left">
+                <div className="account-items">
+                  <label
+                    htmlFor="username"
+                    className="account-item-lable"
+                  >
+                    Tên tài khoản:
+                  </label>
+                  <input
+                    id="username"
+                    type="text"
+                    className="account-item-input readonly"
+                    readOnly
+                    value={account.username}
+                  />
+                </div>
+                <div className="account-items">
+                  <label
+                    htmlFor="employee-code"
+                    className="account-item-lable"
+                  >
+                    Mã nhân viên:
+                  </label>
+                  <input
+                    id="employee-code"
+                    type="text"
+                    className="account-item-input readonly"
+                    readOnly
+                    value={account.code}
+                  />
+                </div>
+                <div className="account-items">
+                  <label
+                    htmlFor="fullname"
+                    className="account-item-lable"
+                  >
+                    Họ và tên:
+                  </label>
+                  <input
+                    id="fullname"
+                    name="fullName"
+                    type="text"
+                    className="account-item-input"
+                    onBlur={catchError}
+                    onChange={changeHandler}
+                    value={account.fullName}
+                  />
+                  {error.fullName && (
+                    <p className="account-error">{error.fullName}</p>
+                  )}
+                </div>
+                <div className="account-items">
+                  <label
+                    htmlFor="email"
+                    className="account-item-lable"
+                  >
+                    Email:
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    className="account-item-input"
+                    value={account.email}
+                    onBlur={catchError}
+                    onChange={changeHandler}
+                  />
+                  {error.email && (
+                    <p className="account-error">{error.email}</p>
+                  )}
+                </div>
+              </div>
+              <div className="information-right">
+                <div className="account-items">
+                  <label
+                    htmlFor="gender"
+                    className="account-item-lable"
+                  >
+                    Giới tính:
+                  </label>
+                  <input
+                    id="gender"
+                    name="gender"
+                    type="text"
+                    className="account-item-input"
+                    readOnly
+                    value={account.gender ? "Nam" : "Nữ"}
+                    onClick={changeGender}
+                  />
+                </div>
+                <div className="account-items">
+                  <label
+                    htmlFor="birth"
+                    className="account-item-lable"
+                  >
+                    Ngày sinh:
+                  </label>
+                  {/* <input
                 id="birth"
                 name="date"
                 type="date"
@@ -312,36 +319,38 @@ const AccountDetail = () => {
                 value={account.date}
                 onChange={changeHandler}
               /> */}
-              <ReactDatePicker
-                id="birth"
-                name="date"
-                className="account-item-input"
-                selected={account.date}
-                onBlur={catchErrorDate}
-                onChange={changeDate}
-                dateFormat="dd/MM/yyyy"
-              />
-              {error.date && <p className="account-error">{error.date}</p>}
-            </div>
-            <div className="account-items">
-              <label
-                htmlFor="indentity-code"
-                className="account-item-lable"
-              >
-                Căn cước công dân:
-              </label>
-              <input
-                id="identity-code"
-                name="identityCode"
-                type="text"
-                className="account-item-input"
-                value={account.identityCode}
-                onBlur={catchError}
-                onChange={changeHandler}
-              />
-              {error.identityCode && (
-                <p className="account-error">{error.identityCode}</p>
-              )}
+                  <ReactDatePicker
+                    id="birth"
+                    name="date"
+                    className="account-item-input"
+                    selected={account.date}
+                    onBlur={catchErrorDate}
+                    onChange={changeDate}
+                    dateFormat="dd/MM/yyyy"
+                  />
+                  {error.date && <p className="account-error">{error.date}</p>}
+                </div>
+                <div className="account-items">
+                  <label
+                    htmlFor="indentity-code"
+                    className="account-item-lable"
+                  >
+                    Căn cước công dân:
+                  </label>
+                  <input
+                    id="identity-code"
+                    name="identityCode"
+                    type="text"
+                    className="account-item-input"
+                    value={account.identityCode}
+                    onBlur={catchError}
+                    onChange={changeHandler}
+                  />
+                  {error.identityCode && (
+                    <p className="account-error">{error.identityCode}</p>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="btns-container">
