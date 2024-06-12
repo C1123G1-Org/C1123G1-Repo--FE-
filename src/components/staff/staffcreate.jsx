@@ -69,13 +69,13 @@ export const StaffCreate = ({ show, closeModal }) => {
   const vali = {
     code: Yup.string()
       .required("vui lòng không để trống")
-      .min(3, "Nhập ít nhất 3 kí tự")
+      .min(4, "Nhập ít nhất 3 kí tự")
       .matches(/^NV[0-9].$/, "nhập theo định dạng : N**"),
     identityCode: Yup.number()
       .typeError("vui lòng nhập số")
       .required("vui lòng không để trống")
-      .min(9, "nhập nhiều nhất 9 số"),
-    // .max(9, "nhập ít nhất 9 số"),
+      .max(12, "nhập ít nhất 12 số")
+      .min(12, "nhập nhiều nhất 12 số"),
     email: Yup.string()
       .required("vui lòng không để trống")
       .matches(
