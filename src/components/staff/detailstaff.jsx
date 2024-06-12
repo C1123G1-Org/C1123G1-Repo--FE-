@@ -40,7 +40,7 @@ export const DetailStaff = ({ showDetail, closeModal, id }) => {
 
   return (
     <div>
-      <Modal show={showDetail} className="vivi vivi3">
+      <Modal show={showDetail} className="vivi ">
         <ModalHeader className="tieude">Chi Tiết Nhân Viên</ModalHeader>
         <ModalBody>
           <Formik
@@ -52,37 +52,37 @@ export const DetailStaff = ({ showDetail, closeModal, id }) => {
             <Form>
               <table>
                 <tr>
-                  <td>Mã Nhân Viên:</td>
+                  <td className="vivi3">Mã Nhân Viên:</td>
                   <td>{staff.code}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Tên Tài Khoản:</td>
+                  <td className="vivi3">Tên Tài Khoản:</td>
                   <td>{staff.username}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Họ và Tên:</td>
+                  <td className="vivi3">Họ và Tên:</td>
                   <td>{staff.fullName}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Email:</td>
+                  <td className="vivi3">Email:</td>
                   <td>{staff.email}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Giới Tính:</td>
+                  <td className="vivi3">Giới Tính:</td>
                   <td>{staff.gender ? <>Nữ</> : <>Nam</>}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Căn cước:</td>
+                  <td className="vivi3">Căn cước:</td>
                   <td>{staff.identityCode}</td>
                 </tr>
                 <td></td>
                 <tr>
-                  <td>Ngày Sinh :</td>
+                  <td className="vivi3">Ngày Sinh :</td>
                   <td>{staff.date}</td>
                 </tr>
               </table>

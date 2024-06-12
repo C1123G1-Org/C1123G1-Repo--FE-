@@ -70,10 +70,12 @@ export const StaffCreate = ({ show, closeModal }) => {
     code: Yup.string()
       .required("vui lòng không để trống")
       .min(3, "Nhập ít nhất 3 kí tự")
-      .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
+      .matches(/^NV[0-9].$/, "nhập theo định dạng : N**"),
     identityCode: Yup.number()
       .typeError("vui lòng nhập số")
-      .required("vui lòng không để trống"),
+      .required("vui lòng không để trống")
+      .min(9, "nhập nhiều nhất 9 số"),
+    // .max(9, "nhập ít nhất 9 số"),
     email: Yup.string()
       .required("vui lòng không để trống")
       .matches(
