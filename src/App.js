@@ -23,6 +23,7 @@ import Main from "./layouts/Main";
 import "./assets/css/Main.css"
 import Post from "./pages/Post";
 import {AppContextProvider} from "./layouts/AppContext";
+import ContactInfo from "./components/contactInfo/contactInfoComponent";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="staff" element={<Staff />} />
             <Route path="" element={<Main />} />
             <Route path="export-cote" element={<ExportCote/>}/>
+            <Route path="contact-info" element={<ContactInfo/>}/>
           </Route>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/post-detail/:postId" element={<PostDetail />} />

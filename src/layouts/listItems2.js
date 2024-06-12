@@ -42,7 +42,14 @@ export default function ListItems2() {
                         <ListItemText primary="Quản lý nhân viên"/>
                     </ListItemButton>
                 </Link>
-
+                <Link to={"/admin/contact-info"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <PeopleIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Danh sách liên hệ"/>
+                    </ListItemButton>
+                </Link>
             </React.Fragment>
 
             <React.Fragment>
