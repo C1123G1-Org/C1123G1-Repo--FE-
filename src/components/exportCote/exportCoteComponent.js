@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react"
-import ReactModal from "react-modal"
+// import ReactModal from "react-modal"
 import { deleteList, findAll } from "../../services/exportCoteService"
 import './exportCoteComponent.css'
 

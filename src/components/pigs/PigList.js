@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {AppContext} from "../../layouts/AppContext";
+import PigChartList from "./PigChartList";
 
 function PigList() {
 
@@ -276,7 +277,7 @@ return (
       <Row>
         <Col>
           <div className="table-container">
-            <Table striped bordered hover size="sm" style={{ textAlign: "center" }}>
+            <Table striped bordered hover size="sm" style={{ textAlign: "center" }} className={"pig-table"}>
               <thead>
                 <tr>
                   <th>STT</th>
@@ -370,6 +371,10 @@ return (
       <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
+
+      <div>
+        <PigChartList makeReload={makeReload}/>
+      </div>
     </>
   );
 }

@@ -234,7 +234,7 @@ function CotesList() {
   };
 
   const handleClickLink = (event, date, username) => {
-    if (Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+    if (Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") !== "ROLE_ADMIN"
         && localStorage.getItem("username") === username)) {
       if (date !== null) {
         toast.warn("Chuồng bạn chọn đã đóng. Không còn lợn để xem!");
@@ -331,7 +331,7 @@ function CotesList() {
             className="table-container"
             style={{}}
           >
-            <Table
+            <Table className={"cote-table"}
               striped
               bordered
               hover
@@ -375,7 +375,7 @@ function CotesList() {
                     )}
                     <td>{cote.quantity}</td>
                     <td>
-                      {(Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") === "ROLE_NV"
+                      {(Cookies.get("role") === "ROLE_ADMIN" || (Cookies.get("role") !== "ROLE_ADMIN"
                           && localStorage.getItem("username") === cote.account.username)) ?
                       <input
                         type="radio"
