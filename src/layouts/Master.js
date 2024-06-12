@@ -52,6 +52,7 @@ const Drawer = styled(MuiDrawer, {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+
     }),
     boxSizing: "border-box",
     ...(!open && {
@@ -65,6 +66,7 @@ const Drawer = styled(MuiDrawer, {
         width: theme.spacing(9),
       },
     }),
+
   },
 }));
 
@@ -77,11 +79,13 @@ export default function Master() {
     setOpen(!open);
   };
 
+
   const sigout = ()=>{
     localStorage.removeItem("username")
     Cookies.remove("user")
     Cookies.remove("role")
   }
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -124,6 +128,7 @@ export default function Master() {
             </Typography>
             <Typography>
               <Link
+
                   to={"/auth"}
                   style={{
                     color: "white",
@@ -135,6 +140,7 @@ export default function Master() {
                 Đăng xuất
               </Link>
               <Link
+
                 to={"/admin/account"}
                 style={{
                   color: "white",
