@@ -13,26 +13,17 @@ import Editor from "ckeditor5-custom-build";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "./Firebase";
 import {v4} from "uuid";
+import {getPostById} from "../../../services/PostsServices";
 
-export default function UpdatePostModal({handleOpen, handleClose,form, makeReload,id}) {
+export default function UpdatePostModal({handleOpen, handleClose,form, makeReload,point,status}) {
     const [selectedRadio, setSelectedRadio] = useState("Hiển thị");
     const [imageUpload, setImageUpload] = useState(null);
     const [urlImage, setUrlImage] = useState("");
     const [data, setData] = useState("")
-    const [point, setPoint] = useState(false)
+    const [pointCheck, setPointCheck] = useState(false)
+    const [statusCheck, setStatusCheck] = useState(false)
 
 
-    // useEffect( () => {
-    //     getPost().then()
-    // }, []);
-    //
-    // const getPost =async ()=>{
-    //     const post = await getPostById(id);
-    //     console.log(post.status)
-    //     await setSelectedRadio(post.status)
-    //     // await setPoint(post.focalPoint)
-    //     // makeReload();
-    // }
     const handleChange =async (event)=>{
         await setImageUpload(event.target.files[0]);
         setUrlImage(URL.createObjectURL(event.target.files[0]));
@@ -46,8 +37,12 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
             const url = await getDownloadURL(snapshot.ref);
             value.image = url;
         }
-        if (point === true) value.focalPoint = true
-        value.status = selectedRadio;
+        if (pointCheck === true) value.focalPoint = !value.focalPoint
+
+        if (statusCheck === true)  {
+                    if (value.status === "Ẩn") value.status = "Hiển thị"
+                    else value.status = "Ẩn"
+                }
         value.content = data;
         console.log(value)
         PostService.updatePost(form.id,value)
@@ -58,6 +53,8 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                 setImageUpload(null);
                 setUrlImage("");
                 setData("");
+                setPointCheck(false)
+                setStatusCheck(false)
             })
             .catch((err) => {
                 toast.error("Lỗi khi Cập nhật");
@@ -69,6 +66,9 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
         setUrlImage("");
         setData("");
         handleClose();
+        makeReload();
+        setPointCheck(false)
+        setStatusCheck(false)
     }
     const handleRadioChange = async (event) => {
         setSelectedRadio(event.target.value);
@@ -101,9 +101,11 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                                                 Tiêu điểm: <input style={{height: "20px", width: "60px"}}
                                                                   type="radio"
                                                                   // value={`Hiển thị`}
-                                                                  checked={point}
-                                                                  onClick={(event) =>
-                                                                      setPoint(!point)
+                                                                  checked={form.focalPoint}
+                                                                  onClick={async (event) => {
+                                                                      await point()
+                                                                      await setPointCheck(true)
+                                                                  }
                                                                   }/>
                                             </Col>
                                         </Row>
@@ -155,28 +157,31 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                                             Trạng thái:
                                         </Row>
                                         <Row>
-                                            {selectedRadio !== "" &&
                                             <div style={{paddingLeft: "100px"}}>
                                                 Ẩn:
                                                 <input style={{height: "20px", width: "60px"}}
                                                        type="radio"
                                                        value={`Ẩn`}
-                                                       checked={selectedRadio === `Ẩn`}
-                                                       onChange={(event) =>
-                                                           handleRadioChange(event)
+                                                       checked={form.status === `Ẩn`}
+                                                       onClick={async (event) => {
+                                                           await status()
+                                                           await setStatusCheck(true)
+                                                       }
                                                        }
                                                 ></input>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hiển thị:
                                                 <input style={{height: "20px", width: "60px"}}
                                                        type="radio"
                                                        value={`Hiển thị`}
-                                                       checked={selectedRadio === `Hiển thị`}
-                                                       onChange={(event) =>
-                                                           handleRadioChange(event)
+                                                       checked={form.status === `Hiển thị`}
+                                                       onClick={async (event) => {
+                                                           await status()
+                                                           await setStatusCheck(true)
+                                                       }
                                                        }
                                                 ></input>
                                             </div>
-                                            }
+
                                         </Row>
                                     </Col>
                                     {/*<Col sm={1}></Col>*/}

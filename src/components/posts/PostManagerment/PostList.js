@@ -116,6 +116,23 @@ function CotesList() {
         // setUserByForm(cote.account)
     };
 
+    const handleChangePoint = async ()=>{
+        let post = postToUpdate;
+        console.log(post.focalPoint)
+        post.focalPoint = !post.focalPoint
+        await setPostToUpdate(post);
+        await setReload(!reload);
+    }
+
+    const handleChangeStatus = async ()=>{
+        let post = postToUpdate;
+        if (post.status === "Ẩn") post.status = "Hiển thị"
+        else post.status = "Ẩn"
+        console.log(post.status)
+        await setPostToUpdate(post);
+        await setReload(!reload);
+    }
+
     return (
         <>
             <Row>
@@ -249,7 +266,8 @@ function CotesList() {
                 handleClose={handleCloseUpdate}
                 form={postToUpdate}
                 makeReload={makeReload}
-                id={id}
+                point = {handleChangePoint}
+                status = {handleChangeStatus}
             />
             <DeletePostModal
                 handleOpen={showDelete}
