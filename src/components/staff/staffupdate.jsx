@@ -76,7 +76,9 @@ export const StaffUpdate = ({ showUpdate, closeModal, id }) => {
     //   .matches(/^NV[0-9].$/, "nhập theo định dạng : N**"),
     identityCode: Yup.number()
       .typeError("vui lòng nhập số")
-      .required("vui lòng không để trống"),
+      .required("vui lòng không để trống")
+      .max(12, "nhập ít nhất 12 số")
+      .min(12, "nhập nhiều nhất 12 số"),
     email: Yup.string()
       .required("vui lòng không để trống")
       .matches(
