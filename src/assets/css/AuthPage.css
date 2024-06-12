@@ -54,6 +54,8 @@
   width: 300px;
   border: none;
   outline: none;
+  border-radius: 5px;
+  padding-left: 20px;
 }
 
 .signin-btn {
@@ -66,4 +68,7 @@
 
 .signin-btn:hover {
   opacity: 0.8;
+}
+form input {
+  height: 40px;
 }

@@ -46,7 +46,7 @@ export default function UpdatePigModal({
                 </Modal.Header>
 
                 <Formik initialValues={form} onSubmit={handleSubmitUpdate}>
-                    <Form>
+                    <Form className={"form-pig"}>
                         <Modal.Body>
                             <Row>
                                 <Col sm={1}></Col>

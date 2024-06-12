@@ -55,6 +55,7 @@
 
 .post-detail-main-content div:has(> img) {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
