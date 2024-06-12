@@ -104,94 +104,86 @@ export default class PigService{
         )
     }
 
-    static async searchPigByStatus(status){
-        const response = await axios.get(`http://localhost:8080/api/pigs/statusSearch?status=${status}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
-    static async deletePig(id){
-        return await axios.delete("http://localhost:8080/api/pigs/"+ id,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-    }
+  static async searchPigByStatus(status) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/statusSearch?status=${status}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
+  static async deletePig(id) {
+    return await axios.delete("http://localhost:8080/api/pigs/" + id, {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${Cookies.get("user")}`,
+      },
+    });
+  }
 
-    static async searchCoteCode(code){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search?code=${code}`,
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-            }
-        )
-        return response.data;
-    }
-    static async searchOpen(startDate,endDate){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search/in?startDate=${startDate}&endDate=${endDate}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
-    static async searchOpenCote(startDate,endDate,code){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search/in/cote?startDate=${startDate}&endDate=${endDate}&code=${code}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
+  static async searchCoteCode(code) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/search?code=${code}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
+  static async searchOpen(startDate, endDate) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/search/in?startDate=${startDate}&endDate=${endDate}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
+  static async searchOpenCote(startDate, endDate, code) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/search/in/cote?startDate=${startDate}&endDate=${endDate}&code=${code}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
 
-    static async searchClose(startDate,endDate){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search/out?startDate=${startDate}&endDate=${endDate}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
-    static async searchCloseCote(startDate,endDate,code){
-        const response = await axios.get(`http://localhost:8080/api/pigs/search/out/account?startDate=${startDate}&endDate=${endDate}&code=${code}`,
-            {
-                headers: {
-                  "Content-type": "application/json",
-                  Authorization: `Bearer ${Cookies.get("user")}`,
-                },
-              }
-        )
-        return response.data;
-    }
-
-    static async getAllDateInListByWeek(){
-      const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByWeek`,
-          {
-              headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${Cookies.get("user")}`,
-              },
-            }
-      )
-      return response.data;
+  static async searchClose(startDate, endDate) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/search/out?startDate=${startDate}&endDate=${endDate}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
+  }
+  static async searchCloseCote(startDate, endDate, code) {
+    const response = await axios.get(
+      `http://localhost:8080/api/pigs/search/out/account?startDate=${startDate}&endDate=${endDate}&code=${code}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${Cookies.get("user")}`,
+        },
+      }
+    );
+    return response.data;
   }
 }
