@@ -20,11 +20,13 @@ import CoteDetail from "./pages/CoteDetail";
 import Pig from "./pages/Pig";
 import Post from "./pages/Post";
 import PigChartList from "./components/pigs/PigChartList";
+import ContactInfo from "./components/contactInfo/contactInfoComponent";
 import Staff from "./pages/Staff";
 
 function App() {
   return (
     <>
+
       <AppContextProvider>
         <BrowserRouter>
           <Routes>
@@ -62,6 +64,10 @@ function App() {
                 element={<ExportCote />}
               />
               <Route
+                path="contact-info"
+                element={<ContactInfo/>}
+              />
+              <Route
                 path="account"
                 element={<AccountDetail />}
               />
@@ -86,6 +92,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AppContextProvider>
+
       <ToastContainer />
     </>
   );

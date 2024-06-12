@@ -1,0 +1,42 @@
+.contact-button{
+    position: fixed;
+    top: 90%;
+    left: 92%;
+    scale: 1.2;
+}
+
+.err--fullName{
+    position: absolute;
+    left: 30px;
+    top: 150px;
+    background-color: #be4b49;
+    border-radius: 5px;
+    color: white;  
+}
+
+.err--email {
+    position: absolute;
+    left: 265px;
+    top: 150px;
+    background-color: #be4b49;
+    border-radius: 5px;
+    color: white;  
+}
+
+.err--phone{
+    position: absolute;
+    left: 30px;
+    top: 220px;
+    background-color: #be4b49;
+    border-radius: 5px;
+    color: white;  
+}
+
+.err--address{
+    position: absolute;
+    left: 265px;
+    top: 220px;
+    background-color: #be4b49;
+    border-radius: 5px;
+    color: white;  
+}

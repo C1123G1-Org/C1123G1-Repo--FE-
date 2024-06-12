@@ -1,83 +1,67 @@
-import {useContext, useEffect, useState} from "react"
-// import ReactModal from "react-modal"
-import { deleteList, findAll } from "../../services/exportCoteService"
-import './exportCoteComponent.css'
+import { toast } from 'react-toastify'
+import { deleteListContactInfo, getAllContactInfo } from '../../services/ContactInfoService'
+import './contactInfoCoponent.css'
+import { Button, Modal, Pagination } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
 
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Pagination } from "react-bootstrap"
-
-import { toast } from "react-toastify";
-import {AppContext} from "../../layouts/AppContext";
-export default function ExportCote(){
+export default function ContactInfo(){
 
     const [page, setPage] = useState(0)
     const [listID, setListId] = useState([])
     const [isShow, setIsShow] = useState(false)
-    const [exportCoteList, setExportCoteList] = useState({
+    const [contactInfoList, setContactInfoList] = useState({
         content: []
     })
-    // sáng nút
-    const {setNut6 } = useContext(AppContext);
-
-    // Sáng nút
-    useEffect(() => {
-        setNut6(true)
-        return () => setNut6(false)
-    }, []);
 
     useEffect(() => {
-        findAll(page)
+        getAllContactInfo(page)
         .then(res => {  
             if(res.data.content.length != 0){
-                setExportCoteList(res.data)
+                setContactInfoList(res.data)
             } else {
                 if(page != 0){
                     setPage(page - 1)
                 } else {
-                    setExportCoteList(res.data)
+                    setContactInfoList(res.data)
                 }
             }
         })
         .catch(e => {
-            toast.error("Đã xảy ra lỗi")
+            console.log(e);
+            toast.error('Đã xảy ra lỗi')
         })
     }, [page])
-
-
-    const handleClose = () => setIsShow(false);
-    const handleShow = () => setIsShow(true);
 
     return (
         <>
             <div className="export-table-container">    
                 <table border={1} className="export-table">
                     <tr className="export-table__row">
-                        <th className="export-table__row--col">Mã chuồng</th>
-                        <th className="export-table__row--col">Đơn vị xuất</th>
-                        <th className="export-table__row--col">Cân nặng</th>
-                        <th className="export-table__row--col">Số lượng</th>
-                        <th className="export-table__row--col">Ngày xuất biên lai</th>
-                        <th className="export-table__row--col">Tổng tiền</th>
-                        <th className="export-table__row--col">Nhân viên xuất</th>
+                        <th className="export-table__row--col">Họ tên</th>
+                        <th className="export-table__row--col">Email</th>
+                        <th className="export-table__row--col">Địa chỉ</th>
+                        <th className="export-table__row--col">Số điện thoại</th>
+                        <th className="export-table__row--col">Tin nhắn</th>
+                        <th className="export-table__row--col">Thời gian</th>
+                       
                         <th className="export-table__row--col"></th>
                     </tr>
 
-                    {exportCoteList.content.map(ele => (
+                    {contactInfoList.content.map(ele => (
                         <tr className="export-table__row">
-                            <td className="export-table__row--col">{ele.cote.code}</td>
-                            <td className="export-table__row--col">{ele.partner}</td>
-                            <td className="export-table__row--col">{ele.weight}</td>
-                            <td className="export-table__row--col">{ele.amount}</td>
-                            <td className="export-table__row--col">{new Date(ele.dateExport).toLocaleString('vi-VN', { 
+                            <td className="export-table__row--col">{ele.fullName}</td>
+                            <td className="export-table__row--col">{ele.email}</td>
+                            <td className="export-table__row--col">{ele.address}</td>
+                            <td className="export-table__row--col">{ele.phone}</td>
+                            <td className="export-table__row--col">{ele.message}</td>
+                            <td className="export-table__row--col">{new Date(ele.time).toLocaleString('vi-VN', { 
                                 day: '2-digit', 
                                 month: '2-digit', 
                                 year: 'numeric',
                                 hour: '2-digit',
                                 minute: '2-digit', 
                                 })}</td>
-                            <td className="export-table__row--col">{ele.price}</td>
-                            <td className="export-table__row--col">{ele.account.fullName}</td>
+                            
                             <td className="export-table__row--col">
                                 <input value={ele.id} type="checkbox" checked={listID.includes(ele.id+'')}  onChange={(e) => {             
                                     if(listID.includes(e.target.value)){
@@ -91,7 +75,7 @@ export default function ExportCote(){
                         
                     ))}
                 </table>
-                {exportCoteList.content.length != 0 ?
+                {contactInfoList.content.length != 0?
                     <>
                         <div className="show-page-container">
                             <Pagination className="show-page">
@@ -100,43 +84,41 @@ export default function ExportCote(){
                                             setPage(page-1)
                                         }
                                     }}/>
-                                    <Pagination.Item>{page + 1}/{exportCoteList.totalPages}</Pagination.Item>
+                                    <Pagination.Item>{page + 1}/{contactInfoList.totalPages}</Pagination.Item>
                                     <Pagination.Last onClick={()=>{
-                                        if(page != exportCoteList.totalPages - 1){
+                                        if(page != contactInfoList.totalPages - 1){
                                             setPage(page+1)
                                         }
                                     }}/>
                             </Pagination>
-                        </div> 
+                        </div>
                         <div className="btn-container">
-                        <button className="btn--delete" onClick={handleShow}>Xoá</button>
-                </div>
-                    </>
-                    : null
+                            <button className="btn--delete" onClick={() => {setIsShow(true)}}>Xoá</button>
+                        </div>
+                    </> : null   
                 }
                
-
-                <Modal show={isShow} centered onHide={handleClose}>
+                <Modal show={isShow} centered onHide={() => {setIsShow(false)}}>
                     <Modal.Header closeButton>
                     <Modal.Title>Xác nhận xoá</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>Bạn thật sự muốn xoá chứ?</Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={() => {         
-                            deleteList({idList:listID})
+                            deleteListContactInfo({idList:listID})
                             .then(res => {
                                 setListId([])
-                                findAll(page)
+                                getAllContactInfo(page)
                                 .then(res=>{
                                     if(res.data.content.length != 0){
-                                        setExportCoteList(res.data)    
+                                        setContactInfoList(res.data)    
                                     } else {
                                         if(page != 0){
                                             setPage(page - 1)
                                         } else {
-                                            setExportCoteList(res.data)  
+                                            setContactInfoList(res.data)  
                                         }    
-                                    } 
+                                    }
                                 })
                                 .catch(er => {
                                     toast.error("Lấy dữ liệu mới thất bại")
@@ -148,11 +130,11 @@ export default function ExportCote(){
                                 toast.error('Xoá thất bại')
                             })
                         
-                        handleClose()
+                        setIsShow(false)
                     }}>
                         Đồng ý
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => {setIsShow(false)}}>
                         Huỷ
                     </Button>
                     </Modal.Footer>
@@ -161,4 +143,3 @@ export default function ExportCote(){
         </>
     )
 }
-
