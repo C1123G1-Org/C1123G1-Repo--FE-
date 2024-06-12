@@ -2,7 +2,8 @@ import { toast } from 'react-toastify'
 import { deleteListContactInfo, getAllContactInfo } from '../../services/ContactInfoService'
 import './contactInfoCoponent.css'
 import { Button, Modal, Pagination } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
+import {useContext, useEffect, useState} from 'react'
+import {AppContext} from "../../layouts/AppContext";
 
 export default function ContactInfo(){
 
@@ -12,6 +13,13 @@ export default function ContactInfo(){
     const [contactInfoList, setContactInfoList] = useState({
         content: []
     })
+    // sáng nút
+    const {setNut7 } = useContext(AppContext);
+
+    useEffect(() => {
+        setNut7(true)
+        return () => setNut7(false)
+    }, []);
 
     useEffect(() => {
         getAllContactInfo(page)

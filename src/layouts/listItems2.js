@@ -20,7 +20,7 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 // import Cookies from "js-cookie";
 
 export default function ListItems2() {
-    const { nut1, nut2, nut3, nut4, nut5, nut6} = useContext(AppContext);
+    const { nut1, nut2, nut3, nut4, nut5, nut6, nut7} = useContext(AppContext);
     return (
         <>
             <React.Fragment>
@@ -52,7 +52,7 @@ export default function ListItems2() {
                     </ListItemButton>
                 </Link>
                 <Link to={"/admin/contact-info"} style={{textDecoration: "none", color: "black"}}>
-                    <ListItemButton>
+                    <ListItemButton selected = {nut7}>
                         <ListItemIcon>
                             <PeopleIcon/>
                         </ListItemIcon>
@@ -60,19 +60,6 @@ export default function ListItems2() {
                     </ListItemButton>
                 </Link>
             </React.Fragment>
-        <Link
-          to={"/admin/contact-info"}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Danh sách liên hệ" />
-          </ListItemButton>
-        </Link>
-      </React.Fragment>
-
       <React.Fragment>
         <ListSubheader component="div" inset>
           Quản lý thông tin đàn

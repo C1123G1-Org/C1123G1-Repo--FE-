@@ -311,7 +311,12 @@ return (
                     <td>{pig.code}</td>
                     <td>{pig.cote.code}</td>
                     <td>{pig.dateIn}</td>
-                    <td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>
+                    {/*<td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>*/}
+                      {pig.dateOut ? (
+                          <td style={{ color: "#FFA500" }}>{pig.dateOut}</td>
+                      ) : (
+                          <td>Chưa cập nhật</td>
+                      )}
                     <td>
                     {pig.status === "Khỏe mạnh" ? <td style={{color: "limegreen"}}>{pig.status}</td> :
                                         <td style={{color: "red"}}>{pig.status}</td>}
