@@ -62,7 +62,7 @@ export default class PigService {
     return response.data;
   }
     static async getAllCote(){
-        const response = await axios.get(`http://localhost:8080/api/pigs/coteList`, 
+        const response = await axios.get(`http://localhost:8080/api/pigs/coteListAll`, 
             {
                 headers: {
                   "Content-type": "application/json",
@@ -72,6 +72,19 @@ export default class PigService {
         )
         return response.data;
     }
+
+    static async getAllCoteAvaiable(){
+      const response = await axios.get(`http://localhost:8080/api/pigs/coteListAvaiable`, 
+          {
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${Cookies.get("user")}`,
+              },
+            }
+      )
+      return response.data;
+  }
+
     static async createPig(pig){
         return await axios.post("http://localhost:8080/api/pigs",pig
             ,
@@ -179,7 +192,7 @@ export default class PigService {
   }
   static async searchCloseCote(startDate, endDate, code) {
     const response = await axios.get(
-      `http://localhost:8080/api/pigs/search/out/account?startDate=${startDate}&endDate=${endDate}&code=${code}`,
+      `http://localhost:8080/api/pigs/search/out/cote?startDate=${startDate}&endDate=${endDate}&code=${code}`,
       {
         headers: {
           "Content-type": "application/json",
