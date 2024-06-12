@@ -17,23 +17,26 @@ export default function CreatePigModal({
   const [dateIn, setDateIn] = useState(new Date());
   const [dateOut, setDateOut] = useState(null);
 
-  const handleSubmitCreate = async (value) => {
-    value.code = newPigID;
-    value.cote = cote[value.coteIndex];
-    value.dateIn = value.dateIn;
-    value.dateOut = value.dateOut;
-    PigService.createPig(value)
-      .then((res) => {
-        toast.success("Thêm mới thành công");
-        setDateIn(new Date());
-        setDateOut(null);
-        makeReload();
-        handleCloseModalCreate();
-      })
-      .catch((err) => {
-        toast.error("Lỗi thêm mới");
-      });
-  };
+
+    const handleSubmitCreate = async (value) => {
+        value.code = newPigID;
+        value.cote = cote[value.coteIndex];
+        value.dateIn = value.dateIn;
+        value.dateOut = value.dateOut;
+        PigService.createPig(value)
+            .then((res) => {
+                toast.success("Thêm mới thành công");
+                setDateIn(new Date());
+                setDateOut(null);
+                makeReload();
+                handleCloseModalCreate()
+            })
+            .catch((err) => {
+                toast.error("Lỗi thêm mới");
+            });
+            
+    };
+
 
   const handleCloseModalCreate = () => {
     setDateOut(null);
@@ -41,14 +44,24 @@ export default function CreatePigModal({
   };
   return (
     <>
-      <Modal show={open} centered>
+
+      <Modal
+        show={open}
+        centered
+      >
+
         <Modal.Header style={{ backgroundColor: "#1976d2" }}>
           <Modal.Title style={{ color: "white" }}>
             Khởi tạo cá thể mới
           </Modal.Title>
         </Modal.Header>
 
-        <Formik initialValues={{}} onSubmit={handleSubmitCreate}>
+
+        <Formik
+          initialValues={{}}
+          onSubmit={handleSubmitCreate}
+        >
+
           <Form>
             <Modal.Body>
               <Row>
@@ -74,7 +87,12 @@ export default function CreatePigModal({
                           >
                             <option value="">Chọn mã chuồng</option>
                             {cote.map((code, index) => (
-                              <option value={index} key={code.id}>
+
+                              <option
+                                value={index}
+                                key={code.id}
+                              >
+
                                 C{code.id}
                               </option>
                             ))}
@@ -93,7 +111,12 @@ export default function CreatePigModal({
                       <tr>
                         <td>Ngày nhập chuồng</td>
                         <td>
-                          <Field name="dateIn" type="date"></Field>
+
+                          <Field
+                            name="dateIn"
+                            type="date"
+                          ></Field>
+
                         </td>
                       </tr>
                       <tr>
@@ -110,7 +133,12 @@ export default function CreatePigModal({
                         <td>
                           {/* <ReactDatePicker selected={dateOut} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
                                                         onChange={(date) => setDateOut(date)}></ReactDatePicker> */}
-                          <Field name="dateOut" type="date"></Field>
+
+                          <Field
+                            name="dateOut"
+                            type="date"
+                          ></Field>
+
                         </td>
                       </tr>
                       <tr>
@@ -162,10 +190,18 @@ export default function CreatePigModal({
               </Row>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" type="submit">
+
+              <Button
+                variant="primary"
+                type="submit"
+              >
                 Khởi tạo
               </Button>
-              <Button variant="secondary" onClick={handleCloseModalCreate}>
+              <Button
+                variant="secondary"
+                onClick={handleCloseModalCreate}
+              >
+
                 Hủy bỏ
               </Button>
             </Modal.Footer>
