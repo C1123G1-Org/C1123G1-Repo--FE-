@@ -20,6 +20,7 @@ import Copyright from "./Copyright/Copyright";
 // import myImage from "../../public/logo.PNG"
 import myImage from "../assets/image/logo2.PNG";
 import ListItems2 from "./listItems2";
+import Cookies from "js-cookie";
 
 const drawerWidth = 240;
 
@@ -51,6 +52,7 @@ const Drawer = styled(MuiDrawer, {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+
     }),
     boxSizing: "border-box",
     ...(!open && {
@@ -64,6 +66,7 @@ const Drawer = styled(MuiDrawer, {
         width: theme.spacing(9),
       },
     }),
+
   },
 }));
 
@@ -75,6 +78,14 @@ export default function Master() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+
+  const sigout = ()=>{
+    localStorage.removeItem("username")
+    Cookies.remove("user")
+    Cookies.remove("role")
+  }
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -117,6 +128,19 @@ export default function Master() {
             </Typography>
             <Typography>
               <Link
+
+                  to={"/auth"}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    marginRight: "20px",
+                  }}
+                  onClick={sigout}
+              >
+                Đăng xuất
+              </Link>
+              <Link
+
                 to={"/admin/account"}
                 style={{
                   color: "white",

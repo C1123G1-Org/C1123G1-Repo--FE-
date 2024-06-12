@@ -12,8 +12,14 @@ import SavingsIcon from '@mui/icons-material/Savings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import {Link} from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Main() {
+    const sigout = ()=>{
+        localStorage.removeItem("username")
+        Cookies.remove("user")
+        Cookies.remove("role")
+    }
     return (
         <>
             <Grid container>
@@ -77,7 +83,9 @@ function Main() {
                                 </Col>
                                 <Col className={"picture-col"}>
                                     <div className={"picture-div"}>
+                                        <Link to={"/auth"} className={"link"} onClick={sigout}>
                                         <LogoutIcon className={"p6"} style={{fontSize: "180px"}}/>
+                                        </Link>
                                     </div>
                                 </Col>
                             </Row>
@@ -96,7 +104,9 @@ function Main() {
                                 </Col>
                                 <Col className={"text-col"}>
                                     <div className={"text-div"}>
+                                        <Link to={"/auth"} className={"link"} onClick={sigout}>
                                         <h4>ĐĂNG XUẤT</h4>
+                                        </Link>
                                     </div>
                                 </Col>
                             </Row>

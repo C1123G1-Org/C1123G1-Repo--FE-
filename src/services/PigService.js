@@ -16,80 +16,96 @@ export default class PigService {
     return response.data;
   }
 
-  static async getAllPigLitst() {
-    const response = await axios.get(`http://localhost:8080/api/pigs`, {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${Cookies.get("user")}`,
-      },
-    });
+
+  //   static async getAllPigLitst(){
+  //     const response = await axios.get(`http://localhost:8080/api/pigs`,
+  //         {
+  //             headers: {
+  //               "Content-type": "application/json",
+  //               Authorization: `Bearer ${Cookies.get("user")}`,
+  //             },
+  //           }
+  //     )
+  //     return response.data;
+  // }
+  // static async getAllDateInList(){
+  //   const response = await axios.get(`http://localhost:8080/api/pigs/dateInList`,
+  //       {
+  //           headers: {
+  //             "Content-type": "application/json",
+  //             Authorization: `Bearer ${Cookies.get("user")}`,
+  //           },
+  //         }
+  //   )
+  //   return response.data;
+  // }
+  static async getAllDateInListByMonth( month, year){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByMonth?month=${month}&&year=${year}`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
+    return response.data;
+}
+  static async getAllDateInListByYear(year){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByYear?year=${year}`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
     return response.data;
   }
-  static async getAllDateInList() {
-    const response = await axios.get(
-      `http://localhost:8080/api/pigs/dateInList`,
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${Cookies.get("user")}`,
-        },
-      }
-    );
-    return response.data;
-  }
-  static async getAllDateInListByMonth(month, year) {
-    const response = await axios.get(
-      `http://localhost:8080/api/pigs/dateInListByMonth?month=${month}&&year=${year}`,
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${Cookies.get("user")}`,
-        },
-      }
-    );
-    return response.data;
-  }
-  static async getAllCote() {
-    // const response = await axios.get(`http://localhost:8080/api/pigs`)
-    const response = await axios.get(
-      `http://localhost:8080/api/pigs/coteList`,
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${Cookies.get("user")}`,
-        },
-      }
-    );
-    return response.data;
-  }
-  static async createPig(pig) {
-    return await axios.post("http://localhost:8080/api/pigs", pig, {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${Cookies.get("user")}`,
-      },
-    });
-  }
-  static async findByID(id) {
-    const response = await axios.get(
-      "http://localhost:8080/api/pigs/find/" + id,
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${Cookies.get("user")}`,
-        },
-      }
-    );
-    return response.data;
-  }
-  static async updatePig(pig, id) {
-    return await axios.put("http://localhost:8080/api/pigs/" + id, pig, {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${Cookies.get("user")}`,
-      },
-    });
-  }
+    static async getAllCote(){
+        const response = await axios.get(`http://localhost:8080/api/pigs/coteList`, 
+            {
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${Cookies.get("user")}`,
+                },
+              }
+        )
+        return response.data;
+    }
+    static async createPig(pig){
+        return await axios.post("http://localhost:8080/api/pigs",pig
+            ,
+            {
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${Cookies.get("user")}`,
+                },
+              }
+        )
+    }
+    static async findByID(id){
+        const response = await axios.get("http://localhost:8080/api/pigs/find/"+ id, 
+            {
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${Cookies.get("user")}`,
+                },
+              }
+        )
+        return response.data;
+    }
+    static async updatePig(pig,id){
+        return await axios.put("http://localhost:8080/api/pigs/"+ id,pig
+            , 
+            {
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${Cookies.get("user")}`,
+                },
+              }
+        )
+    }
+
 
   static async searchPigByStatus(status) {
     const response = await axios.get(
@@ -173,4 +189,17 @@ export default class PigService {
     );
     return response.data;
   }
+
+  static async getAllDateInListByWeek(){
+    const response = await axios.get(`http://localhost:8080/api/pigs/dateInListByWeek`,
+        {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${Cookies.get("user")}`,
+            },
+          }
+    )
+    return response.data;
+  }
+
 }

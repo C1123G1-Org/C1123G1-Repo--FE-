@@ -63,4 +63,29 @@ button[type="button"]{
     /*border-color: grey;*/
     border: 1px solid grey;
 }
+.file {
+    height: 32px;
+    border: grey 1px solid;
+    border-radius: 3px;
+}
+/*.editor {*/
+/*    width: 100%;*/
+/*    !*height: 320px;*!*/
+/*    !*max-height: 330px; !* Chiều cao tối đa của table *!*!*/
+/*    !*max-width: 1150px; !* Chiều cao tối đa của table *!*!*/
+/*    overflow-y: auto; !* Thêm thanh cuộn dọc *!*/
+/*    !*overflow-x: auto;*!*/
+/*}*/
+.test {
+    margin-left: 7%;
+    width: 86%;
+    /*min-width: 86%;*/
 
+    /*max-height: 600px;*/
+}
+.teste {
+    /*min-width: 86%;*/
+    /*display: block;*/
+    /*max-height: 330px;*/
+    /*overflow-y: auto;*/
+}
