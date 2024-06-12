@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllPost } from "../../../services/PostsServices";
+import { findPostsByName, getAllPost } from "../../../services/PostsServices";
 
 function Header() {
   const [postsItem, setPostsItem] = useState([]);
   const [timer, setTimer] = useState("");
+  const [searchItems, setSearchItems] = useState([]);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -74,6 +75,19 @@ function Header() {
     navigation(`/post-detail/${id}`);
   };
 
+  const changeSearchHandler = (e) => {
+    if (e.target.value !== "") {
+      findPost(e.target.value);
+    } else {
+      setSearchItems([]);
+    }
+  };
+
+  const findPost = async (word) => {
+    const searchList = await findPostsByName(word);
+    setSearchItems(searchList);
+  };
+
   return (
     <>
       <div className="container">
@@ -96,6 +110,7 @@ function Header() {
                 type="text"
                 className="search-input"
                 placeholder="Nhập nội dung tìm kiếm"
+                onChange={changeSearchHandler}
               />
               <button
                 className="search-btn"
@@ -104,6 +119,20 @@ function Header() {
                 Tìm kiếm
               </button>
             </form>
+            {Boolean(searchItems.length) && (
+              <div className="search-item-container">
+                {searchItems.map((item) => (
+                  <>
+                    <p
+                      className="search-item"
+                      onClick={() => clickHandler(item.id)}
+                    >
+                      {item.title}
+                    </p>
+                  </>
+                ))}
+              </div>
+            )}
           </div>
           <div className="langding-link">
             <button

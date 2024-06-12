@@ -65,3 +65,11 @@ export const getFocalPostFromDB = async () => {
     return {};
   }
 };
+
+export const findPostsByName = async (word) => {
+  try {
+    return (await axios.get(`${POST_API}/search?word=${word}`)).data;
+  } catch {
+    return [];
+  }
+};
