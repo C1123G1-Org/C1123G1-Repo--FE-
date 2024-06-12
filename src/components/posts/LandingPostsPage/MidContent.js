@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-import { getAllPost } from "../../../services/PostsServices";
+import {
+  getAllPost,
+  getFocalPostFromDB,
+} from "../../../services/PostsServices";
 
 function MidContent() {
   const itemsPerPage = 3;
 
   const [postsItem, setPostsItem] = useState([]);
+  const [focalPost, setFocalPost] = useState({});
+
   const navigation = useNavigate();
 
   const [itemOffset, setItemOffset] = useState(0);
@@ -23,7 +28,13 @@ function MidContent() {
 
   useEffect(() => {
     getPostList();
+    getFocalPost();
   }, []);
+
+  const getFocalPost = async () => {
+    const focalPostGotten = await getFocalPostFromDB();
+    setFocalPost(focalPostGotten);
+  };
 
   const getPostList = async () => {
     const postList = await getAllPost();
@@ -43,21 +54,21 @@ function MidContent() {
         </div>
         <div
           className="news-forcused-container-item"
-          onClick={() => clickHandler(postsItem[0].id)}
+          onClick={() => clickHandler(focalPost.id)}
         >
           {postsItem.length !== 0 ? (
             <>
               <img
                 className="news-forcus-image"
-                src={postsItem[0].image}
+                src={focalPost.image}
                 alt=""
               />
               <div className="news-forcus-title">
                 <p
                   className="news-forcus-title-item"
-                  title={postsItem[0].title}
+                  title={focalPost.title}
                 >
-                  {postsItem[0].title}
+                  {focalPost.title}
                 </p>
               </div>
             </>
