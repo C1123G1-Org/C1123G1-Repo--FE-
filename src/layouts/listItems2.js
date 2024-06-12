@@ -20,48 +20,46 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 // import Cookies from "js-cookie";
 
 export default function ListItems2() {
-  const { nut1, nut2, nut3, nut4, nut5, nut6 } = useContext(AppContext);
-  return (
-    <>
-      <React.Fragment>
-        <ListSubheader component="div" inset>
-          Quản lý hệ thống
-        </ListSubheader>
-        <Link
-          to={"/admin/posts-mgt"}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <ListItemButton selected={nut1}>
-            <ListItemIcon>
-              <NewspaperIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý tin tức" />
-          </ListItemButton>
-        </Link>
-        <Link
-          to={"/admin/staff"}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <ListItemButton selected={nut2}>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý nhân viên" />
-          </ListItemButton>
-        </Link>
-
-        <Link
-          to={"/admin/pig-stat"}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <ListItemButton selected={nut3}>
-            <ListItemIcon>
-              <LeaderboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Thống kê" />
-          </ListItemButton>
-        </Link>
-
+    const { nut1, nut2, nut3, nut4, nut5, nut6} = useContext(AppContext);
+    return (
+        <>
+            <React.Fragment>
+                <ListSubheader component="div" inset>
+                    Quản lý hệ thống
+                </ListSubheader>
+                <Link to={"/admin/posts-mgt"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton selected = {nut1}>
+                        <ListItemIcon>
+                            <NewspaperIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Quản lý tin tức"/>
+                    </ListItemButton>
+                </Link>
+                <Link to={"/admin/staff"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton selected = {nut2}>
+                        <ListItemIcon>
+                            <PeopleIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Quản lý nhân viên"/>
+                    </ListItemButton>
+                </Link>
+                <Link to={"/admin/pig-stat"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton selected = {nut3}>
+                        <ListItemIcon>
+                            <LeaderboardIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Thống kê"/>
+                    </ListItemButton>
+                </Link>
+                <Link to={"/admin/contact-info"} style={{textDecoration: "none", color: "black"}}>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <PeopleIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Danh sách liên hệ"/>
+                    </ListItemButton>
+                </Link>
+            </React.Fragment>
         <Link
           to={"/admin/contact-info"}
           style={{ textDecoration: "none", color: "black" }}

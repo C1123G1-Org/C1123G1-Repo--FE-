@@ -21,9 +21,11 @@ export default function UpdatePigModal({
 
     
     const handleSubmitUpdate = async (value) => {
-        value.cote = cote[value.coteIndex];
-        value.dateIn = dateInUpdate;
-        value.dateOut = dateOutUpdate;
+        if (value.coteIndex !== undefined) {
+            value.cote = cote[value.coteIndex];
+        }
+        value.dateIn = value.dateIn;
+        value.dateOut = value.dateOut;
 
         PigService.updatePig(value, id)
             .then((res) => {

@@ -2,8 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ExportCote from "./components/exportCote/exportCoteComponent";
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+
 
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer } from "react-toastify";
@@ -28,21 +30,51 @@ import Staff from "./pages/Staff";
 function App() {
   return (
     <>
+
       <AppContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/admin" element={<Master />}>
+            <Route
+              path="/admin"
+              element={<Master />}
+            >
               <Route path="pig-stat" element={<PigChartList />}></Route>
-
-              <Route path="cotes" element={<Cote />}></Route>
-              <Route path="pigs" element={<Pig />}></Route>
-              <Route path="cotes/detail/:id" element={<CoteDetail />}></Route>
-              <Route path="posts-mgt" element={<Post />} />
-              <Route path="staff" element={<Staff />} />
-              <Route path="" element={<Main />} />
-              <Route path="export-cote" element={<ExportCote />} />
-              <Route path="contact-info" element={<ContactInfo />} />
-              <Route path="account" element={<AccountDetail />} />
+              <Route
+                path="cotes"
+                element={<Cote />}
+              ></Route>
+              <Route
+                path="pigs"
+                element={<Pig />}
+              ></Route>
+              <Route
+                path="cotes/detail/:id"
+                element={<CoteDetail />}
+              ></Route>
+              <Route
+                path="posts-mgt"
+                element={<Post />}
+              />
+              <Route
+                path="staff"
+                element={<Staff />}
+              />
+              <Route
+                path=""
+                element={<Main />}
+              />
+              <Route
+                path="export-cote"
+                element={<ExportCote />}
+              />
+              <Route
+                path="contact-info"
+                element={<ContactInfo/>}
+              />
+              <Route
+                path="account"
+                element={<AccountDetail />}
+              />
             </Route>
             <Route path="/posts" element={<PostsPage />} />
             <Route path="/post-detail/:postId" element={<PostDetail />} />
