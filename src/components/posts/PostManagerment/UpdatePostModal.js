@@ -43,7 +43,7 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                     if (value.status === "Ẩn") value.status = "Hiển thị"
                     else value.status = "Ẩn"
                 }
-        value.content = data;
+        if (data !== "") value.content = data;
         console.log(value)
         PostService.updatePost(form.id,value)
             .then((res) => {
