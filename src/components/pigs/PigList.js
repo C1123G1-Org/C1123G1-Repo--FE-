@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {AppContext} from "../../layouts/AppContext";
+import PigChartList from "./PigChartList";
 
 function PigList() {
 
@@ -30,6 +31,7 @@ function PigList() {
     // Create - Update
     const [newPigID, setNewPigID] = useState("");
     const [cote, setCote] = useState([]);
+    const [coteAvaiable, setCoteAvaiable] = useState([]);
     // Search
     const [search, setSearch] = useState(false);
     const [searchStart, setSearchStart] = useState(null);
@@ -54,51 +56,69 @@ function PigList() {
 
     const getAllPig = async () => {
       const pigList = await PigService.getAllPig(pageSize, page);
-      const pigCodeLast = await pigList.content[0].code;
-      for (let i = 0; i < pigList.content.length; i++) {
-        pigList.content[i].dateIn = formatDate(pigList.content[i].dateIn);
-        if (pigList.content[i].dateOut !== null) {
-          pigList.content[i].dateOut = formatDate(pigList.content[i].dateOut);
+      if (pigList.length === 0) {
+        toast.info("Chưa có bản ghi nào tồn tại");
+        setNewPigID("L01");
+      } else {
+        const pigCodeLast = await pigList.content[0].code;
+        for (let i = 0; i < pigList.content.length; i++) {
+          pigList.content[i].dateIn = formatDate(pigList.content[i].dateIn);
+          if (pigList.content[i].dateOut !== null) {
+            pigList.content[i].dateOut = formatDate(pigList.content[i].dateOut);
+          }
         }
+        setPigs(pigList.content);
+        if (Number(pigCodeLast.slice(1)) < 9) {
+          setNewPigID("L0" + (Number(pigCodeLast.slice(1)) + 1));
+        } else if ((Number(pigCodeLast.slice(1)) >= 9)) {
+          setNewPigID("L" + (Number(pigCodeLast.slice(1)) + 1));
+        }
+        setInfoPage(pigList);
+        setSearch(false)
       }
-      setPigs(pigList.content);
-      if (Number(pigCodeLast.slice(1)) < 9) {
-        setNewPigID("L0" + (Number(pigCodeLast.slice(1)) + 1));
-      } else if ((Number(pigCodeLast.slice(1)) >= 9)) {
-        setNewPigID("L" + (Number(pigCodeLast.slice(1)) + 1));
-      }
-      setInfoPage(pigList);
-      setSearch(false)
     };
 
     // List Cote
     useEffect(() => {
       getAllCote();
-    }, []);
+    }, [reload]);
 
     const getAllCote = async () => {
         const listCote = await PigService.getAllCote();
         setCote(listCote);
     }
 
+    useEffect(() => {
+      getAllCoteAvaiable();
+    }, [reload]);
+
+    const getAllCoteAvaiable = async () => {
+        const listCoteAvaiable = await PigService.getAllCoteAvaiable();
+        setCoteAvaiable(listCoteAvaiable);
+    }
+
     // Event
     const changePageSize = (event) => {
-      setSort(false)
+      setSort(false);
+      setSelectedRadio("")
       setPageSize(event.target.value);
       setPage(0);
     }
     const handleNext = async () => {
       if (page !== infoPage.totalPages - 1) {
+        setSelectedRadio("");
         setPage(page + 1)
       }
     };
     const handlePrev = async () => {
       if (page > 0)
         { 
+          setSelectedRadio("");
           setPage(page - 1)
         }
     };
     const makeReload = () => {
+      setSelectedRadio("")
       setReload(!reload)
     }
     const setInUpdate = (date) => {
@@ -232,7 +252,8 @@ function PigList() {
 return (
     <>
         <Row id={"date"}>
-          <Col sm={8}>
+        <Col sm={3}></Col>
+          <Col sm={5}>
             <Row style={{paddingTop: "30px", paddingBottom: "30px"}}>
               <Col sm={4} style={{textAlign: "right"}}>
                   <DatePicker dateFormat="dd-MM-yyyy" selected={searchStart} placeholderText="Ngày bắt đầu"
@@ -276,7 +297,7 @@ return (
       <Row>
         <Col>
           <div className="table-container">
-            <Table striped bordered hover size="sm" style={{ textAlign: "center" }}>
+            <Table striped bordered hover size="sm" style={{ textAlign: "center" }} className={"pig-table"}>
               <thead>
                 <tr>
                   <th>STT</th>
@@ -300,7 +321,7 @@ return (
                     <td>{pig.code}</td>
                     <td>{pig.cote.code}</td>
                     <td>{pig.dateIn}</td>
-                    <td>{pig.dateOut ? pig.dateOut : "Chưa cập nhật"}</td>
+                    <td>{pig.dateOut ? <span style={{color: "#FFA500"}}>{pig.dateOut}</span> : "Chưa cập nhật"}</td>
                     <td>
                     {pig.status === "Khỏe mạnh" ? <td style={{color: "limegreen"}}>{pig.status}</td> :
                                         <td style={{color: "red"}}>{pig.status}</td>}
@@ -315,28 +336,36 @@ return (
             </Table>
           </div>
           <br></br>
-          {!search &&
-                        <Row>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col>
-                                Số lượng bản ghi:&nbsp;&nbsp;
-                                <select className="my-select" value={pageSize} onChange={changePageSize}>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                </select>
-                            </Col>
-                            <Col>
-                                <Pagination>
-                                    <Pagination.First onClick={handlePrev}/>
-                                    {infoPage && <Pagination.Item>{page + 1}/{infoPage.totalPages}</Pagination.Item>}
-                                    <Pagination.Last onClick={handleNext}/>
-                                </Pagination>
-                            </Col>
-                        </Row>
-                    }
+          {!search && (
+            <Row>
+              <Col></Col>
+              <Col></Col>
+              <Col>
+                <Pagination style={{ paddingLeft: "40px"}}>
+                  <Pagination.First onClick={handlePrev} />
+                  {infoPage && (
+                      <Pagination.Item>
+                        {page + 1}/{infoPage.totalPages}
+                      </Pagination.Item>
+                  )}
+                  <Pagination.Last onClick={handleNext} />
+                </Pagination>
+              </Col>
+              <Col></Col>
+              <Col style={{ whiteSpace: "nowrap" }}>
+                Số lượng bản ghi:&nbsp;&nbsp;
+                <select
+                  className="my-select"
+                  value={pageSize}
+                  onChange={changePageSize}
+                >
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </Col>
+            </Row>
+          )}
         </Col>
       </Row>
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
@@ -366,8 +395,8 @@ return (
         
         {/* <Col sm={3}></Col> */}
       </Row>
-      <CreatePigModal cote={cote} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
-      <UpdatePigModal cote={cote} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
+      <CreatePigModal coteAvaiable={coteAvaiable} newPigID={newPigID} open={showCreate} handleClose={handleCloseCreate} makeReload={makeReload} />
+      <UpdatePigModal coteAvaiable={coteAvaiable} open={showUpdate} handleClose={handleCloseUpdate} id={id} form={form}
         dateOutUpdate={dateOutUpdate} dateInUpdate={dateInUpdate}
         setIn={setInUpdate} setOut={setOutUpdate} makeReload={makeReload} />
     </>

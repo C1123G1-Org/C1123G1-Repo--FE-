@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -55,6 +55,9 @@ export const StaffCreate = ({ show, closeModal }) => {
           setErrorIdenty("");
         }
       } else {
+        setErrorCode("");
+        setErrorUsername("");
+        setErrorIdenty("");
         closeModal();
         toast.success("thêm mới thành công");
       }
@@ -63,30 +66,34 @@ export const StaffCreate = ({ show, closeModal }) => {
     }
   };
 
-  // const vali = {
-  //   code: Yup.string()
-  //     .required("vui lòng không để trống")
-  //     .min(3, "Nhập ít nhất 3 kí tự")
-  //     .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
-  //   identityCode: Yup.number()
-  //     .typeError("vui lòng nhập số")
-  //     .required("vui lòng không để trống"),
-  //   email: Yup.string()
-  //     .required("vui lòng không để trống")
-  //     .matches(
-  //       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-  //       "nhập đúng định dạng : **@gmail.com"
-  //     ),
-  //   date: Yup.date()
-  //     .max(minAgeDate, "Bạn chưa đủ 18 tuổi!")
-  //     .required("Ngày sinh không được bỏ trống"),
-  // };
+  const vali = {
+    code: Yup.string()
+      .required("vui lòng không để trống")
+      .min(4, "Nhập ít nhất 4 kí tự")
+      .matches(/^NV[0-9].$/, "nhập theo định dạng : NV**"),
+    identityCode: Yup.number()
+      .typeError("vui lòng nhập số")
+      .required("vui lòng không để trống")
+      .max(12, "nhập ít nhất 12 số")
+      .min(12, "nhập nhiều nhất 12 số"),
+    email: Yup.string()
+      .required("vui lòng không để trống")
+      .matches(
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+        "nhập đúng định dạng : **@gmail.com"
+      ),
+    date: Yup.date()
+      .max(minAgeDate, "Bạn chưa đủ 18 tuổi!")
+      .required("Ngày sinh không được bỏ trống"),
+  };
 
   return (
     <div>
       <Modal show={show} className="vivi">
-        <ModalHeader>Tao moi</ModalHeader>
-
+        <ModalHeader className="tieude">
+          {" "}
+          <div style={{ fontSize: "20px" }}>Thêm Nhân Viên </div>
+        </ModalHeader>
         <ModalBody>
           <div className="d-flex">
             <div className="col-11 vi2">
@@ -100,20 +107,7 @@ export const StaffCreate = ({ show, closeModal }) => {
                   identityCode: "",
                 }}
                 onSubmit={handleCreateStaff}
-                validationSchema={Yup.object({
-                  // code: Yup.string()
-                  //   .required("vui lòng không để trống")
-                  //   .matches(/^N[0-9].$/, "nhập theo định dạng : N**"),
-                  identityCode: Yup.number().required(
-                    "vui lòng không để trống"
-                  ),
-                  // email: Yup.string()
-                  //   .email()
-                  //   .required("vui lòng không để trống"),
-                  // date: Yup.date()
-                  //   .max(minAgeDate, "Bạn chưa đủ 18 tuổi!")
-                  //   .required("Ngày sinh không được bỏ trống"),
-                })}
+                validationSchema={Yup.object(vali)}
               >
                 <Form>
                   <table>
@@ -121,6 +115,11 @@ export const StaffCreate = ({ show, closeModal }) => {
                       <td>Mã nhân viên: </td>
                       <td>
                         <Field type="text" name="code" required></Field>
+                        <ErrorMessage
+                          name="code"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
                     <tr>
@@ -132,15 +131,26 @@ export const StaffCreate = ({ show, closeModal }) => {
                       </td>
                     </tr>
                     <tr>
-                      <td> họ và tên: </td>
+                      <td> Họ và tên: </td>
                       <td>
                         <Field type="text" name="fullName" required></Field>
+                        <ErrorMessage
+                          name="fullName"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
+                    <td></td>
                     <tr>
-                      <td> tên tài khoản: </td>
+                      <td> Tên tài khoản: </td>
                       <td>
                         <Field type="text" name="username" required></Field>
+                        <ErrorMessage
+                          name="username"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
                     <tr>
@@ -152,25 +162,38 @@ export const StaffCreate = ({ show, closeModal }) => {
                       </td>
                     </tr>
                     <tr>
-                      <td> mật khẩu: </td>
+                      <td> Mật khẩu: </td>
                       <td>
                         <Field type="text" name="password" required></Field>
                       </td>
                     </tr>
+                    <td></td>
                     <tr>
-                      <td> email: </td>
+                      <td> Email: </td>
                       <td>
-                        <Field type="text" name="email" required></Field>
+                        <Field type="text" name="email"></Field>
+                        <ErrorMessage
+                          name="email"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
+                    <td></td>
                     <tr>
-                      <td>ngày sinh: </td>
+                      <td>Ngày sinh: </td>
                       <td>
                         <Field type="Date" name="date" required></Field>
+                        <ErrorMessage
+                          name="date"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
+                    <td></td>
                     <tr>
-                      <td> giới tính </td>
+                      <td> Giới tính: </td>
                       <td>
                         <Field as="select" name="gender" required>
                           <option selected disabled value="">
@@ -181,18 +204,23 @@ export const StaffCreate = ({ show, closeModal }) => {
                         </Field>
                       </td>
                     </tr>
+                    <td></td>
                     <tr>
-                      <td> cmnd </td>
+                      <td> CMND: </td>
                       <td>
                         <Field
                           type="number"
                           name="identityCode"
                           required
                         ></Field>
+                        <ErrorMessage
+                          name="identityCode"
+                          component={"div"}
+                          style={{ color: "red" }}
+                        />
                       </td>
                     </tr>
                     <tr>
-                      <td></td>
                       <td>
                         <div>
                           <span>{errorIdenty}</span>
@@ -208,15 +236,14 @@ export const StaffCreate = ({ show, closeModal }) => {
             </div>
           </div>
         </ModalBody>
-
         <ModalFooter>
           <Button
             onClick={() => {
               closeModal();
             }}
-            className="btn btn-danger"
+            className="btn btn-closeeee"
           >
-            Đóng
+            Hủy bỏ
           </Button>
         </ModalFooter>
       </Modal>

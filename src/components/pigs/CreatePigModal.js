@@ -12,30 +12,31 @@ export default function CreatePigModal({
   open,
   handleClose,
   makeReload,
-  cote,
+  coteAvaiable,
 }) {
   const [dateIn, setDateIn] = useState(new Date());
   const [dateOut, setDateOut] = useState(null);
 
-  const handleSubmitCreate = async (value) => {
-    value.code = newPigID;
-    value.cote = cote[value.coteIndex];
-    value.dateIn = dateIn;
-    value.dateOut = dateOut;
-    console.log(value);
 
-    PigService.createPig(value)
-      .then((res) => {
-        toast.success("Thêm mới thành công");
-        setDateIn(new Date());
-        setDateOut(null);
-        makeReload();
-        handleCloseModalCreate();
-      })
-      .catch((err) => {
-        toast.error("Lỗi thêm mới");
-      });
-  };
+    const handleSubmitCreate = async (value) => {
+        value.code = newPigID;
+        value.cote = coteAvaiable[value.coteIndex];
+        value.dateIn = value.dateIn;
+        value.dateOut = value.dateOut;
+        PigService.createPig(value)
+            .then((res) => {
+                toast.success("Thêm mới thành công");
+                setDateIn(new Date());
+                setDateOut(null);
+                makeReload();
+                handleCloseModalCreate()
+            })
+            .catch((err) => {
+                toast.error("Lỗi thêm mới");
+            });
+            
+    };
+
 
   const handleCloseModalCreate = () => {
     setDateOut(null);
@@ -43,21 +44,25 @@ export default function CreatePigModal({
   };
   return (
     <>
+
       <Modal
         show={open}
         centered
       >
+
         <Modal.Header style={{ backgroundColor: "#1976d2" }}>
           <Modal.Title style={{ color: "white" }}>
             Khởi tạo cá thể mới
           </Modal.Title>
         </Modal.Header>
 
+
         <Formik
           initialValues={{}}
           onSubmit={handleSubmitCreate}
         >
-          <Form>
+
+          <Form className={"form-pig"}>
             <Modal.Body>
               <Row>
                 <Col sm={1}></Col>
@@ -81,11 +86,13 @@ export default function CreatePigModal({
                             style={{ height: "32px", margin: "0px" }}
                           >
                             <option value="">Chọn mã chuồng</option>
-                            {cote.map((code, index) => (
+                            {coteAvaiable.map((code, index) => (
+
                               <option
                                 value={index}
                                 key={code.id}
                               >
+
                                 C{code.id}
                               </option>
                             ))}
@@ -104,10 +111,12 @@ export default function CreatePigModal({
                       <tr>
                         <td>Ngày nhập chuồng</td>
                         <td>
+
                           <Field
                             name="dateIn"
                             type="date"
                           ></Field>
+
                         </td>
                       </tr>
                       <tr>
@@ -124,10 +133,12 @@ export default function CreatePigModal({
                         <td>
                           {/* <ReactDatePicker selected={dateOut} dateFormat="dd-MM-YYYY" placeholderText="dd-mm-yyyy"
                                                         onChange={(date) => setDateOut(date)}></ReactDatePicker> */}
+
                           <Field
                             name="dateOut"
                             type="date"
                           ></Field>
+
                         </td>
                       </tr>
                       <tr>
@@ -179,6 +190,7 @@ export default function CreatePigModal({
               </Row>
             </Modal.Body>
             <Modal.Footer>
+
               <Button
                 variant="primary"
                 type="submit"
@@ -189,6 +201,7 @@ export default function CreatePigModal({
                 variant="secondary"
                 onClick={handleCloseModalCreate}
               >
+
                 Hủy bỏ
               </Button>
             </Modal.Footer>

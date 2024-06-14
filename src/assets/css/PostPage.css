@@ -317,3 +317,6 @@ a[aria-label^="Page"] {
   background-color: #9ff2fa;
   cursor: pointer;
 }
+.fff input{
+  padding-left: 15px;
+}

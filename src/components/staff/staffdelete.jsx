@@ -25,8 +25,16 @@ export const StaffDelete = ({ closeModal, id, showDelete }) => {
 
   const handleDelete = async () => {
     services.removeStaff(staff.id).then((res) => {
-      toast.success("xóa thành công");
-      closeModal();
+      console.log(res);
+      if (!res) {
+        toast.success("xóa thành công");
+        closeModal();
+      } else {
+        toast.error(
+          "Vui lòng chuyển chuồng nhân viên này đang quản lý trước khi xóa!!!"
+        );
+        closeModal();
+      }
     });
   };
   useEffect(() => {
@@ -44,22 +52,25 @@ export const StaffDelete = ({ closeModal, id, showDelete }) => {
   return (
     <div>
       <Modal show={showDelete} className="vivi">
-        <ModalHeader>wanning!</ModalHeader>
+        <ModalHeader className="dele">Xác Nhận Xóa</ModalHeader>
         <ModalBody>
           <Formik>
             <Form>
-              <p>bạn có muốn xóa không</p>
+              <p>Bạn có muốn xóa tài khoản "{staff.username}" không?</p>
             </Form>
           </Formik>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleDelete}>xóa</Button>{" "}
+          <Button onClick={handleDelete} variant="warning">
+            Xóa
+          </Button>{" "}
           <Button
             onClick={() => {
               closeModal();
             }}
+            className="btn btn-closeeee"
           >
-            Dong
+            Hủy bỏ
           </Button>
         </ModalFooter>
       </Modal>

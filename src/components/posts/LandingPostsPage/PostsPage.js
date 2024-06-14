@@ -13,6 +13,8 @@ import { Field, Formik, Form, ErrorMessage } from 'formik';
 import { addContactInfo } from '../../../services/ContactInfoService';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup'
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 function PostsPage() {
     const [isShowContactInfo, setIsShowContactInfo] = useState(false)
     const validationSchema = {
@@ -53,7 +55,7 @@ function PostsPage() {
             <footer>
                 <Footer />
             </footer>
-            <button class="btn btn-success contact-button" onClick={() => {setIsShowContactInfo(true)}}>Liên hệ</button>
+            <button class="btn btn-success contact-button" onClick={() => {setIsShowContactInfo(true)}} style={{padding: "3px", marginLeft: "20px", backgroundColor: "orange", border: "none"}}><ContactMailIcon style={{width: "40px", height:"30px", padding: "0px"}}/></button>
             <Modal show={isShowContactInfo} centered onHide={() => {setIsShowContactInfo(false)}}>
                
                 <Modal.Body style={{backgroundColor:'green'}}>
@@ -73,7 +75,7 @@ function PostsPage() {
                         validationSchema={Yup.object(validationSchema)}
                         onSubmit={handleSubmit}
                     >
-                        <Form>
+                        <Form className={"fff"}>
                             <Field name="fullName" placeholder="Tên bạn"
                                 style={{ width: "46%", marginLeft: "8px", borderRadius:'5px' }}
                             /> 
@@ -92,17 +94,17 @@ function PostsPage() {
                             <ErrorMessage name='phone' className='err--phone' component={'span'}/>
                             <ErrorMessage name='address' className='err--address' component={'span'}/><br/><br/>
                             <Field name="message" as="textarea" placeholder="Nội dung tin nhắn"
-                                style={{width: '96%', marginTop:'10px', marginLeft:'7px', borderRadius:'5px', resize:'none', height:'150px'}}
+                                style={{width: '96%', marginTop:'10px', marginLeft:'7px', borderRadius:'5px', resize:'none', height:'150px', paddingLeft: "15px"}}
                             />
                             <Button
-                                variant="secondary"
+                                variant="primary"
                                 type="submit"
                                 style={{ marginLeft: "5px" }}
                             >
                                 Gửi
                             </Button>
                             
-                            <Button style={{marginLeft:'5px'}} variant="primary" onClick={() => {setIsShowContactInfo(false)}}>
+                            <Button style={{marginLeft:'5px'}} variant="secondary" onClick={() => {setIsShowContactInfo(false)}}>
                                 Huỷ
                             </Button>
                         </Form>

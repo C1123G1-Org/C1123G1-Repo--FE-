@@ -25,17 +25,17 @@ export default function CreateCoteModal({open, handleClose, makeReload, maxId, u
         value.dateOpen = dateOpen;
         value.dateClose = dateClose;
         console.log(value)
-        // CoteService.createCote(value)
-        //     .then((res) => {
-        //         toast.success("Thêm mới thành công");
-        //         setDateOpen(new Date());
-        //         setDateClose(null);
-        //         makeReload();
-        //         handleCloseModalCreate()
-        //     })
-        //     .catch((err) => {
-        //         toast.error("Lỗi khi thêm mới");
-        //     });
+        CoteService.createCote(value)
+            .then((res) => {
+                toast.success("Thêm mới thành công");
+                setDateOpen(new Date());
+                setDateClose(null);
+                makeReload();
+                handleCloseModalCreate()
+            })
+            .catch((err) => {
+                toast.error("Lỗi khi thêm mới");
+            });
     };
 
     const handleCloseModalCreate = () => {

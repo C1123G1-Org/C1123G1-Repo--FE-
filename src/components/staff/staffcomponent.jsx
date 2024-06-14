@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getAllStaff } from "../../services/StaffService";
 import "./staff.css";
 import Row from "react-bootstrap/Row";
@@ -10,36 +10,46 @@ import { StaffUpdate } from "./staffupdate";
 import { StaffDelete } from "./staffdelete";
 import ReactPaginate from "react-paginate";
 import { Input } from "@mui/material";
-import {AppContext} from "../../layouts/AppContext";
+import { DetailStaff } from "./detailstaff";
+import { AppContext } from "../../layouts/AppContext";
 
 export const StaffComponent = () => {
   const [staff, setStaff] = useState();
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [id, setId] = useState(-1);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
   // sáng nút
-  const {setNut2 } = useContext(AppContext);
+  const { setNut2 } = useContext(AppContext);
 
   const getAll = () => {
     getAllStaff(0, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });
   };
 
+  function formatDate(dateString) {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  }
+
   //Sáng nút
   useEffect(() => {
-    setNut2(true)
-    return () => setNut2(false)
+    setNut2(true);
+    return () => setNut2(false);
   }, []);
 
   useEffect(() => {
     getAll();
-  }, [show, showUpdate, showDelete]);
+  }, [show, showUpdate, showDelete, showDetail]);
   // useEffect(() => {
   //   getAll();
   //   console.log("a");
@@ -57,12 +67,16 @@ export const StaffComponent = () => {
     setShow(false);
     setShowUpdate(false);
     setShowDelete(false);
+    setShowDetail(false);
   };
 
   const onHandLeSearch = (e) => {
     e.preventDefault();
     console.log(search);
     getAllStaff(0, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });
@@ -73,6 +87,9 @@ export const StaffComponent = () => {
     setCurrentPage(pageNumber);
     console.log(pageNumber);
     getAllStaff(pageNumber, search).then((res) => {
+      for (let i = 0; i < res.content.length; i++) {
+        res.content[i].date = formatDate(res.content[i].date);
+      }
       setStaff(res.content);
       setTotalPages(res.totalPages);
     });
@@ -84,16 +101,34 @@ export const StaffComponent = () => {
 
   return (
     <>
-      <form action="">
-        <input
-          placeholder="tên nhân viên"
-          style={{ width: "200px", margin: "10px" }}
-          type="text"
-          onChange={onSearch}
-        />
-        <button onClick={(e) => onHandLeSearch(e)}>Tìm Kiếm</button>
-      </form>
-
+      <div className="d-flex">
+        <div className="col-4"></div>
+        <div className="col-4"></div>
+        <div className="col-4">
+          <form action="">
+            <input
+              placeholder="Tên nhân viên"
+              style={{
+                width: "200px",
+                marginLeft: "",
+                marginBottom: "10px",
+              }}
+              type="text"
+              onChange={onSearch}
+            />
+            <button
+              className="btn btn-secondary"
+              style={{
+                marginLeft: "10px",
+                color: "white",
+              }}
+              onClick={(e) => onHandLeSearch(e)}
+            >
+              Tìm Kiếm
+            </button>
+          </form>
+        </div>
+      </div>
       <Row>
         <Col>
           <div className="table-container">
@@ -108,7 +143,7 @@ export const StaffComponent = () => {
                 <tr>
                   <th>No.</th>
                   <th>Mã Nhân Viên</th>
-                  <th>Tên</th>
+                  <th>Tên Tài Khoản</th>
                   <th>Họ và Tên</th>
                   <th>Giới Tính</th>
                   <th>Ngày Sinh </th>
@@ -151,12 +186,12 @@ export const StaffComponent = () => {
           <ReactPaginate
             forcePage={currentPage}
             breakLabel="..."
-            nextLabel="Trang Sau"
+            nextLabel=">>"
             onPageChange={handlePageClick}
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
             pageCount={totalPages}
-            previousLabel="Trang Trước"
+            previousLabel="<<"
             pageClassName="page-item"
             pageLinkClassName="page-link"
             previousClassName="page-item"
@@ -171,8 +206,11 @@ export const StaffComponent = () => {
         </div>
       )}
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={7}></Col>
-        <Col sm={2} style={{ paddingLeft: "120px", width: "230px" }}>
+        <Col sm={5}></Col>
+        <Col
+          sm={2}
+          style={{ paddingLeft: "120px", width: "230px", marginLeft: "102px" }}
+        >
           <div>
             <Button
               onClick={() => {
@@ -198,18 +236,31 @@ export const StaffComponent = () => {
         <Col sm={1} style={{ paddingLeft: "5px" }}>
           <div>
             <Button
+              variant="success"
+              onClick={() => {
+                setShowDetail(true);
+              }}
+            >
+              Chi tiết
+            </Button>
+          </div>
+        </Col>
+        <Col sm={1} style={{ paddingLeft: "" }}>
+          <div>
+            <Button
               variant="danger"
               onClick={() => {
                 setShowDelete(true);
               }}
             >
-              xóa
+              Xóa
             </Button>
           </div>
         </Col>
       </Row>
       <StaffCreate show={show} closeModal={closeModal} />
       <StaffUpdate showUpdate={showUpdate} closeModal={closeModal} id={id} />
+      <DetailStaff showDetail={showDetail} closeModal={closeModal} id={id} />
       <StaffDelete closeModal={closeModal} id={id} showDelete={showDelete} />
     </>
   );

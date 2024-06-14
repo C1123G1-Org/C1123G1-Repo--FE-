@@ -34,12 +34,13 @@ function SignInBox() {
         expires: expiredTime,
       });
       localStorage.setItem("username", response.data.username);
-      Cookies.set("role", response.data.authorities[0].authority , {expires: expiredTime});
+      if(response.data.authorities.length !== 0) {
+        Cookies.set("role", response.data.authorities[0].authority, {expires: expiredTime});
+      }
       navigate("/admin");
 
     } catch (error) {
-      toast.error("Đăng nhập thất bại");
-      throw error;
+      toast.error("Bạn nhập sai tài khoản hoặc mặt khẩu!");
     }
   };
 
