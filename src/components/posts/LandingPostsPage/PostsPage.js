@@ -60,7 +60,7 @@ function PostsPage() {
                
                 <Modal.Body style={{backgroundColor:'green'}}>
                 <Modal.Title style={{color: "white"}}>Liên hệ</Modal.Title><br/>
-                <p style={{color:'white'}}>Người chăn nuôi có thẻ giúp gì cho bạn?</p>
+                <p style={{color:'white'}}>Người chăn nuôi có thẻ giúp gì cho bạn.?</p>
                 
                     <Formik
                         initialValues={
