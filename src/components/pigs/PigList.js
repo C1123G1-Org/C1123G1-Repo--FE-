@@ -81,7 +81,7 @@ function PigList() {
     // List Cote
     useEffect(() => {
       getAllCote();
-    }, []);
+    }, [reload]);
 
     const getAllCote = async () => {
         const listCote = await PigService.getAllCote();
@@ -90,7 +90,7 @@ function PigList() {
 
     useEffect(() => {
       getAllCoteAvaiable();
-    }, []);
+    }, [reload]);
 
     const getAllCoteAvaiable = async () => {
         const listCoteAvaiable = await PigService.getAllCoteAvaiable();

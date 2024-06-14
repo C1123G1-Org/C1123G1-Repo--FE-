@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "./AppContext";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 // import Cookies from "js-cookie";
 
 export default function ListItems2() {
@@ -54,7 +55,7 @@ export default function ListItems2() {
                 <Link to={"/admin/contact-info"} style={{textDecoration: "none", color: "black"}}>
                     <ListItemButton selected = {nut7}>
                         <ListItemIcon>
-                            <PeopleIcon/>
+                            <ContactMailIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Danh sách liên hệ"/>
                     </ListItemButton>

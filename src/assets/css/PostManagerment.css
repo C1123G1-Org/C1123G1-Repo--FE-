@@ -89,3 +89,8 @@ button[type="button"]{
     /*max-height: 330px;*/
     /*overflow-y: auto;*/
 }
+.update {
+    overflow-y: auto;
+        height: 320px;
+        max-height: 330px; /* Chiều cao tối đa của table */
+}

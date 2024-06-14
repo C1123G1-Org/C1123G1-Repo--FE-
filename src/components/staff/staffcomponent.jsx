@@ -206,10 +206,10 @@ export const StaffComponent = () => {
         </div>
       )}
       <Row style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-        <Col sm={4}></Col>
+        <Col sm={5}></Col>
         <Col
           sm={2}
-          style={{ paddingLeft: "120px", width: "230px", marginLeft: "82px" }}
+          style={{ paddingLeft: "120px", width: "230px", marginLeft: "102px" }}
         >
           <div>
             <Button
@@ -245,7 +245,7 @@ export const StaffComponent = () => {
             </Button>
           </div>
         </Col>
-        <Col sm={2} style={{ paddingLeft: "" }}>
+        <Col sm={1} style={{ paddingLeft: "" }}>
           <div>
             <Button
               variant="danger"

@@ -62,7 +62,7 @@ export default function CreatePigModal({
           onSubmit={handleSubmitCreate}
         >
 
-          <Form>
+          <Form className={"form-pig"}>
             <Modal.Body>
               <Row>
                 <Col sm={1}></Col>

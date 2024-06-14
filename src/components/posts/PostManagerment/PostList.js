@@ -39,12 +39,17 @@ function CotesList() {
 
     const getAllPosts = async () => {
         const posts = await getPostWithPageAndStatus(page,status);
-        for (let i = 0; i < posts.content.length; i++) {
-            // console.log(posts.content[i].postDate)
-            posts.content[i].postDate = formatDate(posts.content[i].postDate);
+        if(posts.content !== undefined) {
+            for (let i = 0; i < posts.content.length; i++) {
+                // console.log(posts.content[i].postDate)
+                posts.content[i].postDate = formatDate(posts.content[i].postDate);
+            }
+            setPosts(posts.content);
+            setInfoPage(posts);
+        }else {
+            toast.warn('Không có bài nào ẩn');
+            setStatus("")
         }
-        setPosts(posts.content);
-        setInfoPage(posts);
     };
 
     function formatDate(dateString) {

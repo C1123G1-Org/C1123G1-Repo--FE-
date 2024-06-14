@@ -15,6 +15,9 @@ label {
     border: 1px solid grey;
     padding-left: 15px;
 }
+.form-pig td:nth-child(even){
+    padding-left: 45px;
+}
 
 .pig-table td, th {
     vertical-align: middle;

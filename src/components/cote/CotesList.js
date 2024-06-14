@@ -180,6 +180,10 @@ function CotesList() {
     } else if (dateClose !== null) toast.warn("Chuồng bạn chọn đã xuất hết!");
     else {
       const pigList = await CoteService.findPigsByCote(id);
+      if (pigList.length ===0) {
+        toast.warn("Chuồng chưa có lợn để xuất!");
+        return;
+      }
       let pigIll = 0;
       for (let i = 0; i < pigList.length; i++) {
         if (pigList[i].status !== "Khỏe mạnh") pigIll++;

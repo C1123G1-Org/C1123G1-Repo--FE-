@@ -40,8 +40,7 @@ function SignInBox() {
       navigate("/admin");
 
     } catch (error) {
-      toast.error("Đăng nhập thất bại");
-      throw error;
+      toast.error("Bạn nhập sai tài khoản hoặc mặt khẩu!");
     }
   };
 

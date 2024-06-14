@@ -116,7 +116,7 @@ export default function UpdatePostModal({handleOpen, handleClose,form, makeReloa
                                         <Row style={{whiteSpace: "nowrap"}}>
                                             Nội dung:&nbsp;
                                         </Row>
-                                        <div className={"teste"}>
+                                        <div className={"update"}>
                                             <Row style={{}} className={"editor"}>
                                                 <CKEditor style={{}}
                                                           editor={Editor}
